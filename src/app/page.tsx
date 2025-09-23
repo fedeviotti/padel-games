@@ -1,95 +1,136 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import { useState } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Container,
+  Box,
+  Tabs,
+  Tab,
+  Paper,
+} from '@mui/material';
+import {
+  Dashboard,
+  SportsBaseball,
+  People,
+  EmojiEvents,
+} from '@mui/icons-material';
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`nav-tabpanel-${index}`}
+      aria-labelledby={`nav-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  );
+}
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [value, setValue] = useState(0);
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Padel Games
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      
+      <Container maxWidth="lg" sx={{ mt: 2 }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="navigation tabs">
+            <Tab 
+              icon={<Dashboard />} 
+              label="Dashboard" 
+              id="nav-tab-0"
+              aria-controls="nav-tabpanel-0"
             />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <Tab 
+              icon={<SportsBaseball />} 
+              label="Games" 
+              id="nav-tab-1"
+              aria-controls="nav-tabpanel-1"
+            />
+            <Tab 
+              icon={<People />} 
+              label="Players" 
+              id="nav-tab-2"
+              aria-controls="nav-tabpanel-2"
+            />
+            <Tab 
+              icon={<EmojiEvents />} 
+              label="Tournaments" 
+              id="nav-tab-3"
+              aria-controls="nav-tabpanel-3"
+            />
+          </Tabs>
+        </Box>
+
+        <TabPanel value={value} index={0}>
+          <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
+            <Typography variant="h4" gutterBottom>
+              Dashboard
+            </Typography>
+            <Typography variant="body1">
+              Welcome to Padel Games! Here you can see an overview of your games, tournaments, and player statistics.
+            </Typography>
+          </Paper>
+        </TabPanel>
+
+        <TabPanel value={value} index={1}>
+          <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
+            <Typography variant="h4" gutterBottom>
+              Games
+            </Typography>
+            <Typography variant="body1">
+              Manage your padel games, schedule new matches, and view game results.
+            </Typography>
+          </Paper>
+        </TabPanel>
+
+        <TabPanel value={value} index={2}>
+          <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
+            <Typography variant="h4" gutterBottom>
+              Players
+            </Typography>
+            <Typography variant="body1">
+              View and manage player profiles, statistics, and rankings.
+            </Typography>
+          </Paper>
+        </TabPanel>
+
+        <TabPanel value={value} index={3}>
+          <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
+            <Typography variant="h4" gutterBottom>
+              Tournaments
+            </Typography>
+            <Typography variant="body1">
+              Create and manage tournaments, view brackets, and track tournament progress.
+            </Typography>
+          </Paper>
+        </TabPanel>
+      </Container>
+    </Box>
   );
 }
