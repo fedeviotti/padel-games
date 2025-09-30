@@ -12,9 +12,13 @@ import {
   TableHead,
   TableRow,
   CircularProgress,
+  IconButton,
 } from '@mui/material';
+import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import Layout from '@/components/Layout';
 import AddPlayerDialog from '@/components/AddPlayerDialog';
+import EditPlayerDialog from '@/components/EditPlayerDialog';
+import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
 import { useState, useEffect } from 'react';
 import { SelectPlayer } from '@/db/schema';
 
@@ -22,6 +26,10 @@ export default function Players() {
   const [players, setPlayers] = useState<SelectPlayer[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [selectedPlayer, setSelectedPlayer] = useState<SelectPlayer | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const fetchPlayers = async () => {
     try {
@@ -41,6 +49,44 @@ export default function Players() {
   }, []);
 
   const handlePlayerAdded = () => {
+    fetchPlayers();
+  };
+
+  const handleEditClick = (player: SelectPlayer) => {
+    setSelectedPlayer(player);
+    setEditDialogOpen(true);
+  };
+
+  const handleDeleteClick = (player: SelectPlayer) => {
+    setSelectedPlayer(player);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!selectedPlayer) return;
+
+    setDeleteLoading(true);
+    try {
+      const response = await fetch(`/api/players/${selectedPlayer.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete player');
+      }
+
+      fetchPlayers();
+      setDeleteDialogOpen(false);
+      setSelectedPlayer(null);
+    } catch (error) {
+      console.error('Error deleting player:', error);
+      alert('Failed to delete player');
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
+
+  const handlePlayerUpdated = () => {
     fetchPlayers();
   };
 
@@ -81,6 +127,7 @@ export default function Players() {
                     <TableCell>Name</TableCell>
                     <TableCell>Nickname</TableCell>
                     <TableCell>Date of Birth</TableCell>
+                    <TableCell align="right">Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -90,6 +137,22 @@ export default function Players() {
                       <TableCell>{player.nickname || '-'}</TableCell>
                       <TableCell>
                         {new Date(player.dob).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell align="right">
+                        <IconButton
+                          onClick={() => handleEditClick(player)}
+                          color="primary"
+                          size="small"
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          onClick={() => handleDeleteClick(player)}
+                          color="error"
+                          size="small"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -103,6 +166,21 @@ export default function Players() {
           open={dialogOpen}
           onClose={() => setDialogOpen(false)}
           onPlayerAdded={handlePlayerAdded}
+        />
+
+        <EditPlayerDialog
+          open={editDialogOpen}
+          onClose={() => setEditDialogOpen(false)}
+          onPlayerUpdated={handlePlayerUpdated}
+          player={selectedPlayer}
+        />
+
+        <DeleteConfirmDialog
+          open={deleteDialogOpen}
+          onClose={() => setDeleteDialogOpen(false)}
+          onConfirm={handleDeleteConfirm}
+          playerName={selectedPlayer?.name || ''}
+          loading={deleteLoading}
         />
       </Box>
     </Layout>
