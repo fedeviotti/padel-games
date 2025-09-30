@@ -90,10 +90,9 @@ export default function Players() {
     fetchPlayers();
   };
 
-  const calculateAge = (dob: Date) => {
-    const today = new Date();
-    const age = today.getFullYear() - dob.getFullYear();
-    return age;
+  const calculateAge = (yearOfBirth: string) => {
+    const currentYear = new Date().getFullYear();
+    return currentYear - parseInt(yearOfBirth);
   };
 
   return (
@@ -132,7 +131,7 @@ export default function Players() {
                   <TableRow>
                     <TableCell>Name</TableCell>
                     <TableCell>Nickname</TableCell>
-                    <TableCell>Date of Birth</TableCell>
+                    <TableCell>Year of Birth</TableCell>
                     <TableCell>Age</TableCell>
                     <TableCell align="right">Actions</TableCell>
                   </TableRow>
@@ -142,10 +141,8 @@ export default function Players() {
                     <TableRow key={player.id}>
                       <TableCell>{player.name}</TableCell>
                       <TableCell>{player.nickname || '-'}</TableCell>
-                      <TableCell>
-                        {new Date(player.dob).toLocaleDateString('it-IT')}
-                      </TableCell>
-                      <TableCell>{calculateAge(new Date(player.dob))}</TableCell>
+                      <TableCell>{player.yearOfBirth || '-'}</TableCell>
+                      <TableCell>{player.yearOfBirth ? calculateAge(player.yearOfBirth) : '-'}</TableCell>
                       <TableCell align="right">
                         <IconButton
                           onClick={() => handleEditClick(player)}
