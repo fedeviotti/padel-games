@@ -90,6 +90,12 @@ export default function Players() {
     fetchPlayers();
   };
 
+  const calculateAge = (dob: Date) => {
+    const today = new Date();
+    const age = today.getFullYear() - dob.getFullYear();
+    return age;
+  };
+
   return (
     <Layout>
       <Box sx={{ p: 3 }}>
@@ -139,7 +145,7 @@ export default function Players() {
                       <TableCell>
                         {new Date(player.dob).toLocaleDateString('it-IT')}
                       </TableCell>
-                      <TableCell>45</TableCell>
+                      <TableCell>{calculateAge(new Date(player.dob))}</TableCell>
                       <TableCell align="right">
                         <IconButton
                           onClick={() => handleEditClick(player)}
