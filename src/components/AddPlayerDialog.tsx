@@ -77,7 +77,7 @@ export default function AddPlayerDialog({
               type="date"
               required
               fullWidth
-              InputLabelProps={{ shrink: true }}
+              slotProps={{ inputLabel: { shrink: true } }}
               value={formData.dob}
               onChange={(e) =>
                 setFormData({ ...formData, dob: e.target.value })
