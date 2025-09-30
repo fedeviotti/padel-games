@@ -79,20 +79,18 @@ export default function Players() {
                 <TableHead>
                   <TableRow>
                     <TableCell>Name</TableCell>
-                    <TableCell>Email</TableCell>
+                    <TableCell>Nickname</TableCell>
                     <TableCell>Date of Birth</TableCell>
-                    <TableCell>Address</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {players.map((player) => (
                     <TableRow key={player.id}>
                       <TableCell>{player.name}</TableCell>
-                      <TableCell>{player.email}</TableCell>
+                      <TableCell>{player.nickname || '-'}</TableCell>
                       <TableCell>
                         {new Date(player.dob).toLocaleDateString()}
                       </TableCell>
-                      <TableCell>{player.address}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

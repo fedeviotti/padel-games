@@ -25,8 +25,7 @@ export default function AddPlayerDialog({
   const [formData, setFormData] = useState({
     name: '',
     dob: '',
-    email: '',
-    address: '',
+    nickname: '',
   });
   const [loading, setLoading] = useState(false);
 
@@ -47,7 +46,7 @@ export default function AddPlayerDialog({
         throw new Error('Failed to add player');
       }
 
-      setFormData({ name: '', dob: '', email: '', address: '' });
+      setFormData({ name: '', dob: '', nickname: '' });
       onPlayerAdded();
       onClose();
     } catch (error) {
@@ -85,24 +84,11 @@ export default function AddPlayerDialog({
               }
             />
             <TextField
-              label="Email"
-              type="email"
-              required
+              label="Nickname"
               fullWidth
-              value={formData.email}
+              value={formData.nickname}
               onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-            />
-            <TextField
-              label="Address"
-              required
-              fullWidth
-              multiline
-              rows={3}
-              value={formData.address}
-              onChange={(e) =>
-                setFormData({ ...formData, address: e.target.value })
+                setFormData({ ...formData, nickname: e.target.value })
               }
             />
           </Box>
