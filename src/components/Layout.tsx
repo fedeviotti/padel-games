@@ -2,7 +2,6 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import CssBaseline from '@mui/material/CssBaseline';
 import {
   AppBar,
   Toolbar,

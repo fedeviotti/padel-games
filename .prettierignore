@@ -1,0 +1,8 @@
+node_modules/
+lib/
+.eslintignore
+.gitignore
+.git
+*.yml
+*.d.ts
+.eslintrc.cjs
