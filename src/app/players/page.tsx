@@ -127,6 +127,7 @@ export default function Players() {
                     <TableCell>Name</TableCell>
                     <TableCell>Nickname</TableCell>
                     <TableCell>Date of Birth</TableCell>
+                    <TableCell>Age</TableCell>
                     <TableCell align="right">Actions</TableCell>
                   </TableRow>
                 </TableHead>
@@ -136,8 +137,9 @@ export default function Players() {
                       <TableCell>{player.name}</TableCell>
                       <TableCell>{player.nickname || '-'}</TableCell>
                       <TableCell>
-                        {new Date(player.dob).toLocaleDateString()}
+                        {new Date(player.dob).toLocaleDateString('it-IT')}
                       </TableCell>
+                      <TableCell>45</TableCell>
                       <TableCell align="right">
                         <IconButton
                           onClick={() => handleEditClick(player)}
