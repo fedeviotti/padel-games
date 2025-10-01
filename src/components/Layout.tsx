@@ -2,7 +2,6 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import CssBaseline from '@mui/material/CssBaseline';
 import {
   AppBar,
   Toolbar,
@@ -27,7 +26,6 @@ export default function Layout({ children }: LayoutProps) {
   const pathname = usePathname();
   
   const getTabValue = () => {
-    console.log('pathname', pathname);
     switch (pathname) {
       case '/dashboard':
         return 0;

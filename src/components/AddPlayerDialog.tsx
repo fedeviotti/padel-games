@@ -24,7 +24,7 @@ export default function AddPlayerDialog({
 }: AddPlayerDialogProps) {
   const [formData, setFormData] = useState({
     name: '',
-    dob: '',
+    yearOfBirth: '',
     nickname: '',
   });
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ export default function AddPlayerDialog({
         throw new Error('Failed to add player');
       }
 
-      setFormData({ name: '', dob: '', nickname: '' });
+      setFormData({ name: '', yearOfBirth: '', nickname: '' });
       onPlayerAdded();
       onClose();
     } catch (error) {
@@ -73,14 +73,19 @@ export default function AddPlayerDialog({
               }
             />
             <TextField
-              label="Date of Birth"
-              type="date"
-              required
+              label="Year of Birth"
+              type="number"
               fullWidth
-              slotProps={{ inputLabel: { shrink: true } }}
-              value={formData.dob}
+              slotProps={{ 
+                htmlInput: { 
+                  min: 1900, 
+                  max: new Date().getFullYear(),
+                  step: 1 
+                } 
+              }}
+              value={formData.yearOfBirth}
               onChange={(e) =>
-                setFormData({ ...formData, dob: e.target.value })
+                setFormData({ ...formData, yearOfBirth: e.target.value })
               }
             />
             <TextField

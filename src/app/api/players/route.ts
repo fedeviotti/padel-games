@@ -23,9 +23,9 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, dob, nickname } = body;
+    const { name, yearOfBirth, nickname } = body;
 
-    if (!name || !dob) {
+    if (!name) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       .insert(playerTable)
       .values({
         name,
-        dob: new Date(dob),
+        yearOfBirth: yearOfBirth,
         nickname: nickname || null,
       })
       .returning();

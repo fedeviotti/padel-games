@@ -3,7 +3,7 @@ import { pgTable, serial, text, timestamp, integer } from 'drizzle-orm/pg-core';
 export const playerTable = pgTable('players', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
-  dob: timestamp('dob').notNull(),
+  yearOfBirth: text('year_of_birth'),
   nickname: text('nickname'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),

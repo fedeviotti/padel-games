@@ -9,10 +9,10 @@ export async function PUT(
 ) {
   try {
     const body = await request.json();
-    const { name, dob, nickname } = body;
+    const { name, yearOfBirth, nickname } = body;
     const playerId = parseInt(params.id);
 
-    if (!name || !dob) {
+    if (!name) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -23,7 +23,7 @@ export async function PUT(
       .update(playerTable)
       .set({
         name,
-        dob: new Date(dob),
+        yearOfBirth: yearOfBirth,
         nickname: nickname || null,
         updatedAt: new Date(),
       })
