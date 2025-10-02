@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { StackProvider, StackTheme } from "@stackframe/stack";
+import { stackClientApp } from '@/stack/client';
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
@@ -27,10 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AppRouterCacheProvider>
-          <CssBaseline />
-          {children}
-        </AppRouterCacheProvider>
+        <StackProvider app={stackClientApp}>
+          <StackTheme>
+            <AppRouterCacheProvider>
+              <CssBaseline />
+              {children}
+            </AppRouterCacheProvider>
+          </StackTheme>
+        </StackProvider>
       </body>
     </html>
   );
