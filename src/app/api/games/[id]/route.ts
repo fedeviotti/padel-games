@@ -1,11 +1,11 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db/db';
 import { gameTable } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
 export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const body = await request.json();
@@ -20,7 +20,8 @@ export async function PUT(
       winningTeam,
       totalGamesDifference,
     } = body;
-    const gameId = parseInt(params.id);
+    const id = (await params).id;
+    const gameId = parseInt(id);
 
     if (!playedAt || !team1Player1 || !team1Player2 || !team2Player1 || !team2Player2 ||
         team1SetScore === undefined || team2SetScore === undefined ||
@@ -66,11 +67,12 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const gameId = parseInt(params.id);
+    const id = (await params).id;
+    const gameId = parseInt(id);
 
     const [deletedGame] = await db
       .update(gameTable)

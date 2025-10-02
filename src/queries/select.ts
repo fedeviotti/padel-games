@@ -1,25 +1,11 @@
 import { eq } from 'drizzle-orm';
-import { db } from '../db/db';
-import { SelectPlayer, playerTable } from '../db/schema';
+import { db } from '@/db/db';
+import { SelectPlayer, playerTable } from '@/db/schema';
 
-export async function getPlayerById(id: SelectPlayer['id']): Promise<
-  Array<{
-    id: number;
-    name: string;
-    dob: Date;
-    email: string;
-  }>
-> {
+export async function getPlayerById(id: SelectPlayer['id']): Promise<SelectPlayer[]> {
   return db.select().from(playerTable).where(eq(playerTable.id, id));
 }
 
-export async function getPlayers(): Promise<
-  Array<{
-    id: number;
-    name: string;
-    dob: Date;
-    email: string;
-  }>
-> {
+export async function getPlayers(): Promise<SelectPlayer[]> {
   return db.select().from(playerTable);
 }

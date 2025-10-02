@@ -5,12 +5,13 @@ import { eq } from 'drizzle-orm';
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const body = await request.json();
     const { name, yearOfBirth, nickname } = body;
-    const playerId = parseInt(params.id);
+    const id = (await params).id;
+    const playerId = parseInt(id);
 
     if (!name) {
       return NextResponse.json(
@@ -49,10 +50,11 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const playerId = parseInt(params.id);
+    const id = (await params).id;
+    const playerId = parseInt(id);
 
     const [deletedPlayer] = await db
       .update(playerTable)
