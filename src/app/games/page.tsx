@@ -99,7 +99,12 @@ export default function Games() {
 
   const formatDate = (date: Date | null) => {
     if (!date) return '-';
-    return new Date(date).toLocaleDateString();
+
+    return new Date(date).toLocaleDateString('it-IT', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
   };
 
   const getGameInfo = (game: GameWithPlayers | null) => {
