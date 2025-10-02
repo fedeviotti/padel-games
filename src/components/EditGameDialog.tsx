@@ -143,7 +143,9 @@ export default function EditGameDialog({
               onChange={(e) =>
                 setFormData({ ...formData, playedAt: e.target.value })
               }
-              InputLabelProps={{ shrink: true }}
+              slotProps={{
+                inputLabel: { shrink: true },
+              }}
             />
 
             <Typography variant="h6" sx={{ mt: 2 }}>
