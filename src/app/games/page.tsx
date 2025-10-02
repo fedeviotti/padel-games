@@ -21,6 +21,7 @@ import EditGameDialog from '@/components/EditGameDialog';
 import DeleteGameConfirmDialog from '@/components/DeleteGameConfirmDialog';
 import { useState, useEffect } from 'react';
 import { SelectGame } from '@/db/schema';
+import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 
 type GameWithPlayers = SelectGame & {
   team1Player1Name: string;
@@ -30,6 +31,7 @@ type GameWithPlayers = SelectGame & {
 };
 
 export default function Games() {
+  const { user, isChecking } = useProtectedRoute();
   const [games, setGames] = useState<GameWithPlayers[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -52,8 +54,20 @@ export default function Games() {
   };
 
   useEffect(() => {
-    fetchGames();
-  }, []);
+    if (user) {
+      fetchGames();
+    }
+  }, [user]);
+
+  if (isChecking) {
+    return (
+      <Layout>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '400px' }}>
+          <CircularProgress />
+        </Box>
+      </Layout>
+    );
+  }
 
   const handleGameAdded = () => {
     fetchGames();
