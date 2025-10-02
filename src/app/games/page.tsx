@@ -17,6 +17,7 @@ import {
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import Layout from '@/components/Layout';
 import AddGameDialog from '@/components/AddGameDialog';
+import EditGameDialog from '@/components/EditGameDialog';
 import DeleteGameConfirmDialog from '@/components/DeleteGameConfirmDialog';
 import { useState, useEffect } from 'react';
 import { SelectGame } from '@/db/schema';
@@ -32,6 +33,7 @@ export default function Games() {
   const [games, setGames] = useState<GameWithPlayers[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<GameWithPlayers | null>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -58,8 +60,12 @@ export default function Games() {
   };
 
   const handleEditClick = (game: GameWithPlayers) => {
-    // TODO: Implement edit functionality
-    console.log('Edit game:', game);
+    setSelectedGame(game);
+    setEditDialogOpen(true);
+  };
+
+  const handleGameUpdated = () => {
+    fetchGames();
   };
 
   const handleDeleteClick = (game: GameWithPlayers) => {
@@ -185,6 +191,13 @@ export default function Games() {
           open={dialogOpen}
           onClose={() => setDialogOpen(false)}
           onGameAdded={handleGameAdded}
+        />
+
+        <EditGameDialog
+          open={editDialogOpen}
+          onClose={() => setEditDialogOpen(false)}
+          onGameUpdated={handleGameUpdated}
+          game={selectedGame}
         />
 
         <DeleteGameConfirmDialog
