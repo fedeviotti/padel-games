@@ -16,6 +16,7 @@
     "@mui/material": "^7.3.2",
     "@mui/material-nextjs": "^7.3.2",
     "@neondatabase/serverless": "^1.0.1",
+    "@stackframe/stack": "^2.8.41",
     "dotenv": "^17.2.2",
     "drizzle-orm": "^0.44.5",
     "next": "15.5.3",
