@@ -1,17 +1,11 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Container,
-  Box,
-} from '@mui/material';
-import { stackClientApp } from '@/stack/client';
-import { ReactNode } from 'react';
+import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
 import { UserButton } from '@stackframe/stack';
+import { usePathname } from 'next/navigation';
+import { ReactNode } from 'react';
 import { NavigationTabs } from '@/components/NavigationTabs';
+import { stackClientApp } from '@/stack/client';
 
 interface LayoutProps {
   children: ReactNode;
@@ -20,10 +14,10 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const pathname = usePathname();
   const user = stackClientApp.useUser();
-  
+
   const getTabValue = () => {
     switch (pathname) {
-      case '/dashboard':
+      case '/':
         return 0;
       case '/games':
         return 1;
@@ -46,9 +40,9 @@ export default function Layout({ children }: LayoutProps) {
           <UserButton />
         </Toolbar>
       </AppBar>
-      
+
       <Container maxWidth="lg" sx={{ mt: 2 }}>
-        {user && (<NavigationTabs getTabValue={getTabValue} />)}
+        {user && <NavigationTabs getTabValue={getTabValue} />}
         {children}
       </Container>
     </Box>
