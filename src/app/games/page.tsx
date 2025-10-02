@@ -17,7 +17,7 @@ import {
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import Layout from '@/components/Layout';
 import AddGameDialog from '@/components/AddGameDialog';
-import DeleteGameDialog from '@/components/DeleteGameDialog';
+import DeleteGameConfirmDialog from '@/components/DeleteGameConfirmDialog';
 import { useState, useEffect } from 'react';
 import { SelectGame } from '@/db/schema';
 
@@ -187,7 +187,7 @@ export default function Games() {
           onGameAdded={handleGameAdded}
         />
 
-        <DeleteGameDialog
+        <DeleteGameConfirmDialog
           open={deleteDialogOpen}
           onClose={() => setDeleteDialogOpen(false)}
           onConfirm={handleDeleteConfirm}

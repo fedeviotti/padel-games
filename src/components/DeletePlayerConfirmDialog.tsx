@@ -17,7 +17,7 @@ interface DeleteConfirmDialogProps {
   loading?: boolean;
 }
 
-export default function DeleteConfirmDialog({
+export default function DeletePlayerConfirmDialog({
   open,
   onClose,
   onConfirm,

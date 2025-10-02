@@ -18,7 +18,7 @@ import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import Layout from '@/components/Layout';
 import AddPlayerDialog from '@/components/AddPlayerDialog';
 import EditPlayerDialog from '@/components/EditPlayerDialog';
-import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
+import DeletePlayerConfirmDialog from '@/components/DeletePlayerConfirmDialog';
 import { useState, useEffect } from 'react';
 import { SelectPlayer } from '@/db/schema';
 
@@ -180,7 +180,7 @@ export default function Players() {
           player={selectedPlayer}
         />
 
-        <DeleteConfirmDialog
+        <DeletePlayerConfirmDialog
           open={deleteDialogOpen}
           onClose={() => setDeleteDialogOpen(false)}
           onConfirm={handleDeleteConfirm}
