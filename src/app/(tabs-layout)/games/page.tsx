@@ -59,6 +59,7 @@ export default function Games() {
   }, [user]);
 
   if (isChecking) {
+    //TODO: created a loading spinner component to be used here and in the other pages
     return (
       <Box
         sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '400px' }}

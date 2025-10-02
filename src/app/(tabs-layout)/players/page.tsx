@@ -22,6 +22,7 @@ import EditPlayerDialog from '@/components/EditPlayerDialog';
 import { SelectPlayer } from '@/db/schema';
 
 export default function Players() {
+  //TODO: add check if the user is authenticated to display the page (see games page)
   const [players, setPlayers] = useState<SelectPlayer[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
