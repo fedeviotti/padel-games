@@ -46,8 +46,6 @@ export default function EditGameDialog({
     team2Player2: '',
     team1SetScore: '',
     team2SetScore: '',
-    winningTeam: '',
-    totalGamesDifference: '',
   });
   const [loading, setLoading] = useState(false);
 
@@ -67,11 +65,18 @@ export default function EditGameDialog({
         team2Player2: game.team2Player2.toString(),
         team1SetScore: game.team1SetScore.toString(),
         team2SetScore: game.team2SetScore.toString(),
-        winningTeam: game.winningTeam.toString(),
-        totalGamesDifference: game.totalGamesDifference.toString(),
       });
     }
   }, [game]);
+
+  // Calculate winning team and total games difference
+  const winningTeam = formData.team1SetScore && formData.team2SetScore
+    ? parseInt(formData.team1SetScore) > parseInt(formData.team2SetScore) ? 1 : 2
+    : 0;
+
+  const totalGamesDifference = formData.team1SetScore && formData.team2SetScore
+    ? Math.abs(parseInt(formData.team1SetScore) - parseInt(formData.team2SetScore))
+    : 0;
 
   const fetchPlayers = async () => {
     try {
@@ -104,8 +109,8 @@ export default function EditGameDialog({
           team2Player2: parseInt(formData.team2Player2),
           team1SetScore: parseInt(formData.team1SetScore),
           team2SetScore: parseInt(formData.team2SetScore),
-          winningTeam: parseInt(formData.winningTeam),
-          totalGamesDifference: parseInt(formData.totalGamesDifference),
+          winningTeam,
+          totalGamesDifference,
         }),
       });
 
@@ -246,32 +251,24 @@ export default function EditGameDialog({
             </Box>
 
             <Box sx={{ display: 'flex', gap: 2 }}>
-              <FormControl fullWidth required>
-                <InputLabel>Winning Team</InputLabel>
-                <Select
-                  value={formData.winningTeam}
-                  label="Winning Team"
-                  onChange={(e) =>
-                    setFormData({ ...formData, winningTeam: e.target.value })
-                  }
-                >
-                  <MenuItem value={1}>Team 1</MenuItem>
-                  <MenuItem value={2}>Team 2</MenuItem>
-                </Select>
-              </FormControl>
+              <TextField
+                label="Winning Team"
+                fullWidth
+                value={winningTeam ? `Team ${winningTeam}` : ''}
+                disabled
+                slotProps={{
+                  inputLabel: { shrink: true }
+                }}
+              />
               <TextField
                 label="Total Games Difference"
                 type="number"
-                required
                 fullWidth
-                slotProps={{ htmlInput: { min: 0 } }}
-                value={formData.totalGamesDifference}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    totalGamesDifference: e.target.value,
-                  })
-                }
+                value={totalGamesDifference || ''}
+                disabled
+                slotProps={{
+                  inputLabel: { shrink: true }
+                }}
               />
             </Box>
           </Box>
