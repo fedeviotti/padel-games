@@ -1,29 +1,25 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import {
   AppBar,
   Toolbar,
   Typography,
   Container,
   Box,
-  Tabs,
-  Tab,
 } from '@mui/material';
-import {
-  Dashboard,
-  SportsBaseball,
-  People,
-  EmojiEvents,
-} from '@mui/icons-material';
+import { stackClientApp } from '@/stack/client';
+import { ReactNode } from 'react';
+import { UserButton } from '@stackframe/stack';
+import { NavigationTabs } from '@/components/NavigationTabs';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
   const pathname = usePathname();
+  const user = stackClientApp.useUser();
   
   const getTabValue = () => {
     switch (pathname) {
@@ -43,43 +39,16 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Padel Games
           </Typography>
+          <UserButton />
         </Toolbar>
       </AppBar>
       
       <Container maxWidth="lg" sx={{ mt: 2 }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={getTabValue()} aria-label="navigation tabs">
-            <Tab 
-              icon={<Dashboard />} 
-              label="Dashboard" 
-              component={Link}
-              href="/dashboard"
-            />
-            <Tab 
-              icon={<SportsBaseball />} 
-              label="Games" 
-              component={Link}
-              href="/games"
-            />
-            <Tab 
-              icon={<People />} 
-              label="Players" 
-              component={Link}
-              href="/players"
-            />
-            <Tab 
-              icon={<EmojiEvents />} 
-              label="Tournaments" 
-              component={Link}
-              href="/tournaments"
-            />
-          </Tabs>
-        </Box>
-
+        {user && (<NavigationTabs getTabValue={getTabValue} />)}
         {children}
       </Container>
     </Box>
