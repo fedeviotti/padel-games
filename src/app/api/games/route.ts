@@ -1,14 +1,15 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/db/db';
 import { gameTable, playerTable } from '@/db/schema';
-import { isNull, eq } from 'drizzle-orm';
+import { isNull, eq, desc } from 'drizzle-orm';
 
 export async function GET() {
   try {
     const games = await db
       .select()
       .from(gameTable)
-      .where(isNull(gameTable.deletedAt));
+      .where(isNull(gameTable.deletedAt))
+      .orderBy(desc(gameTable.playedAt));
 
     // Fetch player names for each game
     const gamesWithPlayers = await Promise.all(
