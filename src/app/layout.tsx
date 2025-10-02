@@ -6,6 +6,7 @@ import "./globals.css";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import CssBaseline from "@mui/material/CssBaseline";
 import { ReactNode } from "react";
+import { AppBarComponent } from "@/components/AppBarComponent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
           <StackTheme>
             <AppRouterCacheProvider>
               <CssBaseline />
+              <AppBarComponent />
               {children}
             </AppRouterCacheProvider>
           </StackTheme>

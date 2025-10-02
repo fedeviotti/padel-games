@@ -1,7 +1,6 @@
 'use client';
 
-import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
-import { UserButton } from '@stackframe/stack';
+import { Box, Container } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 import { NavigationTabs } from '@/components/NavigationTabs';
@@ -32,15 +31,6 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Padel Games
-          </Typography>
-          <UserButton />
-        </Toolbar>
-      </AppBar>
-
       <Container maxWidth="lg" sx={{ mt: 2 }}>
         {user && <NavigationTabs getTabValue={getTabValue} />}
         {children}
