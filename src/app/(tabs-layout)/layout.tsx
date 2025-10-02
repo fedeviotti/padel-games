@@ -6,11 +6,7 @@ import { ReactNode } from 'react';
 import { NavigationTabs } from '@/components/NavigationTabs';
 import { stackClientApp } from '@/stack/client';
 
-interface LayoutProps {
-  children: ReactNode;
-}
-
-export default function Layout({ children }: LayoutProps) {
+export default function TabsLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const user = stackClientApp.useUser();
 
