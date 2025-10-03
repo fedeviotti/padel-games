@@ -1,7 +1,11 @@
-import { CircularProgress } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 
 export default function Loading() {
   // Stack uses React Suspense, which will render this page while user data is being fetched.
   // See: https://nextjs.org/docs/app/api-reference/file-conventions/loading
-  return <CircularProgress />;
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
+      <CircularProgress />
+    </Box>
+  );
 }
