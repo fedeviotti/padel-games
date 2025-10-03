@@ -117,7 +117,11 @@ export default function Games() {
 
   const getGameInfo = (game: GameWithPlayers | null) => {
     if (!game) return '';
-    return `${game.team1Player1Name} & ${game.team1Player2Name} vs ${game.team2Player1Name} & ${game.team2Player2Name}`;
+    return `
+    ${game.team1Player1Name} & ${game.team1Player2Name} 
+    vs 
+    ${game.team2Player1Name} & ${game.team2Player2Name}
+    `;
   };
 
   return (
