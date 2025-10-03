@@ -6,18 +6,19 @@ import { playerTable } from '@/db/schema';
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const body = await request.json();
-    const { name, yearOfBirth, nickname } = body;
+    const { firstName, lastName, yearOfBirth, nickname } = body;
     const id = (await params).id;
     const playerId = parseInt(id);
 
-    if (!name) {
+    if (!lastName) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const [updatedPlayer] = await db
       .update(playerTable)
       .set({
-        name,
+        firstName: firstName,
+        lastName: lastName,
         yearOfBirth: yearOfBirth,
         nickname: nickname || null,
         updatedAt: new Date(),
