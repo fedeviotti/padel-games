@@ -41,6 +41,7 @@ export default function Dashboard() {
           can see statistics of your games.
         </Typography>
         <Divider sx={{ my: 2 }} />
+        {/*TODO: Add charts and user selection here*/}
         <Box
           sx={{
             display: 'flex',
