@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Paper, Typography } from '@mui/material';
 import Loading from '@/app/loading';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
