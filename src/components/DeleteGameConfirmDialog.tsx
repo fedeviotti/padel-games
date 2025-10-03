@@ -1,11 +1,11 @@
 'use client';
 
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Typography,
 } from '@mui/material';
 
@@ -29,20 +29,15 @@ export default function DeleteGameConfirmDialog({
       <DialogTitle>Confirm Delete</DialogTitle>
       <DialogContent>
         <Typography>
-          Are you sure you want to delete the game <strong>{gameInfo}</strong>? This
-          action cannot be undone.
+          Are you sure you want to delete the game <strong>{gameInfo}</strong>? This action cannot
+          be undone.
         </Typography>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={loading}>
           Cancel
         </Button>
-        <Button
-          onClick={onConfirm}
-          variant="contained"
-          color="error"
-          disabled={loading}
-        >
+        <Button onClick={onConfirm} variant="contained" color="error" disabled={loading}>
           {loading ? 'Deleting...' : 'Delete'}
         </Button>
       </DialogActions>
