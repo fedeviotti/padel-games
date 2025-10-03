@@ -1,12 +1,9 @@
+import { eq } from 'drizzle-orm';
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db/db';
 import { gameTable } from '@/db/schema';
-import { eq } from 'drizzle-orm';
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const body = await request.json();
     const {
@@ -23,13 +20,18 @@ export async function PUT(
     const id = (await params).id;
     const gameId = parseInt(id);
 
-    if (!playedAt || !team1Player1 || !team1Player2 || !team2Player1 || !team2Player2 ||
-        team1SetScore === undefined || team2SetScore === undefined ||
-        !winningTeam || totalGamesDifference === undefined) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
+    if (
+      !playedAt ||
+      !team1Player1 ||
+      !team1Player2 ||
+      !team2Player1 ||
+      !team2Player2 ||
+      team1SetScore === undefined ||
+      team2SetScore === undefined ||
+      !winningTeam ||
+      totalGamesDifference === undefined
+    ) {
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const [updatedGame] = await db
@@ -50,19 +52,13 @@ export async function PUT(
       .returning();
 
     if (!updatedGame) {
-      return NextResponse.json(
-        { error: 'Game not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Game not found' }, { status: 404 });
     }
 
     return NextResponse.json(updatedGame);
   } catch (error) {
     console.error('Error updating game:', error);
-    return NextResponse.json(
-      { error: 'Failed to update game' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update game' }, { status: 500 });
   }
 }
 
@@ -83,18 +79,12 @@ export async function DELETE(
       .returning();
 
     if (!deletedGame) {
-      return NextResponse.json(
-        { error: 'Game not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Game not found' }, { status: 404 });
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting game:', error);
-    return NextResponse.json(
-      { error: 'Failed to delete game' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to delete game' }, { status: 500 });
   }
 }

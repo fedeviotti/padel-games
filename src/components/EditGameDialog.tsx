@@ -70,12 +70,18 @@ export default function EditGameDialog({
   }, [game]);
 
   // Calculate winning team and total games difference
-  const winningTeam =
-    formData.team1SetScore && formData.team2SetScore
-      ? parseInt(formData.team1SetScore) > parseInt(formData.team2SetScore)
-        ? 1
-        : 2
-      : 0;
+  const getWinningTeam = () => {
+    if (formData.team1SetScore && formData.team2SetScore) {
+      if (parseInt(formData.team1SetScore) === parseInt(formData.team2SetScore)) {
+        return 0;
+      }
+      if (parseInt(formData.team1SetScore) > parseInt(formData.team2SetScore)) {
+        return 1;
+      }
+      return 2;
+    }
+    return 0;
+  };
 
   const totalGamesDifference =
     formData.team1SetScore && formData.team2SetScore
@@ -113,7 +119,7 @@ export default function EditGameDialog({
           team2Player2: parseInt(formData.team2Player2),
           team1SetScore: parseInt(formData.team1SetScore),
           team2SetScore: parseInt(formData.team2SetScore),
-          winningTeam,
+          winningTeam: getWinningTeam(),
           totalGamesDifference,
         }),
       });
@@ -249,19 +255,19 @@ export default function EditGameDialog({
 
             <Box sx={{ display: 'flex', gap: 2 }}>
               <TextField
-                label="Winning Team"
+                label="Winner"
                 fullWidth
-                value={winningTeam ? `Team ${winningTeam}` : ''}
+                value={getWinningTeam() > 0 ? `Team ${getWinningTeam()}` : 'Tie'}
                 disabled
                 slotProps={{
                   inputLabel: { shrink: true },
                 }}
               />
               <TextField
-                label="Total Games Difference"
+                label="Games Difference"
                 type="number"
                 fullWidth
-                value={totalGamesDifference || ''}
+                value={totalGamesDifference || '0'}
                 disabled
                 slotProps={{
                   inputLabel: { shrink: true },

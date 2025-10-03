@@ -175,7 +175,9 @@ export default function Games() {
                     <TableCell>
                       {game.team1SetScore} - {game.team2SetScore}
                     </TableCell>
-                    <TableCell>Team {game.winningTeam}</TableCell>
+                    <TableCell>
+                      {game.winningTeam > 0 ? `Team ${game.winningTeam}` : 'Tie'}
+                    </TableCell>
                     <TableCell>{game.totalGamesDifference}</TableCell>
                     <TableCell align="right">
                       <IconButton
