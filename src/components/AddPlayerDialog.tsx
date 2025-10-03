@@ -1,13 +1,13 @@
 'use client';
 
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  TextField,
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
 } from '@mui/material';
 import { useState } from 'react';
 
@@ -17,11 +17,7 @@ interface AddPlayerDialogProps {
   onPlayerAdded: () => void;
 }
 
-export default function AddPlayerDialog({
-  open,
-  onClose,
-  onPlayerAdded,
-}: AddPlayerDialogProps) {
+export default function AddPlayerDialog({ open, onClose, onPlayerAdded }: AddPlayerDialogProps) {
   const [formData, setFormData] = useState({
     name: '',
     yearOfBirth: '',
@@ -68,33 +64,27 @@ export default function AddPlayerDialog({
               required
               fullWidth
               value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
             <TextField
               label="Year of Birth"
               type="number"
               fullWidth
-              slotProps={{ 
-                htmlInput: { 
-                  min: 1900, 
+              slotProps={{
+                htmlInput: {
+                  min: 1900,
                   max: new Date().getFullYear(),
-                  step: 1 
-                } 
+                  step: 1,
+                },
               }}
               value={formData.yearOfBirth}
-              onChange={(e) =>
-                setFormData({ ...formData, yearOfBirth: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, yearOfBirth: e.target.value })}
             />
             <TextField
               label="Nickname"
               fullWidth
               value={formData.nickname}
-              onChange={(e) =>
-                setFormData({ ...formData, nickname: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, nickname: e.target.value })}
             />
           </Box>
         </DialogContent>

@@ -39,10 +39,10 @@ export async function GET() {
 
         return {
           ...game,
-          team1Player1Name: t1p1?.name || 'Unknown',
-          team1Player2Name: t1p2?.name || 'Unknown',
-          team2Player1Name: t2p1?.name || 'Unknown',
-          team2Player2Name: t2p2?.name || 'Unknown',
+          team1Player1Name: `${t1p1?.firstName} ${t1p1?.lastName}` || 'Unknown',
+          team1Player2Name: `${t1p2?.firstName} ${t1p2?.lastName}` || 'Unknown',
+          team2Player1Name: `${t2p1?.firstName} ${t2p1?.lastName}` || 'Unknown',
+          team2Player2Name: `${t2p2?.firstName} ${t2p2?.lastName}` || 'Unknown',
         };
       })
     );
