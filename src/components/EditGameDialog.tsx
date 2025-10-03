@@ -1,21 +1,21 @@
 'use client';
 
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  TextField,
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControl,
   InputLabel,
-  Select,
   MenuItem,
+  Select,
+  TextField,
   Typography,
 } from '@mui/material';
-import { useState, useEffect } from 'react';
-import { SelectPlayer, SelectGame } from '@/db/schema';
+import { useEffect, useState } from 'react';
+import { SelectGame, SelectPlayer } from '@/db/schema';
 
 type GameWithPlayers = SelectGame & {
   team1Player1Name: string;
@@ -70,13 +70,17 @@ export default function EditGameDialog({
   }, [game]);
 
   // Calculate winning team and total games difference
-  const winningTeam = formData.team1SetScore && formData.team2SetScore
-    ? parseInt(formData.team1SetScore) > parseInt(formData.team2SetScore) ? 1 : 2
-    : 0;
+  const winningTeam =
+    formData.team1SetScore && formData.team2SetScore
+      ? parseInt(formData.team1SetScore) > parseInt(formData.team2SetScore)
+        ? 1
+        : 2
+      : 0;
 
-  const totalGamesDifference = formData.team1SetScore && formData.team2SetScore
-    ? Math.abs(parseInt(formData.team1SetScore) - parseInt(formData.team2SetScore))
-    : 0;
+  const totalGamesDifference =
+    formData.team1SetScore && formData.team2SetScore
+      ? Math.abs(parseInt(formData.team1SetScore) - parseInt(formData.team2SetScore))
+      : 0;
 
   const fetchPlayers = async () => {
     try {
@@ -140,9 +144,7 @@ export default function EditGameDialog({
               required
               fullWidth
               value={formData.playedAt}
-              onChange={(e) =>
-                setFormData({ ...formData, playedAt: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, playedAt: e.target.value })}
               slotProps={{
                 inputLabel: { shrink: true },
               }}
@@ -151,15 +153,13 @@ export default function EditGameDialog({
             <Typography variant="h6" sx={{ mt: 2 }}>
               Team 1
             </Typography>
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <FormControl fullWidth required>
                 <InputLabel>Player 1</InputLabel>
                 <Select
                   value={formData.team1Player1}
                   label="Player 1"
-                  onChange={(e) =>
-                    setFormData({ ...formData, team1Player1: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, team1Player1: e.target.value })}
                 >
                   {players.map((player) => (
                     <MenuItem key={player.id} value={player.id}>
@@ -173,9 +173,7 @@ export default function EditGameDialog({
                 <Select
                   value={formData.team1Player2}
                   label="Player 2"
-                  onChange={(e) =>
-                    setFormData({ ...formData, team1Player2: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, team1Player2: e.target.value })}
                 >
                   {players.map((player) => (
                     <MenuItem key={player.id} value={player.id}>
@@ -189,15 +187,13 @@ export default function EditGameDialog({
             <Typography variant="h6" sx={{ mt: 2 }}>
               Team 2
             </Typography>
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <FormControl fullWidth required>
                 <InputLabel>Player 1</InputLabel>
                 <Select
                   value={formData.team2Player1}
                   label="Player 1"
-                  onChange={(e) =>
-                    setFormData({ ...formData, team2Player1: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, team2Player1: e.target.value })}
                 >
                   {players.map((player) => (
                     <MenuItem key={player.id} value={player.id}>
@@ -211,9 +207,7 @@ export default function EditGameDialog({
                 <Select
                   value={formData.team2Player2}
                   label="Player 2"
-                  onChange={(e) =>
-                    setFormData({ ...formData, team2Player2: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, team2Player2: e.target.value })}
                 >
                   {players.map((player) => (
                     <MenuItem key={player.id} value={player.id}>
@@ -235,9 +229,7 @@ export default function EditGameDialog({
                 fullWidth
                 slotProps={{ htmlInput: { min: 0 } }}
                 value={formData.team1SetScore}
-                onChange={(e) =>
-                  setFormData({ ...formData, team1SetScore: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, team1SetScore: e.target.value })}
               />
               <TextField
                 label="Team 2 Set Score"
@@ -246,9 +238,7 @@ export default function EditGameDialog({
                 fullWidth
                 slotProps={{ htmlInput: { min: 0 } }}
                 value={formData.team2SetScore}
-                onChange={(e) =>
-                  setFormData({ ...formData, team2SetScore: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, team2SetScore: e.target.value })}
               />
             </Box>
 
@@ -259,7 +249,7 @@ export default function EditGameDialog({
                 value={winningTeam ? `Team ${winningTeam}` : ''}
                 disabled
                 slotProps={{
-                  inputLabel: { shrink: true }
+                  inputLabel: { shrink: true },
                 }}
               />
               <TextField
@@ -269,7 +259,7 @@ export default function EditGameDialog({
                 value={totalGamesDifference || ''}
                 disabled
                 slotProps={{
-                  inputLabel: { shrink: true }
+                  inputLabel: { shrink: true },
                 }}
               />
             </Box>
