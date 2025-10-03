@@ -18,13 +18,15 @@ import {
   Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
+import Loading from '@/app/loading';
 import AddPlayerDialog from '@/components/AddPlayerDialog';
 import DeletePlayerConfirmDialog from '@/components/DeletePlayerConfirmDialog';
 import EditPlayerDialog from '@/components/EditPlayerDialog';
 import { SelectPlayer } from '@/db/schema';
+import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 
 export default function Players() {
-  //TODO: add check if the user is authenticated to display the page (see games page)
+  const { user, isChecking } = useProtectedRoute();
   const [players, setPlayers] = useState<SelectPlayer[]>([]);
   const [filteredPlayers, setFilteredPlayers] = useState<SelectPlayer[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -50,8 +52,10 @@ export default function Players() {
   };
 
   useEffect(() => {
-    fetchPlayers();
-  }, []);
+    if (user) {
+      fetchPlayers();
+    }
+  }, [user]);
 
   useEffect(() => {
     if (!searchTerm.trim()) {
@@ -111,6 +115,8 @@ export default function Players() {
     const currentYear = new Date().getFullYear();
     return currentYear - parseInt(yearOfBirth);
   };
+
+  if (isChecking) return <Loading />;
 
   return (
     <Box sx={{ p: 3 }}>

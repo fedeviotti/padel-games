@@ -1,7 +1,12 @@
 import { Box, Paper, Typography } from '@mui/material';
+import Loading from '@/app/loading';
+import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 
 export default function Tournaments() {
-  //TODO: add check if the user is authenticated to display the page (see games page)
+  const { isChecking } = useProtectedRoute();
+
+  if (isChecking) return <Loading />;
+
   return (
     <Box sx={{ p: 3 }}>
       <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>

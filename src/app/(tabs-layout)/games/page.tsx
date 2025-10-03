@@ -59,10 +59,6 @@ export default function Games() {
     }
   }, [user]);
 
-  if (isChecking) {
-    return <Loading />;
-  }
-
   const handleGameAdded = () => {
     fetchGames();
   };
@@ -122,6 +118,8 @@ export default function Games() {
     vs ${game.team2Player1Name} 
     & ${game.team2Player2Name}`;
   };
+
+  if (isChecking) return <Loading />;
 
   return (
     <Box sx={{ p: 3 }}>
