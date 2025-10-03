@@ -1,12 +1,9 @@
+import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 import { db } from '@/db/db';
 import { playerTable } from '@/db/schema';
-import { eq } from 'drizzle-orm';
 
-export async function PUT(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const body = await request.json();
     const { name, yearOfBirth, nickname } = body;
@@ -14,10 +11,7 @@ export async function PUT(
     const playerId = parseInt(id);
 
     if (!name) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const [updatedPlayer] = await db
@@ -32,26 +26,17 @@ export async function PUT(
       .returning();
 
     if (!updatedPlayer) {
-      return NextResponse.json(
-        { error: 'Player not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Player not found' }, { status: 404 });
     }
 
     return NextResponse.json(updatedPlayer);
   } catch (error) {
     console.error('Error updating player:', error);
-    return NextResponse.json(
-      { error: 'Failed to update player' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update player' }, { status: 500 });
   }
 }
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const id = (await params).id;
     const playerId = parseInt(id);
@@ -65,18 +50,12 @@ export async function DELETE(
       .returning();
 
     if (!deletedPlayer) {
-      return NextResponse.json(
-        { error: 'Player not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Player not found' }, { status: 404 });
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting player:', error);
-    return NextResponse.json(
-      { error: 'Failed to delete player' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to delete player' }, { status: 500 });
   }
 }

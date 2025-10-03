@@ -151,7 +151,7 @@ export default function Players() {
           </Box>
         ) : filteredPlayers.length === 0 ? (
           <Typography variant="body1" sx={{ textAlign: 'center', p: 4 }}>
-            {players.length === 0 
+            {players.length === 0
               ? 'No players found. Add your first player to get started.'
               : 'No players match your search criteria.'}
           </Typography>
