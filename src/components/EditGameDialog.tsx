@@ -150,72 +150,77 @@ export default function EditGameDialog({
               }}
             />
 
-            <Typography variant="h6" sx={{ mt: 2 }}>
-              Team 1
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <FormControl fullWidth required>
-                <InputLabel>Player 1</InputLabel>
-                <Select
-                  value={formData.team1Player1}
-                  label="Player 1"
-                  onChange={(e) => setFormData({ ...formData, team1Player1: e.target.value })}
-                >
-                  {players.map((player) => (
-                    <MenuItem key={player.id} value={player.id}>
-                      {player.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl fullWidth required>
-                <InputLabel>Player 2</InputLabel>
-                <Select
-                  value={formData.team1Player2}
-                  label="Player 2"
-                  onChange={(e) => setFormData({ ...formData, team1Player2: e.target.value })}
-                >
-                  {players.map((player) => (
-                    <MenuItem key={player.id} value={player.id}>
-                      {player.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+            <Box sx={{ display: 'flex' }}>
+              <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
+                Team 1
+              </Typography>
+              <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
+                Team 2
+              </Typography>
             </Box>
 
-            <Typography variant="h6" sx={{ mt: 2 }}>
-              Team 2
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <FormControl fullWidth required>
-                <InputLabel>Player 1</InputLabel>
-                <Select
-                  value={formData.team2Player1}
-                  label="Player 1"
-                  onChange={(e) => setFormData({ ...formData, team2Player1: e.target.value })}
-                >
-                  {players.map((player) => (
-                    <MenuItem key={player.id} value={player.id}>
-                      {player.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl fullWidth required>
-                <InputLabel>Player 2</InputLabel>
-                <Select
-                  value={formData.team2Player2}
-                  label="Player 2"
-                  onChange={(e) => setFormData({ ...formData, team2Player2: e.target.value })}
-                >
-                  {players.map((player) => (
-                    <MenuItem key={player.id} value={player.id}>
-                      {player.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
+                <FormControl fullWidth required>
+                  <InputLabel>Player 1</InputLabel>
+                  <Select
+                    value={formData.team1Player1}
+                    label="Player 1"
+                    onChange={(e) => setFormData({ ...formData, team1Player1: e.target.value })}
+                  >
+                    {players.map((player) => (
+                      <MenuItem key={player.id} value={player.id}>
+                        {player.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl fullWidth required>
+                  <InputLabel>Player 2</InputLabel>
+                  <Select
+                    value={formData.team1Player2}
+                    label="Player 2"
+                    onChange={(e) => setFormData({ ...formData, team1Player2: e.target.value })}
+                  >
+                    {players.map((player) => (
+                      <MenuItem key={player.id} value={player.id}>
+                        {player.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
+
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
+                <FormControl fullWidth required>
+                  <InputLabel>Player 1</InputLabel>
+                  <Select
+                    value={formData.team2Player1}
+                    label="Player 1"
+                    onChange={(e) => setFormData({ ...formData, team2Player1: e.target.value })}
+                  >
+                    {players.map((player) => (
+                      <MenuItem key={player.id} value={player.id}>
+                        {player.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl fullWidth required>
+                  <InputLabel>Player 2</InputLabel>
+                  <Select
+                    value={formData.team2Player2}
+                    label="Player 2"
+                    onChange={(e) => setFormData({ ...formData, team2Player2: e.target.value })}
+                  >
+                    {players.map((player) => (
+                      <MenuItem key={player.id} value={player.id}>
+                        {player.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
             </Box>
 
             <Typography variant="h6" sx={{ mt: 2 }}>
