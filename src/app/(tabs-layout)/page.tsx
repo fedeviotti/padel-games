@@ -26,7 +26,6 @@ export default function Dashboard() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            backgroundColor: 'red',
             gap: 2,
           }}
         >
