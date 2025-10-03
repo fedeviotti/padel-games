@@ -156,7 +156,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   >
                     {players.map((player) => (
                       <MenuItem key={player.id} value={player.id}>
-                        {player.name}
+                        {player.firstName} {player.lastName}
                       </MenuItem>
                     ))}
                   </Select>
@@ -170,7 +170,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   >
                     {players.map((player) => (
                       <MenuItem key={player.id} value={player.id}>
-                        {player.name}
+                        {player.firstName} {player.lastName}
                       </MenuItem>
                     ))}
                   </Select>
@@ -187,7 +187,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   >
                     {players.map((player) => (
                       <MenuItem key={player.id} value={player.id}>
-                        {player.name}
+                        {player.firstName} {player.lastName}
                       </MenuItem>
                     ))}
                   </Select>
@@ -201,7 +201,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   >
                     {players.map((player) => (
                       <MenuItem key={player.id} value={player.id}>
-                        {player.name}
+                        {player.firstName} {player.lastName}
                       </MenuItem>
                     ))}
                   </Select>
