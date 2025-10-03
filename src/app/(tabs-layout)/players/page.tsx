@@ -135,7 +135,9 @@ export default function Players() {
               <TableBody>
                 {players.map((player) => (
                   <TableRow key={player.id}>
-                    <TableCell>{player.name}</TableCell>
+                    <TableCell>
+                      {player.firstName} {player.lastName}
+                    </TableCell>
                     <TableCell>{player.nickname || '-'}</TableCell>
                     <TableCell>{player.yearOfBirth || '-'}</TableCell>
                     <TableCell>
@@ -182,7 +184,7 @@ export default function Players() {
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
         onConfirm={handleDeleteConfirm}
-        playerName={selectedPlayer?.name || ''}
+        playerName={`${selectedPlayer?.firstName} ${selectedPlayer?.lastName}` || ''}
         loading={deleteLoading}
       />
     </Box>

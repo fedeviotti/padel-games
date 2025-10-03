@@ -19,7 +19,8 @@ interface AddPlayerDialogProps {
 
 export default function AddPlayerDialog({ open, onClose, onPlayerAdded }: AddPlayerDialogProps) {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     yearOfBirth: '',
     nickname: '',
   });
@@ -42,7 +43,7 @@ export default function AddPlayerDialog({ open, onClose, onPlayerAdded }: AddPla
         throw new Error('Failed to add player');
       }
 
-      setFormData({ name: '', yearOfBirth: '', nickname: '' });
+      setFormData({ firstName: '', lastName: '', yearOfBirth: '', nickname: '' });
       onPlayerAdded();
       onClose();
     } catch (error) {
@@ -60,11 +61,17 @@ export default function AddPlayerDialog({ open, onClose, onPlayerAdded }: AddPla
         <DialogContent>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
             <TextField
-              label="Name"
+              label="First Name"
+              fullWidth
+              value={formData.firstName}
+              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+            />
+            <TextField
+              label="Last Name"
               required
               fullWidth
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              value={formData.lastName}
+              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
             />
             <TextField
               label="Year of Birth"

@@ -26,7 +26,8 @@ export default function EditPlayerDialog({
   player,
 }: EditPlayerDialogProps) {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     yearOfBirth: '',
     nickname: '',
   });
@@ -35,7 +36,8 @@ export default function EditPlayerDialog({
   useEffect(() => {
     if (player) {
       setFormData({
-        name: player.name,
+        firstName: player.firstName || '',
+        lastName: player.lastName,
         yearOfBirth: player.yearOfBirth || '',
         nickname: player.nickname || '',
       });
@@ -78,12 +80,20 @@ export default function EditPlayerDialog({
         <DialogContent>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
             <TextField
-              label="Name"
+              label="First Name"
+              fullWidth
+              value={formData.firstName}
+              onChange={(e) =>
+                setFormData({ ...formData, firstName: e.target.value })
+              }
+            />
+            <TextField
+              label="Last Name"
               required
               fullWidth
-              value={formData.name}
+              value={formData.lastName}
               onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
+                setFormData({ ...formData, lastName: e.target.value })
               }
             />
             <TextField
