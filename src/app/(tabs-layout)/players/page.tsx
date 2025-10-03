@@ -1,11 +1,12 @@
 'use client';
 
-import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
+import { Delete as DeleteIcon, Edit as EditIcon, Search as SearchIcon } from '@mui/icons-material';
 import {
   Box,
   Button,
   CircularProgress,
   IconButton,
+  InputAdornment,
   Paper,
   Table,
   TableBody,
@@ -13,6 +14,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
@@ -24,6 +26,8 @@ import { SelectPlayer } from '@/db/schema';
 export default function Players() {
   //TODO: add check if the user is authenticated to display the page (see games page)
   const [players, setPlayers] = useState<SelectPlayer[]>([]);
+  const [filteredPlayers, setFilteredPlayers] = useState<SelectPlayer[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -37,6 +41,7 @@ export default function Players() {
       if (!response.ok) throw new Error('Failed to fetch players');
       const data = await response.json();
       setPlayers(data);
+      setFilteredPlayers(data);
     } catch (error) {
       console.error('Error fetching players:', error);
     } finally {
@@ -47,6 +52,18 @@ export default function Players() {
   useEffect(() => {
     fetchPlayers();
   }, []);
+
+  useEffect(() => {
+    if (!searchTerm.trim()) {
+      setFilteredPlayers(players);
+    } else {
+      const filtered = players.filter((player) => {
+        const fullName = `${player.firstName} ${player.lastName}`.toLowerCase();
+        return fullName.includes(searchTerm.toLowerCase());
+      });
+      setFilteredPlayers(filtered);
+    }
+  }, [searchTerm, players]);
 
   const handlePlayerAdded = () => {
     fetchPlayers();
@@ -107,18 +124,36 @@ export default function Players() {
           }}
         >
           <Typography variant="h4">Players</Typography>
-          <Button variant="contained" onClick={() => setDialogOpen(true)}>
-            Add Player
-          </Button>
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+            <TextField
+              size="small"
+              placeholder="Search players..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ minWidth: 250 }}
+            />
+            <Button variant="contained" onClick={() => setDialogOpen(true)}>
+              Add Player
+            </Button>
+          </Box>
         </Box>
 
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
             <CircularProgress />
           </Box>
-        ) : players.length === 0 ? (
+        ) : filteredPlayers.length === 0 ? (
           <Typography variant="body1" sx={{ textAlign: 'center', p: 4 }}>
-            No players found. Add your first player to get started.
+            {players.length === 0 
+              ? 'No players found. Add your first player to get started.'
+              : 'No players match your search criteria.'}
           </Typography>
         ) : (
           <TableContainer>
@@ -133,7 +168,7 @@ export default function Players() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {players.map((player) => (
+                {filteredPlayers.map((player) => (
                   <TableRow key={player.id}>
                     <TableCell>
                       {player.firstName} {player.lastName}
