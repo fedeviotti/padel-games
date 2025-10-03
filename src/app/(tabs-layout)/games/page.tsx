@@ -117,11 +117,10 @@ export default function Games() {
 
   const getGameInfo = (game: GameWithPlayers | null) => {
     if (!game) return '';
-    return `
-    ${game.team1Player1Name} & ${game.team1Player2Name} 
-    vs 
-    ${game.team2Player1Name} & ${game.team2Player2Name}
-    `;
+    return `${game.team1Player1Name} 
+    & ${game.team1Player2Name} 
+    vs ${game.team2Player1Name} 
+    & ${game.team2Player2Name}`;
   };
 
   return (
@@ -168,10 +167,10 @@ export default function Games() {
                   <TableRow key={game.id}>
                     <TableCell>{formatDate(game.playedAt)}</TableCell>
                     <TableCell>
-                      {game.team1Player1Name} & {game.team1Player2Name}
+                      {game.team1Player1Name} <br /> {game.team1Player2Name}
                     </TableCell>
                     <TableCell>
-                      {game.team2Player1Name} & {game.team2Player2Name}
+                      {game.team2Player1Name} <br /> {game.team2Player2Name}
                     </TableCell>
                     <TableCell>
                       {game.team1SetScore} - {game.team2SetScore}
