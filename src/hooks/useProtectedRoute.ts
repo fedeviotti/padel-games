@@ -11,6 +11,7 @@ export function useProtectedRoute() {
 
   useEffect(() => {
     if (user === null) {
+      setIsChecking(false);
       router.push('/');
     } else if (user !== undefined) {
       setIsChecking(false);
