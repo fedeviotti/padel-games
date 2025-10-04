@@ -1,9 +1,9 @@
 'use client';
 
 import { Autocomplete, Box, Divider, Paper, TextField, Typography } from '@mui/material';
-import { Gauge } from '@mui/x-charts/Gauge';
 import Link from 'next/link';
 import { useState } from 'react';
+import { ChartsSection } from '@/components/ChartsSection';
 import { SelectPlayer } from '@/db/schema';
 import { usePlayers } from '@/hooks/usePlayers';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
@@ -57,38 +57,37 @@ export default function Dashboard() {
             gap: 2,
           }}
         >
-          <Autocomplete
-            value={selectedPlayer}
-            onChange={(_, newValue) => setSelectedPlayer(newValue)}
-            options={players}
-            getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-            loading={loading}
-            sx={{ width: 300, mb: 2 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Select Player" placeholder="Choose a player" />
-            )}
-          />
-          <Autocomplete
-            value={selectedOpponent}
-            onChange={(_, newValue) => setSelectedOpponent(newValue)}
-            options={players.filter((player) => player.id !== selectedPlayer?.id)}
-            getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-            loading={loading}
-            sx={{ width: 300, mb: 2 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Select Opponent" placeholder="Choose an opponent" />
-            )}
-          />
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
-            <Typography variant="body1">Percentage of wins in games played last month</Typography>
-            <Gauge value={60} />
+          <Box display="flex" gap={2} alignItems="center" mb={2} sx={{ flexWrap: 'wrap' }}>
+            <Autocomplete
+              size="small"
+              value={selectedPlayer}
+              onChange={(_, newValue) => setSelectedPlayer(newValue)}
+              options={players}
+              getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+              loading={loading}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField {...params} label="Select Player" placeholder="Choose a player" />
+              )}
+            />
+            <Autocomplete
+              size="small"
+              value={selectedOpponent}
+              onChange={(_, newValue) => setSelectedOpponent(newValue)}
+              options={players.filter((player) => player.id !== selectedPlayer?.id)}
+              getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+              loading={loading}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField {...params} label="Select Opponent" placeholder="Choose an opponent" />
+              )}
+            />
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
-            <Typography variant="body1">
-              Percentage of wins in games played last month against selected player
-            </Typography>
-            <Gauge value={60} />
-          </Box>
+          {selectedPlayer && selectedOpponent ? (
+            <ChartsSection selectedPlayer={selectedPlayer} selectedOpponent={selectedOpponent} />
+          ) : (
+            <Box>Select the player and the opponent</Box>
+          )}
         </Box>
       </Paper>
     </Box>
