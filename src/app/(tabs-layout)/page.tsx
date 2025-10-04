@@ -13,6 +13,7 @@ export default function Dashboard() {
   const { user, isChecking } = useProtectedRoute();
   const { players, loading } = usePlayers(user);
   const [selectedPlayer, setSelectedPlayer] = useState<SelectPlayer | null>(null);
+  const [selectedOpponent, setSelectedOpponent] = useState<SelectPlayer | null>(null);
 
   if (isChecking) return <Loading />;
 
@@ -65,6 +66,17 @@ export default function Dashboard() {
             sx={{ width: 300, mb: 2 }}
             renderInput={(params) => (
               <TextField {...params} label="Select Player" placeholder="Choose a player" />
+            )}
+          />
+          <Autocomplete
+            value={selectedOpponent}
+            onChange={(_, newValue) => setSelectedOpponent(newValue)}
+            options={players.filter((player) => player.id !== selectedPlayer?.id)}
+            getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+            loading={loading}
+            sx={{ width: 300, mb: 2 }}
+            renderInput={(params) => (
+              <TextField {...params} label="Select Opponent" placeholder="Choose an opponent" />
             )}
           />
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
