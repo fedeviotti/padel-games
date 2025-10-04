@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Skeleton, Typography } from '@mui/material';
 import { Gauge } from '@mui/x-charts/Gauge';
 import { FC, useEffect, useState } from 'react';
 import { SelectPlayer } from '@/db/schema';
@@ -8,10 +8,11 @@ type Props = {
   selectedOpponent: SelectPlayer;
 };
 
-export const ChartsSection: FC<Props> = ({ selectedPlayer }) => {
+export const PlayerOpponentChartsSection: FC<Props> = ({ selectedPlayer, selectedOpponent }) => {
   const [totalGamesPlayed, setTotalGamesPlayed] = useState<number>(0);
   const [totalWins, setTotalWins] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
+  const [winRate, setWinRate] = useState<number>(0);
 
   useEffect(() => {
     const fetchPlayerStats = async () => {
@@ -47,32 +48,46 @@ export const ChartsSection: FC<Props> = ({ selectedPlayer }) => {
     }
   }, [selectedPlayer?.id]);
 
+  useEffect(() => {
+    if (totalGamesPlayed > 0) {
+      setWinRate(Math.round((totalWins / totalGamesPlayed) * 100));
+    }
+  }, [totalGamesPlayed, totalWins]);
+
   return (
-    <>
-      <Typography variant="h6" sx={{ mb: 3 }}>
-        Total games played: {loading ? 'Loading...' : totalGamesPlayed}
-      </Typography>
-      <Typography variant="h6" sx={{ mb: 3 }}>
-        Total wins: {loading ? 'Loading...' : totalWins}
-      </Typography>
-      <Typography variant="h6" sx={{ mb: 3 }}>
-        Win rate:{' '}
-        {loading
-          ? 'Loading...'
-          : totalGamesPlayed > 0
-            ? `${Math.round((totalWins / totalGamesPlayed) * 100)}%`
-            : '0%'}
-      </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
-        <Typography variant="body1">Percentage of wins in games played last month</Typography>
-        <Gauge value={60} />
+    <Box sx={{ display: 'flex', flex: 1, gap: 2 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: 300,
+        }}
+      >
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Typography>Total games against him</Typography>
+          <Typography>{loading ? 'Loading...' : totalGamesPlayed}</Typography>
+        </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Typography>Total wins against him</Typography>
+          <Typography>{loading ? 'Loading...' : totalWins}</Typography>
+        </Box>
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
-        <Typography variant="body1">
-          Percentage of wins in games played last month against selected player
-        </Typography>
-        <Gauge value={60} />
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          flex: 1,
+        }}
+      >
+        <Typography>Win rate against him</Typography>
+        {loading ? (
+          <Skeleton width={150} height={150} variant="circular" />
+        ) : (
+          <Gauge width={150} height={150} value={winRate} />
+        )}
       </Box>
-    </>
+    </Box>
   );
 };
