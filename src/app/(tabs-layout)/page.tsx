@@ -1,13 +1,18 @@
 'use client';
 
-import { Box, Divider, Paper, Typography } from '@mui/material';
+import { Autocomplete, Box, Divider, Paper, TextField, Typography } from '@mui/material';
 import { Gauge } from '@mui/x-charts/Gauge';
 import Link from 'next/link';
+import { useState } from 'react';
+import { SelectPlayer } from '@/db/schema';
+import { usePlayers } from '@/hooks/usePlayers';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 import Loading from '../loading';
 
 export default function Dashboard() {
   const { user, isChecking } = useProtectedRoute();
+  const { players, loading } = usePlayers(user);
+  const [selectedPlayer, setSelectedPlayer] = useState<SelectPlayer | null>(null);
 
   if (isChecking) return <Loading />;
 
@@ -42,6 +47,7 @@ export default function Dashboard() {
         </Typography>
         <Divider sx={{ my: 2 }} />
         {/*TODO: Add charts and user selection here*/}
+
         <Box
           sx={{
             display: 'flex',
@@ -50,6 +56,17 @@ export default function Dashboard() {
             gap: 2,
           }}
         >
+          <Autocomplete
+            value={selectedPlayer}
+            onChange={(_, newValue) => setSelectedPlayer(newValue)}
+            options={players}
+            getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+            loading={loading}
+            sx={{ width: 300, mb: 2 }}
+            renderInput={(params) => (
+              <TextField {...params} label="Select Player" placeholder="Choose a player" />
+            )}
+          />
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
             <Typography variant="body1">Percentage of wins in games played last month</Typography>
             <Gauge value={60} />

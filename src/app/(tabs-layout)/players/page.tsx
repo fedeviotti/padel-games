@@ -23,39 +23,19 @@ import AddPlayerDialog from '@/components/AddPlayerDialog';
 import DeletePlayerConfirmDialog from '@/components/DeletePlayerConfirmDialog';
 import EditPlayerDialog from '@/components/EditPlayerDialog';
 import { SelectPlayer } from '@/db/schema';
+import { usePlayers } from '@/hooks/usePlayers';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 
 export default function Players() {
   const { user, isChecking } = useProtectedRoute();
-  const [players, setPlayers] = useState<SelectPlayer[]>([]);
+  const { players, loading, fetchPlayers } = usePlayers(user);
   const [filteredPlayers, setFilteredPlayers] = useState<SelectPlayer[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<SelectPlayer | null>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
-
-  const fetchPlayers = async () => {
-    try {
-      const response = await fetch('/api/players');
-      if (!response.ok) throw new Error('Failed to fetch players');
-      const data = await response.json();
-      setPlayers(data);
-      setFilteredPlayers(data);
-    } catch (error) {
-      console.error('Error fetching players:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (user) {
-      fetchPlayers();
-    }
-  }, [user]);
 
   useEffect(() => {
     if (!searchTerm.trim()) {
