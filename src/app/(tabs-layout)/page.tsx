@@ -58,46 +58,51 @@ export default function Dashboard() {
             gap: 2,
           }}
         >
-          <Autocomplete
-            size="small"
-            value={selectedPlayer}
-            onChange={(_, newValue) => setSelectedPlayer(newValue)}
-            options={players}
-            getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-            loading={loading}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Select Player" placeholder="Choose a player" />
-            )}
-          />
-
-          {selectedPlayer ? (
-            <PlayerChartsSection selectedPlayer={selectedPlayer} />
-          ) : (
-            <Box height={150}>Select a player to see his statistics</Box>
-          )}
-          <Autocomplete
-            size="small"
-            value={selectedOpponent}
-            onChange={(_, newValue) => setSelectedOpponent(newValue)}
-            options={players.filter((player) => player.id !== selectedPlayer?.id)}
-            getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-            loading={loading}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Select Opponent" placeholder="Choose an opponent" />
-            )}
-          />
-          {selectedPlayer && selectedOpponent ? (
-            <PlayerOpponentChartsSection
-              selectedPlayer={selectedPlayer}
-              selectedOpponent={selectedOpponent}
+          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+            <Autocomplete
+              size="small"
+              value={selectedPlayer}
+              onChange={(_, newValue) => setSelectedPlayer(newValue)}
+              options={players}
+              getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+              loading={loading}
+              sx={{ width: 250 }}
+              renderInput={(params) => (
+                <TextField {...params} label="Select Player" placeholder="Choose a player" />
+              )}
             />
-          ) : (
-            <Box height={150}>
-              Select an opponent to see the statistics of the games against him
-            </Box>
-          )}
+
+            {selectedPlayer ? (
+              <PlayerChartsSection selectedPlayer={selectedPlayer} />
+            ) : (
+              <Box height={150}>Select a player to see his statistics</Box>
+            )}
+          </Box>
+
+          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+            <Autocomplete
+              size="small"
+              value={selectedOpponent}
+              onChange={(_, newValue) => setSelectedOpponent(newValue)}
+              options={players.filter((player) => player.id !== selectedPlayer?.id)}
+              getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+              loading={loading}
+              sx={{ width: 250 }}
+              renderInput={(params) => (
+                <TextField {...params} label="Select Opponent" placeholder="Choose an opponent" />
+              )}
+            />
+            {selectedPlayer && selectedOpponent ? (
+              <PlayerOpponentChartsSection
+                selectedPlayer={selectedPlayer}
+                selectedOpponent={selectedOpponent}
+              />
+            ) : (
+              <Box height={150}>
+                Select an opponent to see the statistics of the games against him
+              </Box>
+            )}
+          </Box>
         </Box>
         {/* TODO: aggiungere la selezione multipla dell'avversario per vedere
         le statistiche di gioco con i vari avversari */}

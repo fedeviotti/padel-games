@@ -59,7 +59,7 @@ export const PlayerChartsSection: FC<Props> = ({ selectedPlayer }) => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          width: 300,
+          width: 250,
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>

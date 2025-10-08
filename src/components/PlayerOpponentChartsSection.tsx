@@ -19,18 +19,22 @@ export const PlayerOpponentChartsSection: FC<Props> = ({ selectedPlayer, selecte
       try {
         setLoading(true);
 
-        // Fetch total games played
-        const gamesResponse = await fetch(`/api/players/${selectedPlayer.id}/total-games`);
+        // Fetch total games played against him
+        const gamesResponse = await fetch(
+          `/api/players/${selectedPlayer.id}/opponents/${selectedOpponent.id}/total-games`
+        );
         if (!gamesResponse.ok) {
-          throw new Error('Failed to fetch total games played');
+          throw new Error('Failed to fetch total games played against opponent');
         }
         const gamesData = await gamesResponse.json();
         setTotalGamesPlayed(gamesData.totalGames);
 
-        // Fetch total wins
-        const winsResponse = await fetch(`/api/players/${selectedPlayer.id}/total-wins`);
+        // Fetch total wins against him
+        const winsResponse = await fetch(
+          `/api/players/${selectedPlayer.id}/opponents/${selectedOpponent.id}/total-wins`
+        );
         if (!winsResponse.ok) {
-          throw new Error('Failed to fetch total wins');
+          throw new Error('Failed to fetch total wins against opponent');
         }
         const winsData = await winsResponse.json();
         setTotalWins(winsData.totalWins);
@@ -60,7 +64,7 @@ export const PlayerOpponentChartsSection: FC<Props> = ({ selectedPlayer, selecte
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          width: 300,
+          width: 250,
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
