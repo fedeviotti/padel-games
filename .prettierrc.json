@@ -4,7 +4,5 @@
   "singleQuote": true,
   "trailingComma": "es5",
   "plugins": ["@ianvs/prettier-plugin-sort-imports"],
-  "importOrder": ["^@/.*", "^[./]"],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "importOrder": ["^@/.*", "^[./]"]
 }
