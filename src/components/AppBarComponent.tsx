@@ -3,10 +3,17 @@
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { AppBar, IconButton, Stack, Toolbar, Typography } from '@mui/material';
 import { UserButton } from '@stackframe/stack';
+import { useTheme as useNextTheme } from 'next-themes';
 import { useTheme } from '@/contexts/ThemeContext';
 
 export function AppBarComponent() {
   const { mode, toggleColorMode } = useTheme();
+  const { theme, setTheme } = useNextTheme();
+
+  const handleThemeChange = () => {
+    toggleColorMode();
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   return (
     <AppBar position="static">
@@ -14,11 +21,10 @@ export function AppBarComponent() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Padel Games
         </Typography>
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={1} color={theme === 'dark' ? '#fafafa' : '#3a3a40'}>
           <IconButton
-            sx={{ ml: 1 }}
-            onClick={toggleColorMode}
-            color="inherit"
+            sx={{ ml: 1, color: '#fff' }}
+            onClick={handleThemeChange}
             aria-label="toggle theme"
           >
             {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}

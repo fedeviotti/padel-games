@@ -1,6 +1,7 @@
 'use client';
 
 import { StackTheme } from '@stackframe/stack';
+import { ThemeProvider } from 'next-themes';
 import { ReactNode } from 'react';
 
 interface StackThemeWrapperProps {
@@ -11,15 +12,18 @@ export function StackThemeWrapper({ children }: StackThemeWrapperProps) {
   // Configure StackTheme to match Material-UI theme
   const stackTheme = {
     light: {
-      primary: '#1976d2', // Material-UI primary blue
-      primaryForeground: '#ffffff', // White text for good contrast
+      muted: '#90caf9',
+      popoverForeground: '#3a3a40',
     },
     dark: {
-      primary: '#90caf9', // Material-UI light primary for dark mode
-      primaryForeground: '#000000', // Black text for contrast against light background
+      muted: '#52affa', // Material-UI primary blue
+      popoverForeground: '#fff',
     },
-    radius: '8px',
   };
 
-  return <StackTheme theme={stackTheme}>{children}</StackTheme>;
+  return (
+    <ThemeProvider defaultTheme="system" attribute="class">
+      <StackTheme theme={stackTheme}>{children}</StackTheme>
+    </ThemeProvider>
+  );
 }
