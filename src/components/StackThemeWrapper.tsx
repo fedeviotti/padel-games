@@ -10,13 +10,15 @@ interface StackThemeWrapperProps {
 
 export function StackThemeWrapper({ children }: StackThemeWrapperProps) {
   // Configure StackTheme to match Material-UI theme
+  // TODO: crea variabili per i colori in un file di configurazione
+  // (capire se possibile usare i colori del tema di material ui)
   const stackTheme = {
     light: {
       muted: '#90caf9',
       popoverForeground: '#3a3a40',
     },
     dark: {
-      muted: '#52affa', // Material-UI primary blue
+      muted: '#52affa',
       popoverForeground: '#fafafa',
     },
   };
