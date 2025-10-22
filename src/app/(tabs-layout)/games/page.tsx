@@ -158,7 +158,6 @@ export default function Games() {
                   <TableCell>Team 2</TableCell>
                   <TableCell>Set Score</TableCell>
                   <TableCell>Winner</TableCell>
-                  <TableCell>Games Difference</TableCell>
                   <TableCell align="right">Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -179,7 +178,6 @@ export default function Games() {
                     <TableCell>
                       {game.winningTeam > 0 ? `Team ${game.winningTeam}` : 'Tie'}
                     </TableCell>
-                    <TableCell>{game.totalGamesDifference}</TableCell>
                     <TableCell align="right">
                       <IconButton
                         onClick={() => handleEditClick(game)}
