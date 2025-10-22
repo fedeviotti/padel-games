@@ -16,6 +16,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       team2SetScore,
       winningTeam,
       totalGamesDifference,
+      tournamentId,
     } = body;
     const id = (await params).id;
     const gameId = parseInt(id);
@@ -46,6 +47,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         team2SetScore,
         winningTeam,
         totalGamesDifference,
+        tournamentId: tournamentId || null,
         updatedAt: new Date(),
       })
       .where(eq(gameTable.id, gameId))

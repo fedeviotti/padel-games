@@ -15,7 +15,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { SelectGame, SelectPlayer } from '@/db/schema';
+import { SelectGame, SelectPlayer, SelectTournament } from '@/db/schema';
 
 type GameWithPlayers = SelectGame & {
   team1Player1Name: string;
@@ -38,6 +38,7 @@ export default function EditGameDialog({
   game,
 }: EditGameDialogProps) {
   const [players, setPlayers] = useState<SelectPlayer[]>([]);
+  const [tournaments, setTournaments] = useState<SelectTournament[]>([]);
   const [formData, setFormData] = useState({
     playedAt: '',
     team1Player1: '',
@@ -46,12 +47,14 @@ export default function EditGameDialog({
     team2Player2: '',
     team1SetScore: '',
     team2SetScore: '',
+    tournamentId: '',
   });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (open) {
       fetchPlayers();
+      fetchTournaments();
     }
   }, [open]);
 
@@ -65,6 +68,7 @@ export default function EditGameDialog({
         team2Player2: game.team2Player2.toString(),
         team1SetScore: game.team1SetScore.toString(),
         team2SetScore: game.team2SetScore.toString(),
+        tournamentId: game.tournamentId ? game.tournamentId.toString() : '',
       });
     }
   }, [game]);
@@ -99,6 +103,17 @@ export default function EditGameDialog({
     }
   };
 
+  const fetchTournaments = async () => {
+    try {
+      const response = await fetch('/api/tournaments');
+      if (!response.ok) throw new Error('Failed to fetch tournaments');
+      const data = await response.json();
+      setTournaments(data);
+    } catch (error) {
+      console.error('Error fetching tournaments:', error);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!game) return;
@@ -121,6 +136,7 @@ export default function EditGameDialog({
           team2SetScore: parseInt(formData.team2SetScore),
           winningTeam: getWinningTeam(),
           totalGamesDifference,
+          tournamentId: formData.tournamentId ? parseInt(formData.tournamentId) : null,
         }),
       });
 
@@ -155,6 +171,24 @@ export default function EditGameDialog({
                 inputLabel: { shrink: true },
               }}
             />
+
+            <FormControl fullWidth>
+              <InputLabel>Tournament (Optional)</InputLabel>
+              <Select
+                value={formData.tournamentId}
+                label="Tournament (Optional)"
+                onChange={(e) => setFormData({ ...formData, tournamentId: e.target.value })}
+              >
+                <MenuItem value="">
+                  <em>No Tournament</em>
+                </MenuItem>
+                {tournaments.map((tournament) => (
+                  <MenuItem key={tournament.id} value={tournament.id}>
+                    {tournament.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
             <Box sx={{ display: 'flex' }}>
               <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>

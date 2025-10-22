@@ -1,7 +1,7 @@
 import { desc, eq, isNull } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 import { db } from '@/db/db';
-import { gameTable, playerTable } from '@/db/schema';
+import { gameTable, playerTable, tournamentTable } from '@/db/schema';
 
 export async function GET() {
   try {
@@ -11,10 +11,10 @@ export async function GET() {
       .where(isNull(gameTable.deletedAt))
       .orderBy(desc(gameTable.playedAt));
 
-    // Fetch player names for each game
+    // Fetch player names and tournament name for each game
     const gamesWithPlayers = await Promise.all(
       games.map(async (game) => {
-        const [t1p1, t1p2, t2p1, t2p2] = await Promise.all([
+        const [t1p1, t1p2, t2p1, t2p2, tournament] = await Promise.all([
           db
             .select()
             .from(playerTable)
@@ -35,6 +35,13 @@ export async function GET() {
             .from(playerTable)
             .where(eq(playerTable.id, game.team2Player2))
             .then((r) => r[0]),
+          game.tournamentId
+            ? db
+                .select()
+                .from(tournamentTable)
+                .where(eq(tournamentTable.id, game.tournamentId))
+                .then((r) => r[0])
+            : null,
         ]);
 
         return {
@@ -43,6 +50,7 @@ export async function GET() {
           team1Player2Name: `${t1p2?.firstName} ${t1p2?.lastName}` || 'Unknown',
           team2Player1Name: `${t2p1?.firstName} ${t2p1?.lastName}` || 'Unknown',
           team2Player2Name: `${t2p2?.firstName} ${t2p2?.lastName}` || 'Unknown',
+          tournamentName: tournament?.name || null,
         };
       })
     );
@@ -67,6 +75,7 @@ export async function POST(request: Request) {
       team2SetScore,
       winningTeam,
       totalGamesDifference,
+      tournamentId,
     } = body;
 
     if (
@@ -95,6 +104,7 @@ export async function POST(request: Request) {
         team2SetScore,
         winningTeam,
         totalGamesDifference,
+        tournamentId: tournamentId || null,
       })
       .returning();
 

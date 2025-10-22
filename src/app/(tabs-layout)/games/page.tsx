@@ -28,6 +28,7 @@ type GameWithPlayers = SelectGame & {
   team1Player2Name: string;
   team2Player1Name: string;
   team2Player2Name: string;
+  tournamentName: string | null;
 };
 
 export default function Games() {
@@ -152,6 +153,7 @@ export default function Games() {
               <TableHead>
                 <TableRow>
                   <TableCell>Date</TableCell>
+                  <TableCell>Tournament</TableCell>
                   <TableCell>Team 1</TableCell>
                   <TableCell>Team 2</TableCell>
                   <TableCell>Set Score</TableCell>
@@ -164,6 +166,7 @@ export default function Games() {
                 {games.map((game) => (
                   <TableRow key={game.id}>
                     <TableCell>{formatDate(game.playedAt)}</TableCell>
+                    <TableCell>{game.tournamentName || '-'}</TableCell>
                     <TableCell>
                       {game.team1Player1Name} <br /> {game.team1Player2Name}
                     </TableCell>

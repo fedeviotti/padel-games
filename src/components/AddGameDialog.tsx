@@ -15,7 +15,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { SelectPlayer } from '@/db/schema';
+import { SelectPlayer, SelectTournament } from '@/db/schema';
 
 interface AddGameDialogProps {
   open: boolean;
@@ -25,6 +25,7 @@ interface AddGameDialogProps {
 
 export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDialogProps) {
   const [players, setPlayers] = useState<SelectPlayer[]>([]);
+  const [tournaments, setTournaments] = useState<SelectTournament[]>([]);
   const [formData, setFormData] = useState({
     playedAt: new Date().toISOString().split('T')[0],
     team1Player1: '',
@@ -33,12 +34,14 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
     team2Player2: '',
     team1SetScore: '',
     team2SetScore: '',
+    tournamentId: '',
   });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (open) {
       fetchPlayers();
+      fetchTournaments();
     }
   }, [open]);
 
@@ -72,6 +75,17 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
     }
   };
 
+  const fetchTournaments = async () => {
+    try {
+      const response = await fetch('/api/tournaments');
+      if (!response.ok) throw new Error('Failed to fetch tournaments');
+      const data = await response.json();
+      setTournaments(data);
+    } catch (error) {
+      console.error('Error fetching tournaments:', error);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -92,6 +106,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
           team2SetScore: parseInt(formData.team2SetScore),
           winningTeam: getWinningTeam(),
           totalGamesDifference,
+          tournamentId: formData.tournamentId ? parseInt(formData.tournamentId) : null,
         }),
       });
 
@@ -107,6 +122,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
         team2Player2: '',
         team1SetScore: '',
         team2SetScore: '',
+        tournamentId: '',
       });
       onGameAdded();
       onClose();
@@ -135,6 +151,24 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 inputLabel: { shrink: true },
               }}
             />
+
+            <FormControl fullWidth>
+              <InputLabel>Tournament (Optional)</InputLabel>
+              <Select
+                value={formData.tournamentId}
+                label="Tournament (Optional)"
+                onChange={(e) => setFormData({ ...formData, tournamentId: e.target.value })}
+              >
+                <MenuItem value="">
+                  <em>No Tournament</em>
+                </MenuItem>
+                {tournaments.map((tournament) => (
+                  <MenuItem key={tournament.id} value={tournament.id}>
+                    {tournament.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
             <Box sx={{ display: 'flex' }}>
               <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
