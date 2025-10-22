@@ -44,6 +44,19 @@ export const gameTable = pgTable('games', {
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
   deletedAt: timestamp('deleted_at'),
+  tournamentId: integer('tournament_id').references(() => tournamentTable.id),
 });
 export type InsertGame = typeof gameTable.$inferInsert;
 export type SelectGame = typeof gameTable.$inferSelect;
+
+export const tournamentTable = pgTable('tournaments', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  startDate: timestamp('start_date').notNull(),
+  endDate: timestamp('end_date'),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+  deletedAt: timestamp('deleted_at'),
+});
+export type InsertTournament = typeof tournamentTable.$inferInsert;
+export type SelectTournament = typeof tournamentTable.$inferSelect;
