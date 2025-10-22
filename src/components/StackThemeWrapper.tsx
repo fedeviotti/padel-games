@@ -17,7 +17,7 @@ export function StackThemeWrapper({ children }: StackThemeWrapperProps) {
     },
     dark: {
       muted: '#52affa', // Material-UI primary blue
-      popoverForeground: '#fff',
+      popoverForeground: '#fafafa',
     },
   };
 
