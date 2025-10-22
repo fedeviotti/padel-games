@@ -1,7 +1,7 @@
 'use client';
 
 import { Brightness4, Brightness7 } from '@mui/icons-material';
-import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, IconButton, Stack, Toolbar, Typography } from '@mui/material';
 import { UserButton } from '@stackframe/stack';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -14,15 +14,17 @@ export function AppBarComponent() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Padel Games
         </Typography>
-        <IconButton
-          sx={{ ml: 1 }}
-          onClick={toggleColorMode}
-          color="inherit"
-          aria-label="toggle theme"
-        >
-          {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
-        </IconButton>
-        <UserButton />
+        <Stack direction="row" spacing={1}>
+          <IconButton
+            sx={{ ml: 1 }}
+            onClick={toggleColorMode}
+            color="inherit"
+            aria-label="toggle theme"
+          >
+            {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+          </IconButton>
+          <UserButton />
+        </Stack>
       </Toolbar>
     </AppBar>
   );
