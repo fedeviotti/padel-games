@@ -1,12 +1,13 @@
-import { StackProvider, StackTheme } from '@stackframe/stack';
+import { StackProvider } from '@stackframe/stack';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { stackClientApp } from '@/stack/client';
 import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-import CssBaseline from '@mui/material/CssBaseline';
 import { ReactNode } from 'react';
 import { AppBarComponent } from '@/components/AppBarComponent';
+import { StackThemeWrapper } from '@/components/StackThemeWrapper';
+import { CustomThemeProvider } from '@/contexts/ThemeContext';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,15 +32,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <StackProvider app={stackClientApp}>
-          <StackTheme>
-            <AppRouterCacheProvider>
-              <CssBaseline />
-              <AppBarComponent />
-              {children}
-            </AppRouterCacheProvider>
-          </StackTheme>
-        </StackProvider>
+        <CustomThemeProvider>
+          <StackProvider app={stackClientApp}>
+            <StackThemeWrapper>
+              <AppRouterCacheProvider>
+                <AppBarComponent />
+                {children}
+              </AppRouterCacheProvider>
+            </StackThemeWrapper>
+          </StackProvider>
+        </CustomThemeProvider>
       </body>
     </html>
   );
