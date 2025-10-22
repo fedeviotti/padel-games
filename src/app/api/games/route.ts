@@ -77,7 +77,7 @@ export async function POST(request: Request) {
       !team2Player2 ||
       team1SetScore === undefined ||
       team2SetScore === undefined ||
-      !winningTeam ||
+      winningTeam === undefined ||
       totalGamesDifference === undefined
     ) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
