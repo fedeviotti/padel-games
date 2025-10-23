@@ -30,8 +30,8 @@ export default function DeleteTournamentConfirmDialog({
       <DialogTitle>Delete Tournament</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Are you sure you want to delete the tournament "{tournamentName}"? This action cannot be
-          undone.
+          Are you sure you want to delete the tournament &#34;{tournamentName}&#34;? This action
+          cannot be undone.
           <br />
           <br />
           <strong>Note:</strong> You can only delete tournaments that have no games associated with

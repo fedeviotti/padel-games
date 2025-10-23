@@ -50,7 +50,7 @@ export const PlayerOpponentChartsSection: FC<Props> = ({ selectedPlayer, selecte
     if (selectedPlayer?.id) {
       fetchPlayerStats();
     }
-  }, [selectedPlayer?.id]);
+  }, [selectedOpponent.id, selectedPlayer.id]);
 
   useEffect(() => {
     if (totalGamesPlayed > 0) {
