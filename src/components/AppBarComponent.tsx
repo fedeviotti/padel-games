@@ -4,6 +4,7 @@ import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { AppBar, IconButton, Stack, Toolbar, Typography } from '@mui/material';
 import { UserButton } from '@stackframe/stack';
 import { useTheme as useNextTheme } from 'next-themes';
+import { padelGamesColors } from '@/constants/colors';
 import { useTheme } from '@/contexts/ThemeContext';
 
 export function AppBarComponent() {
@@ -21,7 +22,15 @@ export function AppBarComponent() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Padel Games
         </Typography>
-        <Stack direction="row" spacing={1} color={theme === 'dark' ? '#fafafa' : '#3a3a40'}>
+        <Stack
+          direction="row"
+          spacing={1}
+          color={
+            theme === 'dark'
+              ? padelGamesColors.dark.popoverForeground
+              : padelGamesColors.light.popoverForeground
+          }
+        >
           <IconButton
             sx={{ ml: 1, color: '#fff' }}
             onClick={handleThemeChange}

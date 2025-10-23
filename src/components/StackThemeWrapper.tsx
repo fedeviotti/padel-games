@@ -1,8 +1,10 @@
 'use client';
 
+import { colors } from '@mui/material';
 import { StackTheme } from '@stackframe/stack';
 import { ThemeProvider } from 'next-themes';
 import { ReactNode } from 'react';
+import { padelGamesColors } from '@/constants/colors';
 
 interface StackThemeWrapperProps {
   children: ReactNode;
@@ -14,12 +16,12 @@ export function StackThemeWrapper({ children }: StackThemeWrapperProps) {
   // (capire se possibile usare i colori del tema di material ui)
   const stackTheme = {
     light: {
-      muted: '#90caf9',
-      popoverForeground: '#3a3a40',
+      muted: padelGamesColors.light.muted,
+      popoverForeground: padelGamesColors.light.popoverForeground,
     },
     dark: {
-      muted: '#52affa',
-      popoverForeground: '#fafafa',
+      muted: colors.grey[500],
+      popoverForeground: padelGamesColors.dark.popoverForeground,
     },
   };
 

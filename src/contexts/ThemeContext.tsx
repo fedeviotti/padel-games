@@ -1,8 +1,10 @@
 'use client';
 
+import { colors } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { padelGamesColors } from '@/constants/colors';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -56,23 +58,23 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
         ? {
             // Light mode colors
             primary: {
-              main: '#1976d2',
+              main: padelGamesColors.light.primary.main,
             },
             secondary: {
-              main: '#dc004e',
+              main: padelGamesColors.light.secondary.main,
             },
           }
         : {
             // Dark mode colors
             primary: {
-              main: '#90caf9',
+              main: padelGamesColors.dark.primary.main,
             },
             secondary: {
-              main: '#f48fb1',
+              main: padelGamesColors.dark.secondary.main,
             },
             background: {
-              default: '#121212',
-              paper: '#1e1e1e',
+              default: padelGamesColors.dark.background.default,
+              paper: padelGamesColors.dark.background.paper,
             },
           }),
     },
@@ -83,7 +85,8 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
       MuiAppBar: {
         styleOverrides: {
           root: {
-            backgroundColor: mode === 'light' ? '#1976d2' : '#1e1e1e',
+            backgroundColor:
+              mode === 'light' ? padelGamesColors.light.primary.main : colors.grey[700],
           },
         },
       },
