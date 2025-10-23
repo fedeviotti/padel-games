@@ -1,10 +1,42 @@
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 import { db } from '@/db/db';
 import { playerTable } from '@/db/schema';
+import { stackServerApp } from '@/stack/server';
+
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const user = await stackServerApp.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const id = (await params).id;
+    const playerId = parseInt(id);
+
+    const [player] = await db
+      .select()
+      .from(playerTable)
+      .where(and(eq(playerTable.id, playerId), eq(playerTable.userId, user.id)));
+
+    if (!player) {
+      return NextResponse.json({ error: 'Player not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(player);
+  } catch (error) {
+    console.error('Error fetching player:', error);
+    return NextResponse.json({ error: 'Failed to fetch player' }, { status: 500 });
+  }
+}
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const user = await stackServerApp.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { firstName, lastName, yearOfBirth, nickname } = body;
     const id = (await params).id;
@@ -23,7 +55,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
         nickname: nickname || null,
         updatedAt: new Date(),
       })
-      .where(eq(playerTable.id, playerId))
+      .where(and(eq(playerTable.id, playerId), eq(playerTable.userId, user.id)))
       .returning();
 
     if (!updatedPlayer) {
@@ -39,6 +71,11 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const user = await stackServerApp.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const id = (await params).id;
     const playerId = parseInt(id);
 
@@ -47,7 +84,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
       .set({
         deletedAt: new Date(),
       })
-      .where(eq(playerTable.id, playerId))
+      .where(and(eq(playerTable.id, playerId), eq(playerTable.userId, user.id)))
       .returning();
 
     if (!deletedPlayer) {

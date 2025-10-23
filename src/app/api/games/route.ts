@@ -1,14 +1,20 @@
-import { desc, eq, isNull } from 'drizzle-orm';
+import { and, desc, eq, inArray, isNull } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 import { db } from '@/db/db';
 import { gameTable, playerTable, tournamentTable } from '@/db/schema';
+import { stackServerApp } from '@/stack/server';
 
 export async function GET() {
   try {
+    const user = await stackServerApp.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const games = await db
       .select()
       .from(gameTable)
-      .where(isNull(gameTable.deletedAt))
+      .where(and(isNull(gameTable.deletedAt), eq(gameTable.userId, user.id)))
       .orderBy(desc(gameTable.playedAt));
 
     // Fetch player names and tournament name for each game
@@ -18,28 +24,33 @@ export async function GET() {
           db
             .select()
             .from(playerTable)
-            .where(eq(playerTable.id, game.team1Player1))
+            .where(and(eq(playerTable.id, game.team1Player1), eq(playerTable.userId, user.id)))
             .then((r) => r[0]),
           db
             .select()
             .from(playerTable)
-            .where(eq(playerTable.id, game.team1Player2))
+            .where(and(eq(playerTable.id, game.team1Player2), eq(playerTable.userId, user.id)))
             .then((r) => r[0]),
           db
             .select()
             .from(playerTable)
-            .where(eq(playerTable.id, game.team2Player1))
+            .where(and(eq(playerTable.id, game.team2Player1), eq(playerTable.userId, user.id)))
             .then((r) => r[0]),
           db
             .select()
             .from(playerTable)
-            .where(eq(playerTable.id, game.team2Player2))
+            .where(and(eq(playerTable.id, game.team2Player2), eq(playerTable.userId, user.id)))
             .then((r) => r[0]),
           game.tournamentId
             ? db
                 .select()
                 .from(tournamentTable)
-                .where(eq(tournamentTable.id, game.tournamentId))
+                .where(
+                  and(
+                    eq(tournamentTable.id, game.tournamentId),
+                    eq(tournamentTable.userId, user.id)
+                  )
+                )
                 .then((r) => r[0])
             : null,
         ]);
@@ -64,6 +75,11 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const user = await stackServerApp.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const {
       playedAt,
@@ -92,6 +108,35 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
+    // Validate that all players belong to the current user
+    const playerIds = [team1Player1, team1Player2, team2Player1, team2Player2];
+    const players = await db
+      .select()
+      .from(playerTable)
+      .where(and(eq(playerTable.userId, user.id), inArray(playerTable.id, playerIds)));
+
+    if (players.length !== 4) {
+      return NextResponse.json(
+        { error: 'One or more players not found or not owned by user' },
+        { status: 400 }
+      );
+    }
+
+    // Validate tournament ownership if provided
+    if (tournamentId) {
+      const tournament = await db
+        .select()
+        .from(tournamentTable)
+        .where(and(eq(tournamentTable.id, tournamentId), eq(tournamentTable.userId, user.id)));
+
+      if (tournament.length === 0) {
+        return NextResponse.json(
+          { error: 'Tournament not found or not owned by user' },
+          { status: 400 }
+        );
+      }
+    }
+
     const [newGame] = await db
       .insert(gameTable)
       .values({
@@ -105,6 +150,7 @@ export async function POST(request: Request) {
         winningTeam,
         totalGamesDifference,
         tournamentId: tournamentId || null,
+        userId: user.id,
       })
       .returning();
 

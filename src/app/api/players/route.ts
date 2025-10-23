@@ -1,11 +1,20 @@
-import { isNull } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 import { db } from '@/db/db';
 import { playerTable } from '@/db/schema';
+import { stackServerApp } from '@/stack/server';
 
 export async function GET() {
   try {
-    const players = await db.select().from(playerTable).where(isNull(playerTable.deletedAt));
+    const user = await stackServerApp.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const players = await db
+      .select()
+      .from(playerTable)
+      .where(and(isNull(playerTable.deletedAt), eq(playerTable.userId, user.id)));
 
     return NextResponse.json(players);
   } catch (error) {
@@ -16,6 +25,11 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const user = await stackServerApp.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
     const { firstName, lastName, yearOfBirth, nickname } = body;
 
@@ -30,6 +44,7 @@ export async function POST(request: Request) {
         lastName: lastName,
         yearOfBirth: yearOfBirth,
         nickname: nickname || null,
+        userId: user.id,
       })
       .returning();
 

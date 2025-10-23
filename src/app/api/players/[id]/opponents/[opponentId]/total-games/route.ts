@@ -2,12 +2,18 @@ import { and, count, eq, isNull, or } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 import { db } from '@/db/db';
 import { gameTable } from '@/db/schema';
+import { stackServerApp } from '@/stack/server';
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string; opponentId: string }> }
 ) {
   try {
+    const user = await stackServerApp.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id, opponentId } = await params;
     const playerId = parseInt(id);
     const opponentPlayerId = parseInt(opponentId);
@@ -40,6 +46,7 @@ export async function GET(
       .where(
         and(
           isNull(gameTable.deletedAt),
+          eq(gameTable.userId, user.id),
           or(
             // Player on team1, opponent on team2
             and(

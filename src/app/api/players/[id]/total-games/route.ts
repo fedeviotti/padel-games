@@ -2,9 +2,15 @@ import { and, count, eq, isNull, or } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 import { db } from '@/db/db';
 import { gameTable } from '@/db/schema';
+import { stackServerApp } from '@/stack/server';
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const user = await stackServerApp.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
     const playerId = parseInt(id);
 
@@ -17,16 +23,13 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
     console.log('Fetching total games for player ID:', playerId);
 
-    // First, let's check if there are any games at all
-    const totalGamesCount = await db.select({ count: count() }).from(gameTable);
-    console.log('Total games in database:', totalGamesCount[0]?.count || 0);
-
     const result = await db
       .select({ totalGames: count() })
       .from(gameTable)
       .where(
         and(
           isNull(gameTable.deletedAt),
+          eq(gameTable.userId, user.id),
           or(
             eq(gameTable.team1Player1, playerId),
             eq(gameTable.team1Player2, playerId),

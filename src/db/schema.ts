@@ -6,6 +6,7 @@ export const playerTable = pgTable('players', {
   lastName: text('last_name').notNull().default(''),
   yearOfBirth: text('year_of_birth'),
   nickname: text('nickname'),
+  userId: text('user_id').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
   deletedAt: timestamp('deleted_at'),
@@ -41,6 +42,7 @@ export const gameTable = pgTable('games', {
   winningTeam: integer('winning_team').notNull(), // 1 or 2
   totalGamesDifference: integer('total_games_difference').notNull(),
 
+  userId: text('user_id').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
   deletedAt: timestamp('deleted_at'),
@@ -54,6 +56,7 @@ export const tournamentTable = pgTable('tournaments', {
   name: text('name').notNull(),
   startDate: timestamp('start_date').notNull(),
   endDate: timestamp('end_date'),
+  userId: text('user_id').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
   deletedAt: timestamp('deleted_at'),
