@@ -1,16 +1,13 @@
 'use client';
 
 import {
+  Autocomplete,
   Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
   Typography,
   useMediaQuery,
@@ -156,23 +153,22 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
               }}
             />
 
-            <FormControl fullWidth>
-              <InputLabel>Tournament (Optional)</InputLabel>
-              <Select
-                value={formData.tournamentId}
-                label="Tournament (Optional)"
-                onChange={(e) => setFormData({ ...formData, tournamentId: e.target.value })}
-              >
-                <MenuItem value="">
-                  <em>No Tournament</em>
-                </MenuItem>
-                {tournaments.map((tournament) => (
-                  <MenuItem key={tournament.id} value={tournament.id}>
-                    {tournament.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <Autocomplete
+              options={tournaments}
+              getOptionLabel={(option) => option.name}
+              value={tournaments.find((t) => t.id.toString() === formData.tournamentId) || null}
+              onChange={(_, newValue) =>
+                setFormData({ ...formData, tournamentId: newValue?.id.toString() || '' })
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Tournament (Optional)"
+                  placeholder="Select a tournament"
+                />
+              )}
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+            />
 
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
               <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
@@ -191,65 +187,57 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
               }}
             >
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
-                <FormControl fullWidth required>
-                  <InputLabel>Player 1</InputLabel>
-                  <Select
-                    value={formData.team1Player1}
-                    label="Player 1"
-                    onChange={(e) => setFormData({ ...formData, team1Player1: e.target.value })}
-                  >
-                    {players.map((player) => (
-                      <MenuItem key={player.id} value={player.id}>
-                        {player.firstName} {player.lastName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl fullWidth required>
-                  <InputLabel>Player 2</InputLabel>
-                  <Select
-                    value={formData.team1Player2}
-                    label="Player 2"
-                    onChange={(e) => setFormData({ ...formData, team1Player2: e.target.value })}
-                  >
-                    {players.map((player) => (
-                      <MenuItem key={player.id} value={player.id}>
-                        {player.firstName} {player.lastName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <Autocomplete
+                  options={players}
+                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  value={players.find((p) => p.id.toString() === formData.team1Player1) || null}
+                  onChange={(_, newValue) =>
+                    setFormData({ ...formData, team1Player1: newValue?.id.toString() || '' })
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} label="Player 1" placeholder="Select player" required />
+                  )}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                />
+                <Autocomplete
+                  options={players}
+                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  value={players.find((p) => p.id.toString() === formData.team1Player2) || null}
+                  onChange={(_, newValue) =>
+                    setFormData({ ...formData, team1Player2: newValue?.id.toString() || '' })
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} label="Player 2" placeholder="Select player" required />
+                  )}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                />
               </Box>
 
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
-                <FormControl fullWidth required>
-                  <InputLabel>Player 1</InputLabel>
-                  <Select
-                    value={formData.team2Player1}
-                    label="Player 1"
-                    onChange={(e) => setFormData({ ...formData, team2Player1: e.target.value })}
-                  >
-                    {players.map((player) => (
-                      <MenuItem key={player.id} value={player.id}>
-                        {player.firstName} {player.lastName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl fullWidth required>
-                  <InputLabel>Player 2</InputLabel>
-                  <Select
-                    value={formData.team2Player2}
-                    label="Player 2"
-                    onChange={(e) => setFormData({ ...formData, team2Player2: e.target.value })}
-                  >
-                    {players.map((player) => (
-                      <MenuItem key={player.id} value={player.id}>
-                        {player.firstName} {player.lastName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <Autocomplete
+                  options={players}
+                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  value={players.find((p) => p.id.toString() === formData.team2Player1) || null}
+                  onChange={(_, newValue) =>
+                    setFormData({ ...formData, team2Player1: newValue?.id.toString() || '' })
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} label="Player 1" placeholder="Select player" required />
+                  )}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                />
+                <Autocomplete
+                  options={players}
+                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  value={players.find((p) => p.id.toString() === formData.team2Player2) || null}
+                  onChange={(_, newValue) =>
+                    setFormData({ ...formData, team2Player2: newValue?.id.toString() || '' })
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} label="Player 2" placeholder="Select player" required />
+                  )}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                />
               </Box>
             </Box>
 
