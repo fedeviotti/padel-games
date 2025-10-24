@@ -173,15 +173,6 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
               />
             </Box>
 
-            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
-              <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
-                Team 1
-              </Typography>
-              <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
-                Team 2
-              </Typography>
-            </Box>
-
             <Box
               sx={{
                 display: 'flex',
@@ -190,6 +181,9 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
               }}
             >
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
+                <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
+                  Team 1
+                </Typography>
                 <Autocomplete
                   options={players}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
@@ -217,6 +211,9 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
               </Box>
 
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
+                <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
+                  Team 2
+                </Typography>
                 <Autocomplete
                   options={players}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
