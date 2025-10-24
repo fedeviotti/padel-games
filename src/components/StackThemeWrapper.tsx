@@ -14,11 +14,9 @@ export function StackThemeWrapper({ children }: StackThemeWrapperProps) {
   const stackTheme = {
     light: {
       muted: padelGamesColors.light.muted,
-      popoverForeground: padelGamesColors.light.popoverForeground,
     },
     dark: {
-      muted: colors.grey[500],
-      popoverForeground: padelGamesColors.dark.popoverForeground,
+      muted: colors.grey[600],
     },
   };
 
