@@ -198,10 +198,32 @@ export default function Games() {
                   )}
 
                   <Box sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontWeight: 'bold',
+                        backgroundColor:
+                          game.winningTeam === 1 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                        borderRadius: 1,
+                        p: 0.5,
+                        border:
+                          game.winningTeam === 1 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
+                      }}
+                    >
                       Team 1: {game.team1Player1Name} & {game.team1Player2Name}
                     </Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontWeight: 'bold',
+                        backgroundColor:
+                          game.winningTeam === 2 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                        borderRadius: 1,
+                        p: 0.5,
+                        border:
+                          game.winningTeam === 2 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
+                      }}
+                    >
                       Team 2: {game.team2Player1Name} & {game.team2Player2Name}
                     </Typography>
                   </Box>
@@ -239,10 +261,22 @@ export default function Games() {
                   <TableRow key={game.id}>
                     <TableCell>{formatDate(game.playedAt)}</TableCell>
                     <TableCell>{game.tournamentName || '-'}</TableCell>
-                    <TableCell>
+                    <TableCell
+                      sx={{
+                        backgroundColor:
+                          game.winningTeam === 1 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                        borderRadius: 1,
+                      }}
+                    >
                       {game.team1Player1Name} <br /> {game.team1Player2Name}
                     </TableCell>
-                    <TableCell>
+                    <TableCell
+                      sx={{
+                        backgroundColor:
+                          game.winningTeam === 2 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                        borderRadius: 1,
+                      }}
+                    >
                       {game.team2Player1Name} <br /> {game.team2Player2Name}
                     </TableCell>
                     <TableCell>
