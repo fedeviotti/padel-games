@@ -1,22 +1,22 @@
 'use client';
 
-import { AppBar, Box, Stack, Toolbar, Typography, useMediaQuery } from '@mui/material';
+import { AppBar, Box, Stack, Toolbar, Typography } from '@mui/material';
 import { UserButton } from '@stackframe/stack';
 import { useTheme as useNextTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import { padelGamesColors } from '@/constants/colors';
 import { ToggleColorMode } from './ToggleColorMode';
 
 export function AppBarComponent() {
+  const [isClient, setIsClient] = useState(false);
   const { theme } = useNextTheme();
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const getUserButtonColor = () => {
-    if (theme === 'light') {
-      return padelGamesColors.light.popoverForeground;
-    }
-    return prefersDarkMode
-      ? padelGamesColors.dark.popoverForeground
-      : padelGamesColors.light.popoverForeground;
+    return theme === 'light' ? padelGamesColors.light.popoverForeground : 'inherit';
   };
 
   return (
@@ -27,9 +27,11 @@ export function AppBarComponent() {
         </Typography>
         <Stack direction="row" spacing={1}>
           <ToggleColorMode />
-          <Box color={getUserButtonColor()}>
-            <UserButton />
-          </Box>
+          {isClient && (
+            <Box sx={{ color: getUserButtonColor() }}>
+              <UserButton />
+            </Box>
+          )}
         </Stack>
       </Toolbar>
     </AppBar>
