@@ -55,16 +55,22 @@ export async function GET() {
             : null,
         ]);
 
+        const team1Player1Initial = t1p1?.firstName?.charAt(0)?.toUpperCase();
+        const team1Player2Initial = t1p2?.firstName?.charAt(0)?.toUpperCase();
+        const team2Player1Initial = t2p1?.firstName?.charAt(0)?.toUpperCase();
+        const team2Player2Initial = t2p2?.firstName?.charAt(0)?.toUpperCase();
+
+        const team1Player1InitialWithDot = team1Player1Initial ? `${team1Player1Initial}.` : '';
+        const team1Player2InitialWithDot = team1Player2Initial ? `${team1Player2Initial}.` : '';
+        const team2Player1InitialWithDot = team2Player1Initial ? `${team2Player1Initial}.` : '';
+        const team2Player2InitialWithDot = team2Player2Initial ? `${team2Player2Initial}.` : '';
+
         return {
           ...game,
-          team1Player1Name:
-            `${t1p1?.firstName?.charAt(0)?.toUpperCase()}. ${t1p1?.lastName}` || 'Unknown',
-          team1Player2Name:
-            `${t1p2?.firstName?.charAt(0)?.toUpperCase()}. ${t1p2?.lastName}` || 'Unknown',
-          team2Player1Name:
-            `${t2p1?.firstName?.charAt(0)?.toUpperCase()}. ${t2p1?.lastName}` || 'Unknown',
-          team2Player2Name:
-            `${t2p2?.firstName?.charAt(0)?.toUpperCase()}. ${t2p2?.lastName}` || 'Unknown',
+          team1Player1Name: `${team1Player1InitialWithDot} ${t1p1?.lastName}` || 'Unknown',
+          team1Player2Name: `${team1Player2InitialWithDot} ${t1p2?.lastName}` || 'Unknown',
+          team2Player1Name: `${team2Player1InitialWithDot} ${t2p1?.lastName}` || 'Unknown',
+          team2Player2Name: `${team2Player2InitialWithDot} ${t2p2?.lastName}` || 'Unknown',
           tournamentName: tournament?.name || null,
         };
       })
