@@ -27,7 +27,7 @@ export default function TabsLayout({ children }: { children: ReactNode }) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Container maxWidth="lg" sx={{ mt: 2 }}>
+      <Container maxWidth="lg" sx={{ mt: { xs: 1, sm: 2 }, px: { xs: 1, sm: 2 } }}>
         {user && <NavigationTabs getTabValue={getTabValue} />}
         {children}
       </Container>

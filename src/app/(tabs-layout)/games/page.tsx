@@ -4,6 +4,8 @@ import { Delete as DeleteIcon, Edit as EditIcon } from '@mui/icons-material';
 import {
   Box,
   Button,
+  Card,
+  CardContent,
   CircularProgress,
   IconButton,
   Paper,
@@ -14,6 +16,8 @@ import {
   TableHead,
   TableRow,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Loading from '@/app/loading';
@@ -40,6 +44,8 @@ export default function Games() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<GameWithPlayers | null>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const fetchGames = async () => {
     try {
@@ -123,17 +129,21 @@ export default function Games() {
   if (isChecking) return <Loading />;
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Paper elevation={3} sx={{ p: 3 }}>
+    <Box sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
+      <Paper elevation={3} sx={{ p: { xs: 2, sm: 3 } }}>
         <Box
           sx={{
             display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
             justifyContent: 'space-between',
-            alignItems: 'center',
+            alignItems: { xs: 'flex-start', sm: 'center' },
             mb: 3,
+            gap: { xs: 2, sm: 0 },
           }}
         >
-          <Typography variant="h4">Games</Typography>
+          <Typography variant="h4" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
+            Games
+          </Typography>
           <Button variant="contained" onClick={() => setDialogOpen(true)}>
             Add Game
           </Button>
@@ -147,6 +157,69 @@ export default function Games() {
           <Typography variant="body1" sx={{ textAlign: 'center', p: 4 }}>
             No games found. Add your first game to get started.
           </Typography>
+        ) : isMobile ? (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {games.map((game) => (
+              <Card key={game.id} sx={{ width: '100%' }}>
+                <CardContent>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      mb: 1,
+                    }}
+                  >
+                    <Typography variant="h6" sx={{ fontSize: '1rem' }}>
+                      {formatDate(game.playedAt)}
+                    </Typography>
+                    <Box>
+                      <IconButton
+                        onClick={() => handleEditClick(game)}
+                        color="primary"
+                        size="small"
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => handleDeleteClick(game)}
+                        color="error"
+                        size="small"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  </Box>
+
+                  {game.tournamentName && (
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      Tournament: {game.tournamentName}
+                    </Typography>
+                  )}
+
+                  <Box sx={{ mb: 1 }}>
+                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                      Team 1: {game.team1Player1Name} & {game.team1Player2Name}
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                      Team 2: {game.team2Player1Name} & {game.team2Player2Name}
+                    </Typography>
+                  </Box>
+
+                  <Box
+                    sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                  >
+                    <Typography variant="body2">
+                      Score: {game.team1SetScore} - {game.team2SetScore}
+                    </Typography>
+                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                      Winner: {game.winningTeam > 0 ? `Team ${game.winningTeam}` : 'Tie'}
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            ))}
+          </Box>
         ) : (
           <TableContainer>
             <Table>

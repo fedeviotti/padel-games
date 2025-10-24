@@ -12,11 +12,46 @@ type Props = {
 export const NavigationTabs: FC<Props> = ({ getTabValue }) => {
   return (
     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Tabs value={getTabValue()} aria-label="navigation tabs">
-        <Tab icon={<Dashboard />} label="Dashboard" component={Link} href="/" />
-        <Tab icon={<SportsBaseball />} label="Games" component={Link} href="/games" />
-        <Tab icon={<People />} label="Players" component={Link} href="/players" />
-        <Tab icon={<EmojiEvents />} label="Tournaments" component={Link} href="/tournaments" />
+      <Tabs
+        value={getTabValue()}
+        aria-label="navigation tabs"
+        variant="scrollable"
+        scrollButtons="auto"
+        sx={{
+          '& .MuiTab-root': {
+            minWidth: { xs: 'auto', sm: 'auto' },
+            padding: { xs: '12px 8px', sm: '12px 16px' },
+          },
+        }}
+      >
+        <Tab
+          icon={<Dashboard />}
+          label="Dashboard"
+          component={Link}
+          href="/"
+          sx={{ display: { xs: 'flex', sm: 'flex' } }}
+        />
+        <Tab
+          icon={<SportsBaseball />}
+          label="Games"
+          component={Link}
+          href="/games"
+          sx={{ display: { xs: 'flex', sm: 'flex' } }}
+        />
+        <Tab
+          icon={<People />}
+          label="Players"
+          component={Link}
+          href="/players"
+          sx={{ display: { xs: 'flex', sm: 'flex' } }}
+        />
+        <Tab
+          icon={<EmojiEvents />}
+          label="Tournaments"
+          component={Link}
+          href="/tournaments"
+          sx={{ display: { xs: 'flex', sm: 'flex' } }}
+        />
       </Tabs>
     </Box>
   );

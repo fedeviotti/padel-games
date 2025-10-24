@@ -54,21 +54,35 @@ export const PlayerChartsSection: FC<Props> = ({ selectedPlayer }) => {
   }, [totalGamesPlayed, totalWins]);
 
   return (
-    <Box sx={{ display: 'flex', flex: 1, gap: 2 }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flex: 1,
+        gap: 2,
+        flexDirection: { xs: 'column', md: 'row' },
+        alignItems: { xs: 'center', md: 'flex-start' },
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          width: 250,
+          width: { xs: '100%', md: 250 },
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Typography>Total games played</Typography>
-          <Typography>{loading ? 'Loading...' : totalGamesPlayed}</Typography>
+          <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+            Total games played
+          </Typography>
+          <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+            {loading ? 'Loading...' : totalGamesPlayed}
+          </Typography>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Typography>Total wins</Typography>
-          <Typography>{loading ? 'Loading...' : totalWins}</Typography>
+          <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>Total wins</Typography>
+          <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+            {loading ? 'Loading...' : totalWins}
+          </Typography>
         </Box>
       </Box>
 
@@ -80,11 +94,16 @@ export const PlayerChartsSection: FC<Props> = ({ selectedPlayer }) => {
           flex: 1,
         }}
       >
-        <Typography>Win rate</Typography>
+        <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>Win rate</Typography>
         {loading ? (
           <Skeleton width={150} height={150} variant="circular" />
         ) : (
-          <Gauge width={150} height={150} value={winRate} />
+          <Gauge
+            width={150}
+            height={150}
+            value={winRate}
+            sx={{ width: { xs: 120, sm: 150 }, height: { xs: 120, sm: 150 } }}
+          />
         )}
       </Box>
     </Box>

@@ -4,6 +4,8 @@ import { Delete as DeleteIcon, Edit as EditIcon, Search as SearchIcon } from '@m
 import {
   Box,
   Button,
+  Card,
+  CardContent,
   CircularProgress,
   IconButton,
   InputAdornment,
@@ -16,6 +18,8 @@ import {
   TableRow,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Loading from '@/app/loading';
@@ -36,6 +40,8 @@ export default function Tournaments() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [selectedTournament, setSelectedTournament] = useState<SelectTournament | null>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     if (!searchTerm.trim()) {
@@ -103,18 +109,30 @@ export default function Tournaments() {
   if (isChecking) return <Loading />;
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Paper elevation={3} sx={{ p: 3 }}>
+    <Box sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
+      <Paper elevation={3} sx={{ p: { xs: 2, sm: 3 } }}>
         <Box
           sx={{
             display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
             justifyContent: 'space-between',
-            alignItems: 'center',
+            alignItems: { xs: 'flex-start', sm: 'center' },
             mb: 3,
+            gap: { xs: 2, sm: 0 },
           }}
         >
-          <Typography variant="h4">Tournaments</Typography>
-          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+          <Typography variant="h4" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
+            Tournaments
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: 2,
+              alignItems: 'center',
+              width: { xs: '100%', sm: 'auto' },
+            }}
+          >
             <TextField
               size="small"
               placeholder="Search tournaments..."
@@ -127,9 +145,13 @@ export default function Tournaments() {
                   </InputAdornment>
                 ),
               }}
-              sx={{ minWidth: 250 }}
+              sx={{ width: { xs: '100%', sm: 250 } }}
             />
-            <Button variant="contained" onClick={() => setDialogOpen(true)}>
+            <Button
+              variant="contained"
+              onClick={() => setDialogOpen(true)}
+              sx={{ width: { xs: '100%', sm: 'auto' } }}
+            >
               Add Tournament
             </Button>
           </Box>
@@ -145,6 +167,63 @@ export default function Tournaments() {
               ? 'No tournaments found. Add your first tournament to get started.'
               : 'No tournaments match your search criteria.'}
           </Typography>
+        ) : isMobile ? (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {filteredTournaments.map((tournament) => (
+              <Card key={tournament.id} sx={{ width: '100%' }}>
+                <CardContent>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      mb: 1,
+                    }}
+                  >
+                    <Typography variant="h6" sx={{ fontSize: '1rem' }}>
+                      {tournament.name}
+                    </Typography>
+                    <Box>
+                      <IconButton
+                        onClick={() => handleEditClick(tournament)}
+                        color="primary"
+                        size="small"
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => handleDeleteClick(tournament)}
+                        color="error"
+                        size="small"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  </Box>
+
+                  <Box sx={{ mb: 1 }}>
+                    <Typography variant="body2" sx={{ mb: 0.5 }}>
+                      Start: {formatDate(tournament.startDate)}
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 0.5 }}>
+                      End: {formatDate(tournament.endDate)}
+                    </Typography>
+                  </Box>
+
+                  <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                    Duration:{' '}
+                    {tournament.endDate
+                      ? `${Math.ceil(
+                          (new Date(tournament.endDate).getTime() -
+                            new Date(tournament.startDate).getTime()) /
+                            (1000 * 60 * 60 * 24)
+                        )} days`
+                      : 'Ongoing'}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </Box>
         ) : (
           <TableContainer>
             <Table>

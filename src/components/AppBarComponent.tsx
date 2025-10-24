@@ -21,11 +21,18 @@ export function AppBarComponent() {
 
   return (
     <AppBar position="static">
-      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', px: { xs: 1, sm: 2 } }}>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{
+            flexGrow: 1,
+            fontSize: { xs: '1rem', sm: '1.25rem' },
+          }}
+        >
           Padel Games
         </Typography>
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={{ xs: 0.5, sm: 1 }}>
           <ToggleColorMode />
           {isClient && (
             <Box sx={{ color: getUserButtonColor() }}>

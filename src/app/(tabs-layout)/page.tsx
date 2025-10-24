@@ -38,13 +38,13 @@ export default function Dashboard() {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Paper elevation={3} sx={{ p: 3 }}>
+    <Box sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
+      <Paper elevation={3} sx={{ p: { xs: 2, sm: 3 } }}>
         <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
             Dashboard
           </Typography>
-          <Typography variant="body1">
+          <Typography variant="body1" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
             Welcome to Padel Games {user?.displayName || user?.primaryEmail?.split('@')[0]}! Here
             you can see statistics of your games.
           </Typography>
@@ -58,7 +58,14 @@ export default function Dashboard() {
             gap: 2,
           }}
         >
-          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+              gap: 2,
+              alignItems: { xs: 'stretch', md: 'flex-start' },
+            }}
+          >
             <Autocomplete
               size="small"
               value={selectedPlayer}
@@ -66,7 +73,7 @@ export default function Dashboard() {
               options={players}
               getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
               loading={loading}
-              sx={{ width: 250 }}
+              sx={{ width: { xs: '100%', md: 250 } }}
               renderInput={(params) => (
                 <TextField {...params} label="Select Player" placeholder="Choose a player" />
               )}
@@ -75,11 +82,20 @@ export default function Dashboard() {
             {selectedPlayer ? (
               <PlayerChartsSection selectedPlayer={selectedPlayer} />
             ) : (
-              <Box height={150}>Select a player to see his statistics</Box>
+              <Box height={150} sx={{ display: { xs: 'none', md: 'block' } }}>
+                Select a player to see his statistics
+              </Box>
             )}
           </Box>
 
-          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+              gap: 2,
+              alignItems: { xs: 'stretch', md: 'flex-start' },
+            }}
+          >
             <Autocomplete
               size="small"
               value={selectedOpponent}
@@ -87,7 +103,7 @@ export default function Dashboard() {
               options={players.filter((player) => player.id !== selectedPlayer?.id)}
               getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
               loading={loading}
-              sx={{ width: 250 }}
+              sx={{ width: { xs: '100%', md: 250 } }}
               renderInput={(params) => (
                 <TextField {...params} label="Select Opponent" placeholder="Choose an opponent" />
               )}
@@ -98,7 +114,7 @@ export default function Dashboard() {
                 selectedOpponent={selectedOpponent}
               />
             ) : (
-              <Box height={150}>
+              <Box height={150} sx={{ display: { xs: 'none', md: 'block' } }}>
                 Select an opponent to see the statistics of the games against him
               </Box>
             )}

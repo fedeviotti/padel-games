@@ -13,6 +13,8 @@ import {
   Select,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { SelectPlayer, SelectTournament } from '@/db/schema';
@@ -37,6 +39,8 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
     tournamentId: '',
   });
   const [loading, setLoading] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (open) {
@@ -135,10 +139,10 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth fullScreen={isMobile}>
       <form onSubmit={handleSubmit}>
-        <DialogTitle>Add New Game</DialogTitle>
-        <DialogContent>
+        <DialogTitle sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>Add New Game</DialogTitle>
+        <DialogContent sx={{ p: { xs: 2, sm: 3 } }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
             <TextField
               label="Date Played"
@@ -170,7 +174,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
               </Select>
             </FormControl>
 
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
               <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
                 Team 1
               </Typography>
@@ -179,7 +183,13 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
               </Typography>
             </Box>
 
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                gap: 2,
+              }}
+            >
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
                 <FormControl fullWidth required>
                   <InputLabel>Player 1</InputLabel>
@@ -246,7 +256,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
             <Typography variant="h6" sx={{ mt: 2 }}>
               Score
             </Typography>
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
               <TextField
                 label="Team 1 Set Score"
                 type="number"
@@ -267,7 +277,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
               />
             </Box>
 
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
               <TextField
                 label="Winner"
                 fullWidth
@@ -290,7 +300,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
             </Box>
           </Box>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ p: { xs: 2, sm: 3 } }}>
           <Button onClick={onClose} disabled={loading}>
             Cancel
           </Button>

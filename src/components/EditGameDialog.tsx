@@ -13,6 +13,8 @@ import {
   Select,
   TextField,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { SelectGame, SelectPlayer, SelectTournament } from '@/db/schema';
@@ -50,6 +52,8 @@ export default function EditGameDialog({
     tournamentId: '',
   });
   const [loading, setLoading] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (open) {
@@ -155,7 +159,7 @@ export default function EditGameDialog({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth fullScreen={isMobile}>
       <form onSubmit={handleSubmit}>
         <DialogTitle>Edit Game</DialogTitle>
         <DialogContent>

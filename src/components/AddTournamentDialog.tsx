@@ -8,6 +8,8 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useState } from 'react';
 
@@ -28,6 +30,8 @@ export default function AddTournamentDialog({
     endDate: '',
   });
   const [loading, setLoading] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,10 +66,12 @@ export default function AddTournamentDialog({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth fullScreen={isMobile}>
       <form onSubmit={handleSubmit}>
-        <DialogTitle>Add New Tournament</DialogTitle>
-        <DialogContent>
+        <DialogTitle sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
+          Add New Tournament
+        </DialogTitle>
+        <DialogContent sx={{ p: { xs: 2, sm: 3 } }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
             <TextField
               label="Tournament Name"
@@ -102,7 +108,7 @@ export default function AddTournamentDialog({
             />
           </Box>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ p: { xs: 2, sm: 3 } }}>
           <Button onClick={onClose} disabled={loading}>
             Cancel
           </Button>

@@ -8,6 +8,8 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { SelectTournament } from '@/db/schema';
@@ -31,6 +33,8 @@ export default function EditTournamentDialog({
     endDate: '',
   });
   const [loading, setLoading] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (tournament) {
@@ -78,7 +82,7 @@ export default function EditTournamentDialog({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth fullScreen={isMobile}>
       <form onSubmit={handleSubmit}>
         <DialogTitle>Edit Tournament</DialogTitle>
         <DialogContent>
