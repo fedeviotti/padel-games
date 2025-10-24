@@ -141,34 +141,37 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
         <DialogTitle sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>Add New Game</DialogTitle>
         <DialogContent sx={{ p: { xs: 2, sm: 3 } }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
-            <TextField
-              label="Date Played"
-              type="date"
-              required
-              fullWidth
-              value={formData.playedAt}
-              onChange={(e) => setFormData({ ...formData, playedAt: e.target.value })}
-              slotProps={{
-                inputLabel: { shrink: true },
-              }}
-            />
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
+              <TextField
+                sx={{ flex: 1 }}
+                label="Date Played"
+                type="date"
+                required
+                value={formData.playedAt}
+                onChange={(e) => setFormData({ ...formData, playedAt: e.target.value })}
+                slotProps={{
+                  inputLabel: { shrink: true },
+                }}
+              />
 
-            <Autocomplete
-              options={tournaments}
-              getOptionLabel={(option) => option.name}
-              value={tournaments.find((t) => t.id.toString() === formData.tournamentId) || null}
-              onChange={(_, newValue) =>
-                setFormData({ ...formData, tournamentId: newValue?.id.toString() || '' })
-              }
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Tournament (Optional)"
-                  placeholder="Select a tournament"
-                />
-              )}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-            />
+              <Autocomplete
+                sx={{ flex: 1 }}
+                options={tournaments}
+                getOptionLabel={(option) => option.name}
+                value={tournaments.find((t) => t.id.toString() === formData.tournamentId) || null}
+                onChange={(_, newValue) =>
+                  setFormData({ ...formData, tournamentId: newValue?.id.toString() || '' })
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Tournament (Optional)"
+                    placeholder="Select a tournament"
+                  />
+                )}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+              />
+            </Box>
 
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
               <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
