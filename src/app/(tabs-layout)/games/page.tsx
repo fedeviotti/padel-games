@@ -19,6 +19,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import Loading from '@/app/loading';
 import AddGameDialog from '@/components/AddGameDialog';
@@ -36,6 +37,7 @@ type GameWithPlayers = SelectGame & {
 };
 
 export default function Games() {
+  const t = useTranslations('games');
   const { user, isChecking } = useProtectedRoute();
   const [games, setGames] = useState<GameWithPlayers[]>([]);
   const [loading, setLoading] = useState(true);
@@ -142,10 +144,10 @@ export default function Games() {
           }}
         >
           <Typography variant="h4" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
-            Games
+            {t('title')}
           </Typography>
           <Button variant="contained" onClick={() => setDialogOpen(true)}>
-            Add Game
+            {t('add_game')}
           </Button>
         </Box>
 
@@ -155,7 +157,7 @@ export default function Games() {
           </Box>
         ) : games.length === 0 ? (
           <Typography variant="body1" sx={{ textAlign: 'center', p: 4 }}>
-            No games found. Add your first game to get started.
+            {t('no_games_found')}
           </Typography>
         ) : isMobile ? (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -193,7 +195,7 @@ export default function Games() {
 
                   {game.tournamentName && (
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      Tournament: {game.tournamentName}
+                      {t('tournament')}: {game.tournamentName}
                     </Typography>
                   )}
 
@@ -210,7 +212,7 @@ export default function Games() {
                           game.winningTeam === 1 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
-                      Team 1: {game.team1Player1Name} & {game.team1Player2Name}
+                      {t('team_1')}: {game.team1Player1Name} & {game.team1Player2Name}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -224,7 +226,7 @@ export default function Games() {
                           game.winningTeam === 2 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
-                      Team 2: {game.team2Player1Name} & {game.team2Player2Name}
+                      {t('team_2')}: {game.team2Player1Name} & {game.team2Player2Name}
                     </Typography>
                   </Box>
 
@@ -232,10 +234,10 @@ export default function Games() {
                     sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
                   >
                     <Typography variant="body2">
-                      Score: {game.team1SetScore} - {game.team2SetScore}
+                      {t('score')}: {game.team1SetScore} - {game.team2SetScore}
                     </Typography>
                     <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                      Winner: {game.winningTeam > 0 ? `Team ${game.winningTeam}` : 'Tie'}
+                      {t('winner')}: {game.winningTeam > 0 ? `Team ${game.winningTeam}` : 'Tie'}
                     </Typography>
                   </Box>
                 </CardContent>
@@ -247,13 +249,13 @@ export default function Games() {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Tournament</TableCell>
-                  <TableCell>Team 1</TableCell>
-                  <TableCell>Team 2</TableCell>
-                  <TableCell>Set Score</TableCell>
-                  <TableCell>Winner</TableCell>
-                  <TableCell align="right">Actions</TableCell>
+                  <TableCell>{t('table_header_date')}</TableCell>
+                  <TableCell>{t('table_header_tournament')}</TableCell>
+                  <TableCell>{t('table_header_team_1')}</TableCell>
+                  <TableCell>{t('table_header_team_2')}</TableCell>
+                  <TableCell>{t('table_header_score')}</TableCell>
+                  <TableCell>{t('table_header_winner')}</TableCell>
+                  <TableCell align="right">{t('table_header_actions')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

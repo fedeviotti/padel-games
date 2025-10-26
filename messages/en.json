@@ -19,6 +19,23 @@
     "select_player_to_see_statistics": "Select a player to see his statistics",
     "select_opponent_to_see_statistics": "Select an opponent to see the statistics of the games against him"
   },
+  "games": {
+    "title": "Games",
+    "add_game": "Add Game",
+    "no_games_found": "No games found. Add your first game to get started.",
+    "tournament": "Tournament",
+    "team_1": "Team 1",
+    "team_2": "Team 2",
+    "score": "Score",
+    "winner": "Winner",
+    "table_header_date": "Date",
+    "table_header_tournament": "Tournament",
+    "table_header_team_1": "Team 1",
+    "table_header_team_2": "Team 2",
+    "table_header_score": "Score",
+    "table_header_winner": "Winner",
+    "table_header_actions": "Actions"
+  },
   "players": {
     "title": "Players"
   },
