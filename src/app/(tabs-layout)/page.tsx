@@ -28,11 +28,11 @@ export default function Dashboard() {
             {t('title')}
           </Typography>
           <Typography variant="body1">
-            Welcome to Padel Games!{' '}
+            {t('welcome_no_name')}{' '}
             <Link href="/handler/sign-in" style={{ color: 'inherit', textDecoration: 'underline' }}>
-              Login
+              {t('login')}
             </Link>{' '}
-            to see your dashboard.
+            {t('to_see_dashboard')}
           </Typography>
         </Paper>
       </Box>
@@ -47,8 +47,10 @@ export default function Dashboard() {
             {t('title')}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-            Welcome to Padel Games {user?.displayName || user?.primaryEmail?.split('@')[0]}! Here
-            you can see statistics of your games.
+            {t('welcome_name', {
+              name: user?.displayName || user?.primaryEmail?.split('@')[0] || '',
+            })}{' '}
+            {t('welcome_message')}
           </Typography>
         </Box>
         <Divider sx={{ my: 2 }} />
@@ -77,7 +79,11 @@ export default function Dashboard() {
               loading={loading}
               sx={{ width: { xs: '100%', md: 250 } }}
               renderInput={(params) => (
-                <TextField {...params} label="Select Player" placeholder="Choose a player" />
+                <TextField
+                  {...params}
+                  label={t('select_player')}
+                  placeholder={t('choose_player')}
+                />
               )}
             />
 
@@ -85,7 +91,7 @@ export default function Dashboard() {
               <PlayerChartsSection selectedPlayer={selectedPlayer} />
             ) : (
               <Box height={150} sx={{ display: { xs: 'none', md: 'block' } }}>
-                Select a player to see his statistics
+                {t('select_player_to_see_statistics')}
               </Box>
             )}
           </Box>
@@ -107,7 +113,11 @@ export default function Dashboard() {
               loading={loading}
               sx={{ width: { xs: '100%', md: 250 } }}
               renderInput={(params) => (
-                <TextField {...params} label="Select Opponent" placeholder="Choose an opponent" />
+                <TextField
+                  {...params}
+                  label={t('select_opponent')}
+                  placeholder={t('choose_opponent')}
+                />
               )}
             />
             {selectedPlayer && selectedOpponent ? (
@@ -117,7 +127,7 @@ export default function Dashboard() {
               />
             ) : (
               <Box height={150} sx={{ display: { xs: 'none', md: 'block' } }}>
-                Select an opponent to see the statistics of the games against him
+                {t('select_opponent_to_see_statistics')}
               </Box>
             )}
           </Box>

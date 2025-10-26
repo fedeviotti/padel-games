@@ -2,6 +2,7 @@ import { Dashboard, EmojiEvents, People, SportsBaseball } from '@mui/icons-mater
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { FC } from 'react';
 
@@ -10,6 +11,7 @@ type Props = {
 };
 
 export const NavigationTabs: FC<Props> = ({ getTabValue }) => {
+  const t = useTranslations('navigation_tabs');
   return (
     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
       <Tabs
@@ -26,28 +28,28 @@ export const NavigationTabs: FC<Props> = ({ getTabValue }) => {
       >
         <Tab
           icon={<Dashboard />}
-          label="Dashboard"
+          label={t('dashboard')}
           component={Link}
           href="/"
           sx={{ display: { xs: 'flex', sm: 'flex' } }}
         />
         <Tab
           icon={<SportsBaseball />}
-          label="Games"
+          label={t('games')}
           component={Link}
           href="/games"
           sx={{ display: { xs: 'flex', sm: 'flex' } }}
         />
         <Tab
           icon={<People />}
-          label="Players"
+          label={t('players')}
           component={Link}
           href="/players"
           sx={{ display: { xs: 'flex', sm: 'flex' } }}
         />
         <Tab
           icon={<EmojiEvents />}
-          label="Tournaments"
+          label={t('tournaments')}
           component={Link}
           href="/tournaments"
           sx={{ display: { xs: 'flex', sm: 'flex' } }}

@@ -1,6 +1,23 @@
 {
+  "navigation_tabs": {
+    "dashboard": "Dashboard",
+    "games": "Partite",
+    "players": "Giocatori",
+    "tournaments": "Tornei"
+  },
   "dashboard": {
-    "title": "Dashboard ITA"
+    "title": "Dashboard",
+    "login": "Accedi",
+    "welcome_no_name": "Benvenuto in Padel Games!",
+    "welcome_name": "Benvenuto in Padel Games {name}!",
+    "welcome_message": "Qui puoi vedere le statistiche dei tuoi giocatori.",
+    "to_see_dashboard": "per vedere la tua dashboard.",
+    "select_player": "Seleziona un giocatore",
+    "choose_player": "Scegli un giocatore",
+    "select_opponent": "Seleziona un avversario",
+    "choose_opponent": "Scegli un avversario",
+    "select_player_to_see_statistics": "Seleziona un giocatore per vedere le sue statistiche",
+    "select_opponent_to_see_statistics": "Seleziona un avversario per vedere le sue statistiche contro di lui"
   },
   "players": {
     "title": "Giocatori"

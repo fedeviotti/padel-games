@@ -1,6 +1,23 @@
 {
+  "navigation_tabs": {
+    "dashboard": "Dashboard",
+    "games": "Games",
+    "players": "Players",
+    "tournaments": "Tournaments"
+  },
   "dashboard": {
-    "title": "Dashboard EN"
+    "title": "Dashboard",
+    "login": "Login",
+    "welcome_no_name": "Welcome to Padel Games!",
+    "welcome_name": "Welcome to Padel Games {name}!",
+    "welcome_message": "Here you can see statistics of your games.",
+    "to_see_dashboard": "to see your dashboard.",
+    "select_player": "Select a player",
+    "choose_player": "Choose a player",
+    "select_opponent": "Select an opponent",
+    "choose_opponent": "Choose an opponent",
+    "select_player_to_see_statistics": "Select a player to see his statistics",
+    "select_opponent_to_see_statistics": "Select an opponent to see the statistics of the games against him"
   },
   "players": {
     "title": "Players"
