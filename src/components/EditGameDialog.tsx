@@ -1,16 +1,13 @@
 'use client';
 
 import {
+  Autocomplete,
   Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
   Typography,
   useMediaQuery,
@@ -170,10 +167,10 @@ export default function EditGameDialog({
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
               <TextField
+                sx={{ flex: 1 }}
                 label={t('add_edit_game.date_played')}
                 type="date"
                 required
-                fullWidth
                 value={formData.playedAt}
                 onChange={(e) => setFormData({ ...formData, playedAt: e.target.value })}
                 slotProps={{
@@ -181,102 +178,117 @@ export default function EditGameDialog({
                 }}
               />
 
-              <FormControl fullWidth>
-                <InputLabel>{t('add_edit_game.tournament_optional')}</InputLabel>
-                <Select
-                  value={formData.tournamentId}
-                  label={t('add_edit_game.tournament_optional')}
-                  onChange={(e) => setFormData({ ...formData, tournamentId: e.target.value })}
-                >
-                  <MenuItem value="">
-                    <em>{t('no_tournament')}</em>
-                  </MenuItem>
-                  {tournaments.map((tournament) => (
-                    <MenuItem key={tournament.id} value={tournament.id}>
-                      {tournament.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+              <Autocomplete
+                sx={{ flex: 1 }}
+                options={tournaments}
+                getOptionLabel={(option) => option.name}
+                value={tournaments.find((t) => t.id.toString() === formData.tournamentId) || null}
+                onChange={(_, newValue) =>
+                  setFormData({ ...formData, tournamentId: newValue?.id.toString() || '' })
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={t('add_edit_game.tournament_optional')}
+                    placeholder={t('add_edit_game.choose_tournament')}
+                  />
+                )}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+              />
             </Box>
 
-            <Box sx={{ display: 'flex' }}>
-              <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
-                {t('team_1')}
-              </Typography>
-              <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
-                {t('team_2')}
-              </Typography>
-            </Box>
-
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                gap: 2,
+              }}
+            >
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
-                <FormControl fullWidth required>
-                  <InputLabel>{t('add_edit_game.team_1_player_1')}</InputLabel>
-                  <Select
-                    value={formData.team1Player1}
-                    label={t('add_edit_game.team_1_player_1')}
-                    onChange={(e) => setFormData({ ...formData, team1Player1: e.target.value })}
-                  >
-                    {players.map((player) => (
-                      <MenuItem key={player.id} value={player.id}>
-                        {player.firstName} {player.lastName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl fullWidth required>
-                  <InputLabel>{t('add_edit_game.team_1_player_2')}</InputLabel>
-                  <Select
-                    value={formData.team1Player2}
-                    label={t('add_edit_game.team_1_player_2')}
-                    onChange={(e) => setFormData({ ...formData, team1Player2: e.target.value })}
-                  >
-                    {players.map((player) => (
-                      <MenuItem key={player.id} value={player.id}>
-                        {player.firstName} {player.lastName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
+                  {t('team_1')}
+                </Typography>
+                <Autocomplete
+                  options={players}
+                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  value={players.find((p) => p.id.toString() === formData.team1Player1) || null}
+                  onChange={(_, newValue) =>
+                    setFormData({ ...formData, team1Player1: newValue?.id.toString() || '' })
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t('add_edit_game.team_1_player_1')}
+                      placeholder={t('add_edit_game.choose_player')}
+                      required
+                    />
+                  )}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                />
+                <Autocomplete
+                  options={players}
+                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  value={players.find((p) => p.id.toString() === formData.team1Player2) || null}
+                  onChange={(_, newValue) =>
+                    setFormData({ ...formData, team1Player2: newValue?.id.toString() || '' })
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t('add_edit_game.team_1_player_2')}
+                      placeholder={t('add_edit_game.choose_player')}
+                      required
+                    />
+                  )}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                />
               </Box>
 
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
-                <FormControl fullWidth required>
-                  <InputLabel>{t('add_edit_game.team_2_player_1')}</InputLabel>
-                  <Select
-                    value={formData.team2Player1}
-                    label={t('add_edit_game.team_2_player_1')}
-                    onChange={(e) => setFormData({ ...formData, team2Player1: e.target.value })}
-                  >
-                    {players.map((player) => (
-                      <MenuItem key={player.id} value={player.id}>
-                        {player.firstName} {player.lastName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl fullWidth required>
-                  <InputLabel>{t('add_edit_game.team_2_player_2')}</InputLabel>
-                  <Select
-                    value={formData.team2Player2}
-                    label={t('add_edit_game.team_2_player_2')}
-                    onChange={(e) => setFormData({ ...formData, team2Player2: e.target.value })}
-                  >
-                    {players.map((player) => (
-                      <MenuItem key={player.id} value={player.id}>
-                        {player.firstName} {player.lastName}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
+                  {t('team_2')}
+                </Typography>
+                <Autocomplete
+                  options={players}
+                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  value={players.find((p) => p.id.toString() === formData.team2Player1) || null}
+                  onChange={(_, newValue) =>
+                    setFormData({ ...formData, team2Player1: newValue?.id.toString() || '' })
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t('add_edit_game.team_2_player_1')}
+                      placeholder={t('add_edit_game.choose_player')}
+                      required
+                    />
+                  )}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                />
+                <Autocomplete
+                  options={players}
+                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  value={players.find((p) => p.id.toString() === formData.team2Player2) || null}
+                  onChange={(_, newValue) =>
+                    setFormData({ ...formData, team2Player2: newValue?.id.toString() || '' })
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t('add_edit_game.team_2_player_2')}
+                      placeholder={t('add_edit_game.choose_player')}
+                      required
+                    />
+                  )}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                />
               </Box>
             </Box>
 
             <Typography variant="h6" sx={{ mt: 2 }}>
               {t('score')}
             </Typography>
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
               <TextField
                 label={t('add_edit_game.team_1_set_score')}
                 type="number"
@@ -297,7 +309,7 @@ export default function EditGameDialog({
               />
             </Box>
 
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
               <TextField
                 label={t('add_edit_game.winner')}
                 fullWidth
