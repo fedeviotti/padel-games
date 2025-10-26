@@ -185,7 +185,7 @@ export default function Tournaments() {
                     <Typography variant="h6" sx={{ fontSize: '1rem' }}>
                       {tournament.name}
                     </Typography>
-                    <Box>
+                    <Box sx={{ display: 'flex' }}>
                       <IconButton
                         onClick={() => handleEditClick(tournament)}
                         color="primary"
