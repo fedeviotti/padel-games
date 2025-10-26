@@ -11,6 +11,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 interface AddTournamentDialogProps {
@@ -24,6 +25,7 @@ export default function AddTournamentDialog({
   onClose,
   onTournamentAdded,
 }: AddTournamentDialogProps) {
+  const t = useTranslations('tournaments');
   const [formData, setFormData] = useState({
     name: '',
     startDate: '',
@@ -69,19 +71,19 @@ export default function AddTournamentDialog({
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth fullScreen={isMobile}>
       <form onSubmit={handleSubmit}>
         <DialogTitle sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
-          Add New Tournament
+          {t('add_tournament')}
         </DialogTitle>
         <DialogContent sx={{ p: { xs: 2, sm: 3 } }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
             <TextField
-              label="Tournament Name"
+              label={t('add_edit_tournament.name')}
               required
               fullWidth
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
             <TextField
-              label="Start Date"
+              label={t('add_edit_tournament.start_date')}
               type="date"
               required
               fullWidth
@@ -92,7 +94,7 @@ export default function AddTournamentDialog({
               onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
             />
             <TextField
-              label="End Date"
+              label={t('add_edit_tournament.end_date')}
               type="date"
               fullWidth
               InputLabelProps={{
@@ -110,10 +112,10 @@ export default function AddTournamentDialog({
         </DialogContent>
         <DialogActions sx={{ p: { xs: 2, sm: 3 } }}>
           <Button onClick={onClose} disabled={loading}>
-            Cancel
+            {t('cancel')}
           </Button>
           <Button type="submit" variant="contained" disabled={loading}>
-            {loading ? 'Adding...' : 'Add Tournament'}
+            {loading ? t('adding') : t('add_tournament')}
           </Button>
         </DialogActions>
       </form>

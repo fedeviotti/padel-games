@@ -91,6 +91,7 @@
     "title": "Tornei",
     "search_tournaments": "Cerca tornei",
     "add_tournament": "Aggiungi torneo",
+    "edit_tournament": "Modifica torneo",
     "no_tournaments_found": "Nessun torneo trovato. Aggiungi il tuo primo torneo per iniziare.",
     "no_tournaments_match_search_criteria": "Nessun torneo trovato che corrisponda ai criteri di ricerca.",
     "card_start_date": "Data di inizio",
@@ -98,10 +99,18 @@
     "ongoing": "In corso",
     "duration": "Durata",
     "days": "giorni",
+    "cancel": "Annulla",
+    "adding": "Aggiungendo...",
+    "updating": "Aggiornando...",
     "table_header_name": "Nome",
     "table_header_start_date": "Data di inizio",
     "table_header_end_date": "Data di fine",
     "table_header_duration": "Durata",
-    "table_header_actions": "Azioni"
+    "table_header_actions": "Azioni",
+    "add_edit_tournament": {
+      "name": "Nome",
+      "start_date": "Data di inizio",
+      "end_date": "Data di fine"
+    }
   }
 }

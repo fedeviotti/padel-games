@@ -11,6 +11,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { SelectTournament } from '@/db/schema';
 
@@ -27,6 +28,7 @@ export default function EditTournamentDialog({
   onTournamentUpdated,
   tournament,
 }: EditTournamentDialogProps) {
+  const t = useTranslations('tournaments');
   const [formData, setFormData] = useState({
     name: '',
     startDate: '',
@@ -84,18 +86,18 @@ export default function EditTournamentDialog({
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth fullScreen={isMobile}>
       <form onSubmit={handleSubmit}>
-        <DialogTitle>Edit Tournament</DialogTitle>
+        <DialogTitle>{t('edit_tournament')}</DialogTitle>
         <DialogContent>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
             <TextField
-              label="Tournament Name"
+              label={t('add_edit_tournament.name')}
               required
               fullWidth
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
             <TextField
-              label="Start Date"
+              label={t('add_edit_tournament.start_date')}
               type="date"
               required
               fullWidth
@@ -106,7 +108,7 @@ export default function EditTournamentDialog({
               onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
             />
             <TextField
-              label="End Date"
+              label={t('add_edit_tournament.end_date')}
               type="date"
               fullWidth
               InputLabelProps={{
@@ -124,10 +126,10 @@ export default function EditTournamentDialog({
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} disabled={loading}>
-            Cancel
+            {t('cancel')}
           </Button>
           <Button type="submit" variant="contained" disabled={loading}>
-            {loading ? 'Updating...' : 'Update Tournament'}
+            {loading ? t('updating') : t('edit_tournament')}
           </Button>
         </DialogActions>
       </form>
