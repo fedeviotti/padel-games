@@ -34,7 +34,24 @@
     "table_header_team_2": "Team 2",
     "table_header_score": "Score",
     "table_header_winner": "Winner",
-    "table_header_actions": "Actions"
+    "table_header_actions": "Actions",
+    "cancel": "Cancel",
+    "new_game": {
+      "date_played": "Date Played",
+      "tournament_optional": "Tournament (optional)",
+      "choose_tournament": "Choose a tournament",
+      "team_1_player_1": "Player 1",
+      "team_1_player_2": "Player 2",
+      "team_2_player_1": "Player 1",
+      "team_2_player_2": "Player 2",
+      "choose_player": "Choose a player",
+      "team_1_set_score": "Team 1 Set Score",
+      "team_2_set_score": "Team 2 Set Score",
+      "winner": "Winner",
+      "games_difference": "Games Difference",
+      "add_game": "Add Game",
+      "adding": "Adding..."
+    }
   },
   "players": {
     "title": "Players"

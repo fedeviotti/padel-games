@@ -34,7 +34,24 @@
     "table_header_team_2": "Team 2",
     "table_header_score": "Punteggio",
     "table_header_winner": "Vincitore",
-    "table_header_actions": "Azioni"
+    "table_header_actions": "Azioni",
+    "cancel": "Annulla",
+    "new_game": {
+      "date_played": "Data della partita",
+      "tournament_optional": "Torneo (opzionale)",
+      "choose_tournament": "Scegli un torneo",
+      "team_1_player_1": "Giocatore 1",
+      "team_1_player_2": "Giocatore 2",
+      "team_2_player_1": "Giocatore 1",
+      "team_2_player_2": "Giocatore 2",
+      "choose_player": "Scegli un giocatore",
+      "team_1_set_score": "Punteggio Team 1",
+      "team_2_set_score": "Punteggio Team 2",
+      "winner": "Vincitore",
+      "games_difference": "Differenza di partite",
+      "add_game": "Aggiungi partita",
+      "adding": "Aggiungendo..."
+    }
   },
   "players": {
     "title": "Giocatori"

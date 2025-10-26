@@ -13,6 +13,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { SelectPlayer, SelectTournament } from '@/db/schema';
 
@@ -23,6 +24,7 @@ interface AddGameDialogProps {
 }
 
 export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDialogProps) {
+  const t = useTranslations('games');
   const [players, setPlayers] = useState<SelectPlayer[]>([]);
   const [tournaments, setTournaments] = useState<SelectTournament[]>([]);
   const [formData, setFormData] = useState({
@@ -138,13 +140,15 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth fullScreen={isMobile}>
       <form onSubmit={handleSubmit}>
-        <DialogTitle sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>Add New Game</DialogTitle>
+        <DialogTitle sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
+          {t('add_game')}
+        </DialogTitle>
         <DialogContent sx={{ p: { xs: 2, sm: 3 } }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
               <TextField
                 sx={{ flex: 1 }}
-                label="Date Played"
+                label={t('new_game.date_played')}
                 type="date"
                 required
                 value={formData.playedAt}
@@ -165,8 +169,8 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Tournament (Optional)"
-                    placeholder="Select a tournament"
+                    label={t('new_game.tournament_optional')}
+                    placeholder={t('new_game.choose_tournament')}
                   />
                 )}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -182,7 +186,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
             >
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
                 <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
-                  Team 1
+                  {t('team_1')}
                 </Typography>
                 <Autocomplete
                   options={players}
@@ -192,7 +196,12 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                     setFormData({ ...formData, team1Player1: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
-                    <TextField {...params} label="Player 1" placeholder="Select player" required />
+                    <TextField
+                      {...params}
+                      label={t('new_game.team_1_player_1')}
+                      placeholder={t('new_game.choose_player')}
+                      required
+                    />
                   )}
                   isOptionEqualToValue={(option, value) => option.id === value.id}
                 />
@@ -204,7 +213,12 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                     setFormData({ ...formData, team1Player2: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
-                    <TextField {...params} label="Player 2" placeholder="Select player" required />
+                    <TextField
+                      {...params}
+                      label={t('new_game.team_1_player_2')}
+                      placeholder={t('new_game.choose_player')}
+                      required
+                    />
                   )}
                   isOptionEqualToValue={(option, value) => option.id === value.id}
                 />
@@ -222,7 +236,12 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                     setFormData({ ...formData, team2Player1: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
-                    <TextField {...params} label="Player 1" placeholder="Select player" required />
+                    <TextField
+                      {...params}
+                      label={t('new_game.team_2_player_1')}
+                      placeholder={t('new_game.choose_player')}
+                      required
+                    />
                   )}
                   isOptionEqualToValue={(option, value) => option.id === value.id}
                 />
@@ -234,7 +253,12 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                     setFormData({ ...formData, team2Player2: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
-                    <TextField {...params} label="Player 2" placeholder="Select player" required />
+                    <TextField
+                      {...params}
+                      label={t('new_game.team_2_player_2')}
+                      placeholder={t('new_game.choose_player')}
+                      required
+                    />
                   )}
                   isOptionEqualToValue={(option, value) => option.id === value.id}
                 />
@@ -246,7 +270,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
               <TextField
-                label="Team 1 Set Score"
+                label={t('new_game.team_1_set_score')}
                 type="number"
                 required
                 fullWidth
@@ -255,7 +279,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 onChange={(e) => setFormData({ ...formData, team1SetScore: e.target.value })}
               />
               <TextField
-                label="Team 2 Set Score"
+                label={t('new_game.team_2_set_score')}
                 type="number"
                 required
                 fullWidth
@@ -267,7 +291,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
 
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
               <TextField
-                label="Winner"
+                label={t('new_game.winner')}
                 fullWidth
                 value={getWinningTeam() > 0 ? `Team ${getWinningTeam()}` : 'Tie'}
                 disabled
@@ -276,7 +300,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 }}
               />
               <TextField
-                label="Games Difference"
+                label={t('new_game.games_difference')}
                 type="number"
                 fullWidth
                 value={totalGamesDifference || '0'}
@@ -290,10 +314,10 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
         </DialogContent>
         <DialogActions sx={{ p: { xs: 2, sm: 3 } }}>
           <Button onClick={onClose} disabled={loading}>
-            Cancel
+            {t('cancel')}
           </Button>
           <Button type="submit" variant="contained" disabled={loading}>
-            {loading ? 'Adding...' : 'Add Game'}
+            {loading ? t('adding') : t('add_game')}
           </Button>
         </DialogActions>
       </form>
