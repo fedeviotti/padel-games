@@ -52,14 +52,14 @@
       "team_1_set_score": "Team 1 Set Score",
       "team_2_set_score": "Team 2 Set Score",
       "winner": "Winner",
-      "games_difference": "Games Difference",
-      "add_game": "Add Game"
+      "games_difference": "Games Difference"
     }
   },
   "players": {
     "title": "Players",
     "search_players": "Search players",
     "add_player": "Add player",
+    "edit_player": "Edit player",
     "no_players_found": "No players found. Add your first player to get started.",
     "no_players_match_search_criteria": "No players match your search criteria.",
     "nickname": "Nickname",
@@ -69,7 +69,16 @@
     "table_header_nickname": "Nickname",
     "table_header_year_of_birth": "Year of Birth",
     "table_header_age": "Age",
-    "table_header_actions": "Actions"
+    "table_header_actions": "Actions",
+    "cancel": "Cancel",
+    "adding": "Adding...",
+    "updating": "Updating...",
+    "add_edit_player": {
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "year_of_birth": "Year of Birth",
+      "nickname": "Nickname"
+    }
   },
   "tournaments": {
     "title": "Tournaments"

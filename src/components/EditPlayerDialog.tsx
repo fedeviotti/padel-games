@@ -11,6 +11,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { SelectPlayer } from '@/db/schema';
 
@@ -27,6 +28,7 @@ export default function EditPlayerDialog({
   onPlayerUpdated,
   player,
 }: EditPlayerDialogProps) {
+  const t = useTranslations('players');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -80,24 +82,24 @@ export default function EditPlayerDialog({
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth fullScreen={isMobile}>
       <form onSubmit={handleSubmit}>
-        <DialogTitle>Edit Player</DialogTitle>
+        <DialogTitle>{t('edit_player')}</DialogTitle>
         <DialogContent>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
             <TextField
-              label="First Name"
+              label={t('add_edit_player.first_name')}
               fullWidth
               value={formData.firstName}
               onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
             />
             <TextField
-              label="Last Name"
+              label={t('add_edit_player.last_name')}
               required
               fullWidth
               value={formData.lastName}
               onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
             />
             <TextField
-              label="Year of Birth"
+              label={t('add_edit_player.year_of_birth')}
               type="number"
               fullWidth
               slotProps={{
@@ -111,7 +113,7 @@ export default function EditPlayerDialog({
               onChange={(e) => setFormData({ ...formData, yearOfBirth: e.target.value })}
             />
             <TextField
-              label="Nickname"
+              label={t('add_edit_player.nickname')}
               fullWidth
               value={formData.nickname}
               onChange={(e) => setFormData({ ...formData, nickname: e.target.value })}
@@ -120,10 +122,10 @@ export default function EditPlayerDialog({
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} disabled={loading}>
-            Cancel
+            {t('cancel')}
           </Button>
           <Button type="submit" variant="contained" disabled={loading}>
-            {loading ? 'Updating...' : 'Update Player'}
+            {loading ? t('updating') : t('edit_player')}
           </Button>
         </DialogActions>
       </form>

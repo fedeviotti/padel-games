@@ -52,14 +52,14 @@
       "team_1_set_score": "Punteggio Team 1",
       "team_2_set_score": "Punteggio Team 2",
       "winner": "Vincitore",
-      "games_difference": "Differenza di partite",
-      "add_game": "Aggiungi partita"
+      "games_difference": "Differenza di partite"
     }
   },
   "players": {
     "title": "Giocatori",
     "search_players": "Cerca giocatori",
     "add_player": "Aggiungi giocatore",
+    "edit_player": "Modifica giocatore",
     "no_players_found": "Nessun giocatore trovato. Aggiungi il tuo primo giocatore per iniziare.",
     "no_players_match_search_criteria": "Nessun giocatore trovato che corrisponda ai criteri di ricerca.",
     "nickname": "Soprannome",
@@ -69,7 +69,16 @@
     "table_header_nickname": "Soprannome",
     "table_header_year_of_birth": "Anno di nascita",
     "table_header_age": "Età",
-    "table_header_actions": "Azioni"
+    "table_header_actions": "Azioni",
+    "cancel": "Annulla",
+    "adding": "Aggiungendo...",
+    "updating": "Aggiornando...",
+    "add_edit_player": {
+      "first_name": "Nome",
+      "last_name": "Cognome",
+      "year_of_birth": "Anno di nascita",
+      "nickname": "Soprannome"
+    }
   },
   "tournaments": {
     "title": "Tornei"
