@@ -16,6 +16,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { SelectGame, SelectPlayer, SelectTournament } from '@/db/schema';
 
@@ -39,6 +40,7 @@ export default function EditGameDialog({
   onGameUpdated,
   game,
 }: EditGameDialogProps) {
+  const t = useTranslations('games');
   const [players, setPlayers] = useState<SelectPlayer[]>([]);
   const [tournaments, setTournaments] = useState<SelectTournament[]>([]);
   const [formData, setFormData] = useState({
@@ -161,11 +163,13 @@ export default function EditGameDialog({
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth fullScreen={isMobile}>
       <form onSubmit={handleSubmit}>
-        <DialogTitle>Edit Game</DialogTitle>
-        <DialogContent>
+        <DialogTitle sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
+          {t('edit_game')}
+        </DialogTitle>
+        <DialogContent sx={{ p: { xs: 2, sm: 3 } }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
             <TextField
-              label="Date Played"
+              label={t('add_edit_game.date_played')}
               type="date"
               required
               fullWidth
@@ -177,14 +181,14 @@ export default function EditGameDialog({
             />
 
             <FormControl fullWidth>
-              <InputLabel>Tournament (Optional)</InputLabel>
+              <InputLabel>{t('add_edit_game.tournament_optional')}</InputLabel>
               <Select
                 value={formData.tournamentId}
-                label="Tournament (Optional)"
+                label={t('add_edit_game.tournament_optional')}
                 onChange={(e) => setFormData({ ...formData, tournamentId: e.target.value })}
               >
                 <MenuItem value="">
-                  <em>No Tournament</em>
+                  <em>{t('no_tournament')}</em>
                 </MenuItem>
                 {tournaments.map((tournament) => (
                   <MenuItem key={tournament.id} value={tournament.id}>
@@ -196,20 +200,20 @@ export default function EditGameDialog({
 
             <Box sx={{ display: 'flex' }}>
               <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
-                Team 1
+                {t('team_1')}
               </Typography>
               <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
-                Team 2
+                {t('team_2')}
               </Typography>
             </Box>
 
             <Box sx={{ display: 'flex', gap: 2 }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
                 <FormControl fullWidth required>
-                  <InputLabel>Player 1</InputLabel>
+                  <InputLabel>{t('add_edit_game.team_1_player_1')}</InputLabel>
                   <Select
                     value={formData.team1Player1}
-                    label="Player 1"
+                    label={t('add_edit_game.team_1_player_1')}
                     onChange={(e) => setFormData({ ...formData, team1Player1: e.target.value })}
                   >
                     {players.map((player) => (
@@ -220,10 +224,10 @@ export default function EditGameDialog({
                   </Select>
                 </FormControl>
                 <FormControl fullWidth required>
-                  <InputLabel>Player 2</InputLabel>
+                  <InputLabel>{t('add_edit_game.team_1_player_2')}</InputLabel>
                   <Select
                     value={formData.team1Player2}
-                    label="Player 2"
+                    label={t('add_edit_game.team_1_player_2')}
                     onChange={(e) => setFormData({ ...formData, team1Player2: e.target.value })}
                   >
                     {players.map((player) => (
@@ -237,10 +241,10 @@ export default function EditGameDialog({
 
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
                 <FormControl fullWidth required>
-                  <InputLabel>Player 1</InputLabel>
+                  <InputLabel>{t('add_edit_game.team_2_player_1')}</InputLabel>
                   <Select
                     value={formData.team2Player1}
-                    label="Player 1"
+                    label={t('add_edit_game.team_2_player_1')}
                     onChange={(e) => setFormData({ ...formData, team2Player1: e.target.value })}
                   >
                     {players.map((player) => (
@@ -251,10 +255,10 @@ export default function EditGameDialog({
                   </Select>
                 </FormControl>
                 <FormControl fullWidth required>
-                  <InputLabel>Player 2</InputLabel>
+                  <InputLabel>{t('add_edit_game.team_2_player_2')}</InputLabel>
                   <Select
                     value={formData.team2Player2}
-                    label="Player 2"
+                    label={t('add_edit_game.team_2_player_2')}
                     onChange={(e) => setFormData({ ...formData, team2Player2: e.target.value })}
                   >
                     {players.map((player) => (
@@ -268,11 +272,11 @@ export default function EditGameDialog({
             </Box>
 
             <Typography variant="h6" sx={{ mt: 2 }}>
-              Score
+              {t('score')}
             </Typography>
             <Box sx={{ display: 'flex', gap: 2 }}>
               <TextField
-                label="Team 1 Set Score"
+                label={t('add_edit_game.team_1_set_score')}
                 type="number"
                 required
                 fullWidth
@@ -281,7 +285,7 @@ export default function EditGameDialog({
                 onChange={(e) => setFormData({ ...formData, team1SetScore: e.target.value })}
               />
               <TextField
-                label="Team 2 Set Score"
+                label={t('add_edit_game.team_2_set_score')}
                 type="number"
                 required
                 fullWidth
@@ -293,7 +297,7 @@ export default function EditGameDialog({
 
             <Box sx={{ display: 'flex', gap: 2 }}>
               <TextField
-                label="Winner"
+                label={t('add_edit_game.winner')}
                 fullWidth
                 value={getWinningTeam() > 0 ? `Team ${getWinningTeam()}` : 'Tie'}
                 disabled
@@ -302,7 +306,7 @@ export default function EditGameDialog({
                 }}
               />
               <TextField
-                label="Games Difference"
+                label={t('add_edit_game.games_difference')}
                 type="number"
                 fullWidth
                 value={totalGamesDifference || '0'}
@@ -314,12 +318,12 @@ export default function EditGameDialog({
             </Box>
           </Box>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ p: { xs: 2, sm: 3 } }}>
           <Button onClick={onClose} disabled={loading}>
-            Cancel
+            {t('cancel')}
           </Button>
           <Button type="submit" variant="contained" disabled={loading}>
-            {loading ? 'Updating...' : 'Update Game'}
+            {loading ? t('updating') : t('edit_game')}
           </Button>
         </DialogActions>
       </form>

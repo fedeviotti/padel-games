@@ -148,7 +148,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
               <TextField
                 sx={{ flex: 1 }}
-                label={t('new_game.date_played')}
+                label={t('add_edit_game.date_played')}
                 type="date"
                 required
                 value={formData.playedAt}
@@ -169,8 +169,8 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label={t('new_game.tournament_optional')}
-                    placeholder={t('new_game.choose_tournament')}
+                    label={t('add_edit_game.tournament_optional')}
+                    placeholder={t('add_edit_game.choose_tournament')}
                   />
                 )}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -198,8 +198,8 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={t('new_game.team_1_player_1')}
-                      placeholder={t('new_game.choose_player')}
+                      label={t('add_edit_game.team_1_player_1')}
+                      placeholder={t('add_edit_game.choose_player')}
                       required
                     />
                   )}
@@ -215,8 +215,8 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={t('new_game.team_1_player_2')}
-                      placeholder={t('new_game.choose_player')}
+                      label={t('add_edit_game.team_1_player_2')}
+                      placeholder={t('add_edit_game.choose_player')}
                       required
                     />
                   )}
@@ -238,8 +238,8 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={t('new_game.team_2_player_1')}
-                      placeholder={t('new_game.choose_player')}
+                      label={t('add_edit_game.team_2_player_1')}
+                      placeholder={t('add_edit_game.choose_player')}
                       required
                     />
                   )}
@@ -255,8 +255,8 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={t('new_game.team_2_player_2')}
-                      placeholder={t('new_game.choose_player')}
+                      label={t('add_edit_game.team_2_player_2')}
+                      placeholder={t('add_edit_game.choose_player')}
                       required
                     />
                   )}
@@ -270,7 +270,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
               <TextField
-                label={t('new_game.team_1_set_score')}
+                label={t('add_edit_game.team_1_set_score')}
                 type="number"
                 required
                 fullWidth
@@ -279,7 +279,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 onChange={(e) => setFormData({ ...formData, team1SetScore: e.target.value })}
               />
               <TextField
-                label={t('new_game.team_2_set_score')}
+                label={t('add_edit_game.team_2_set_score')}
                 type="number"
                 required
                 fullWidth
@@ -291,7 +291,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
 
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
               <TextField
-                label={t('new_game.winner')}
+                label={t('add_edit_game.winner')}
                 fullWidth
                 value={getWinningTeam() > 0 ? `Team ${getWinningTeam()}` : 'Tie'}
                 disabled
@@ -300,7 +300,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 }}
               />
               <TextField
-                label={t('new_game.games_difference')}
+                label={t('add_edit_game.games_difference')}
                 type="number"
                 fullWidth
                 value={totalGamesDifference || '0'}

@@ -22,6 +22,7 @@
   "games": {
     "title": "Partite",
     "add_game": "Aggiungi partita",
+    "edit_game": "Modifica partita",
     "no_games_found": "Nessuna partita trovata. Aggiungi la tua prima partita per iniziare.",
     "tournament": "Torneo",
     "team_1": "Team 1",
@@ -36,7 +37,10 @@
     "table_header_winner": "Vincitore",
     "table_header_actions": "Azioni",
     "cancel": "Annulla",
-    "new_game": {
+    "adding": "Aggiungendo...",
+    "updating": "Aggiornando...",
+    "no_tournament": "Nessun Torneo",
+    "add_edit_game": {
       "date_played": "Data della partita",
       "tournament_optional": "Torneo (opzionale)",
       "choose_tournament": "Scegli un torneo",
@@ -49,8 +53,7 @@
       "team_2_set_score": "Punteggio Team 2",
       "winner": "Vincitore",
       "games_difference": "Differenza di partite",
-      "add_game": "Aggiungi partita",
-      "adding": "Aggiungendo..."
+      "add_game": "Aggiungi partita"
     }
   },
   "players": {
