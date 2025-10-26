@@ -1,6 +1,7 @@
 'use client';
 
 import { Autocomplete, Box, Divider, Paper, TextField, Typography } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useState } from 'react';
 import { PlayerChartsSection } from '@/components/PlayerChartsSection';
@@ -11,6 +12,7 @@ import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 import Loading from '../loading';
 
 export default function Dashboard() {
+  const t = useTranslations('dashboard');
   const { user, isChecking } = useProtectedRoute();
   const { players, loading } = usePlayers(user);
   const [selectedPlayer, setSelectedPlayer] = useState<SelectPlayer | null>(null);
@@ -23,7 +25,7 @@ export default function Dashboard() {
       <Box sx={{ p: 3 }}>
         <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
           <Typography variant="h4" gutterBottom>
-            Dashboard
+            {t('title')}
           </Typography>
           <Typography variant="body1">
             Welcome to Padel Games!{' '}
@@ -42,7 +44,7 @@ export default function Dashboard() {
       <Paper elevation={3} sx={{ p: { xs: 2, sm: 3 } }}>
         <Box sx={{ textAlign: 'center' }}>
           <Typography variant="h4" gutterBottom sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
-            Dashboard
+            {t('title')}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
             Welcome to Padel Games {user?.displayName || user?.primaryEmail?.split('@')[0]}! Here

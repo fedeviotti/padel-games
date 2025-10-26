@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { stackClientApp } from '@/stack/client';
 import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { NextIntlClientProvider } from 'next-intl';
 import { ReactNode } from 'react';
 import { AppBarComponent } from '@/components/AppBarComponent';
 import { StackThemeWrapper } from '@/components/StackThemeWrapper';
@@ -24,11 +25,11 @@ export const metadata: Metadata = {
   description: 'Manage your padel games, tournaments, and player statistics',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+type Props = {
   children: ReactNode;
-}>) {
+};
+
+export default async function RootLayout({ children }: Props) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
@@ -37,7 +38,7 @@ export default function RootLayout({
             <StackThemeWrapper>
               <AppRouterCacheProvider>
                 <AppBarComponent />
-                {children}
+                <NextIntlClientProvider>{children}</NextIntlClientProvider>
               </AppRouterCacheProvider>
             </StackThemeWrapper>
           </StackProvider>

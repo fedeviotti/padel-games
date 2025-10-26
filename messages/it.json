@@ -1,0 +1,11 @@
+{
+  "dashboard": {
+    "title": "Dashboard ITA"
+  },
+  "players": {
+    "title": "Giocatori"
+  },
+  "tournaments": {
+    "title": "Tornei"
+  }
+}
