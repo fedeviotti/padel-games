@@ -81,6 +81,20 @@
     }
   },
   "tournaments": {
-    "title": "Tornei"
+    "title": "Tornei",
+    "search_tournaments": "Cerca tornei",
+    "add_tournament": "Aggiungi torneo",
+    "no_tournaments_found": "Nessun torneo trovato. Aggiungi il tuo primo torneo per iniziare.",
+    "no_tournaments_match_search_criteria": "Nessun torneo trovato che corrisponda ai criteri di ricerca.",
+    "start_date": "Data di inizio",
+    "end_date": "Data di fine",
+    "ongoing": "In corso",
+    "duration": "Durata",
+    "days": "giorni",
+    "table_header_name": "Nome",
+    "table_header_start_date": "Data di inizio",
+    "table_header_end_date": "Data di fine",
+    "table_header_duration": "Durata",
+    "table_header_actions": "Azioni"
   }
 }

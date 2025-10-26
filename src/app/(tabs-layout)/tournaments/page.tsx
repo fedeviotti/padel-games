@@ -21,6 +21,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import Loading from '@/app/loading';
 import AddTournamentDialog from '@/components/AddTournamentDialog';
@@ -31,6 +32,7 @@ import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 import { useTournaments } from '@/hooks/useTournaments';
 
 export default function Tournaments() {
+  const t = useTranslations('tournaments');
   const { user, isChecking } = useProtectedRoute();
   const { tournaments, loading, fetchTournaments } = useTournaments(user);
   const [filteredTournaments, setFilteredTournaments] = useState<SelectTournament[]>([]);
@@ -122,7 +124,7 @@ export default function Tournaments() {
           }}
         >
           <Typography variant="h4" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
-            Tournaments
+            {t('title')}
           </Typography>
           <Box
             sx={{
@@ -135,7 +137,7 @@ export default function Tournaments() {
           >
             <TextField
               size="small"
-              placeholder="Search tournaments..."
+              placeholder={t('search_tournaments')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               InputProps={{
@@ -152,7 +154,7 @@ export default function Tournaments() {
               onClick={() => setDialogOpen(true)}
               sx={{ width: { xs: '100%', sm: 'auto' } }}
             >
-              Add Tournament
+              {t('add_tournament')}
             </Button>
           </Box>
         </Box>
@@ -164,8 +166,8 @@ export default function Tournaments() {
         ) : filteredTournaments.length === 0 ? (
           <Typography variant="body1" sx={{ textAlign: 'center', p: 4 }}>
             {tournaments.length === 0
-              ? 'No tournaments found. Add your first tournament to get started.'
-              : 'No tournaments match your search criteria.'}
+              ? t('no_tournaments_found')
+              : t('no_tournaments_match_search_criteria')}
           </Typography>
         ) : isMobile ? (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -203,22 +205,22 @@ export default function Tournaments() {
 
                   <Box sx={{ mb: 1 }}>
                     <Typography variant="body2" sx={{ mb: 0.5 }}>
-                      Start: {formatDate(tournament.startDate)}
+                      {t('start_date')}: {formatDate(tournament.startDate)}
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 0.5 }}>
-                      End: {formatDate(tournament.endDate)}
+                      {t('end_date')}: {formatDate(tournament.endDate)}
                     </Typography>
                   </Box>
 
                   <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                    Duration:{' '}
+                    {t('duration')}:{' '}
                     {tournament.endDate
                       ? `${Math.ceil(
                           (new Date(tournament.endDate).getTime() -
                             new Date(tournament.startDate).getTime()) /
                             (1000 * 60 * 60 * 24)
-                        )} days`
-                      : 'Ongoing'}
+                        )} ${t('days')}`
+                      : t('ongoing')}
                   </Typography>
                 </CardContent>
               </Card>
@@ -229,11 +231,11 @@ export default function Tournaments() {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Start Date</TableCell>
-                  <TableCell>End Date</TableCell>
-                  <TableCell>Duration</TableCell>
-                  <TableCell align="right">Actions</TableCell>
+                  <TableCell>{t('table_header_name')}</TableCell>
+                  <TableCell>{t('table_header_start_date')}</TableCell>
+                  <TableCell>{t('table_header_end_date')}</TableCell>
+                  <TableCell>{t('table_header_duration')}</TableCell>
+                  <TableCell align="right">{t('table_header_actions')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -248,8 +250,8 @@ export default function Tournaments() {
                             (new Date(tournament.endDate).getTime() -
                               new Date(tournament.startDate).getTime()) /
                               (1000 * 60 * 60 * 24)
-                          )} days`
-                        : 'Ongoing'}
+                          )} ${t('days')}`
+                        : t('ongoing')}
                     </TableCell>
                     <TableCell align="right">
                       <IconButton

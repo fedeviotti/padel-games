@@ -81,6 +81,20 @@
     }
   },
   "tournaments": {
-    "title": "Tournaments"
+    "title": "Tournaments",
+    "search_tournaments": "Search tournaments",
+    "add_tournament": "Add tournament",
+    "no_tournaments_found": "No tournaments found. Add your first tournament to get started.",
+    "no_tournaments_match_search_criteria": "No tournaments match your search criteria.",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "ongoing": "Ongoing",
+    "duration": "Duration",
+    "days": "days",
+    "table_header_name": "Name",
+    "table_header_start_date": "Start Date",
+    "table_header_end_date": "End Date",
+    "table_header_duration": "Duration",
+    "table_header_actions": "Actions"
   }
 }
