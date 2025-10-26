@@ -205,10 +205,10 @@ export default function Tournaments() {
 
                   <Box sx={{ mb: 1 }}>
                     <Typography variant="body2" sx={{ mb: 0.5 }}>
-                      {t('start_date')}: {formatDate(tournament.startDate)}
+                      {t('card_start_date')}: {formatDate(tournament.startDate)}
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 0.5 }}>
-                      {t('end_date')}: {formatDate(tournament.endDate)}
+                      {t('card_end_date')}: {formatDate(tournament.endDate)}
                     </Typography>
                   </Box>
 

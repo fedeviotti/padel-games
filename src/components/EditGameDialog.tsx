@@ -206,7 +206,7 @@ export default function EditGameDialog({
             >
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
                 <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
-                  {t('team_1')}
+                  {t('add_edit_game.team_1')}
                 </Typography>
                 <Autocomplete
                   options={players}
@@ -246,7 +246,7 @@ export default function EditGameDialog({
 
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
                 <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
-                  {t('team_2')}
+                  {t('add_edit_game.team_2')}
                 </Typography>
                 <Autocomplete
                   options={players}
@@ -286,7 +286,7 @@ export default function EditGameDialog({
             </Box>
 
             <Typography variant="h6" sx={{ mt: 2 }}>
-              {t('score')}
+              {t('add_edit_game.score')}
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
               <TextField
@@ -313,7 +313,11 @@ export default function EditGameDialog({
               <TextField
                 label={t('add_edit_game.winner')}
                 fullWidth
-                value={getWinningTeam() > 0 ? `Team ${getWinningTeam()}` : 'Tie'}
+                value={
+                  getWinningTeam() > 0
+                    ? `${t('add_edit_game.team')} ${getWinningTeam()}`
+                    : t('add_edit_game.tie')
+                }
                 disabled
                 slotProps={{
                   inputLabel: { shrink: true },

@@ -195,7 +195,7 @@ export default function Games() {
 
                   {game.tournamentName && (
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      {t('tournament')}: {game.tournamentName}
+                      {t('card_tournament')}: {game.tournamentName}
                     </Typography>
                   )}
 
@@ -212,7 +212,7 @@ export default function Games() {
                           game.winningTeam === 1 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
-                      {t('team_1')}: {game.team1Player1Name} & {game.team1Player2Name}
+                      {t('card_team_1')}: {game.team1Player1Name} & {game.team1Player2Name}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -226,7 +226,7 @@ export default function Games() {
                           game.winningTeam === 2 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
-                      {t('team_2')}: {game.team2Player1Name} & {game.team2Player2Name}
+                      {t('card_team_2')}: {game.team2Player1Name} & {game.team2Player2Name}
                     </Typography>
                   </Box>
 
@@ -234,10 +234,11 @@ export default function Games() {
                     sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
                   >
                     <Typography variant="body2">
-                      {t('score')}: {game.team1SetScore} - {game.team2SetScore}
+                      {t('card_score')}: {game.team1SetScore} - {game.team2SetScore}
                     </Typography>
                     <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                      {t('winner')}: {game.winningTeam > 0 ? `Team ${game.winningTeam}` : 'Tie'}
+                      {t('card_winner')}:{' '}
+                      {game.winningTeam > 0 ? `${t('team')} ${game.winningTeam}` : t('tie')}
                     </Typography>
                   </Box>
                 </CardContent>
@@ -285,7 +286,7 @@ export default function Games() {
                       {game.team1SetScore} - {game.team2SetScore}
                     </TableCell>
                     <TableCell>
-                      {game.winningTeam > 0 ? `Team ${game.winningTeam}` : 'Tie'}
+                      {game.winningTeam > 0 ? `${t('team')} ${game.winningTeam}` : t('tie')}
                     </TableCell>
                     <TableCell align="right">
                       <IconButton

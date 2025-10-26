@@ -199,7 +199,7 @@ export default function Players() {
 
                   {player.nickname && (
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      {t('nickname')}: {player.nickname}
+                      {t('card_nickname')}: {player.nickname}
                     </Typography>
                   )}
 
@@ -207,10 +207,10 @@ export default function Players() {
                     sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
                   >
                     <Typography variant="body2">
-                      {t('birth_year')}: {player.yearOfBirth || '-'}
+                      {t('card_birth_year')}: {player.yearOfBirth || '-'}
                     </Typography>
                     <Typography variant="body2">
-                      {t('age')}: {player.yearOfBirth ? calculateAge(player.yearOfBirth) : '-'}
+                      {t('card_age')}: {player.yearOfBirth ? calculateAge(player.yearOfBirth) : '-'}
                     </Typography>
                   </Box>
                 </CardContent>

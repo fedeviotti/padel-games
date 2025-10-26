@@ -186,7 +186,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
             >
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
                 <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
-                  {t('team_1')}
+                  {t('add_edit_game.team_1')}
                 </Typography>
                 <Autocomplete
                   options={players}
@@ -226,7 +226,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
 
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
                 <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
-                  Team 2
+                  {t('add_edit_game.team_2')}
                 </Typography>
                 <Autocomplete
                   options={players}
@@ -266,7 +266,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
             </Box>
 
             <Typography variant="h6" sx={{ mt: 2 }}>
-              Score
+              {t('add_edit_game.score')}
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
               <TextField
@@ -293,7 +293,11 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
               <TextField
                 label={t('add_edit_game.winner')}
                 fullWidth
-                value={getWinningTeam() > 0 ? `Team ${getWinningTeam()}` : 'Tie'}
+                value={
+                  getWinningTeam() > 0
+                    ? `${t('add_edit_game.team')} ${getWinningTeam()}`
+                    : t('add_edit_game.tie')
+                }
                 disabled
                 slotProps={{
                   inputLabel: { shrink: true },
