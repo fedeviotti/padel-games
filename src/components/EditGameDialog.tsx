@@ -168,35 +168,37 @@ export default function EditGameDialog({
         </DialogTitle>
         <DialogContent sx={{ p: { xs: 2, sm: 3 } }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
-            <TextField
-              label={t('add_edit_game.date_played')}
-              type="date"
-              required
-              fullWidth
-              value={formData.playedAt}
-              onChange={(e) => setFormData({ ...formData, playedAt: e.target.value })}
-              slotProps={{
-                inputLabel: { shrink: true },
-              }}
-            />
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
+              <TextField
+                label={t('add_edit_game.date_played')}
+                type="date"
+                required
+                fullWidth
+                value={formData.playedAt}
+                onChange={(e) => setFormData({ ...formData, playedAt: e.target.value })}
+                slotProps={{
+                  inputLabel: { shrink: true },
+                }}
+              />
 
-            <FormControl fullWidth>
-              <InputLabel>{t('add_edit_game.tournament_optional')}</InputLabel>
-              <Select
-                value={formData.tournamentId}
-                label={t('add_edit_game.tournament_optional')}
-                onChange={(e) => setFormData({ ...formData, tournamentId: e.target.value })}
-              >
-                <MenuItem value="">
-                  <em>{t('no_tournament')}</em>
-                </MenuItem>
-                {tournaments.map((tournament) => (
-                  <MenuItem key={tournament.id} value={tournament.id}>
-                    {tournament.name}
+              <FormControl fullWidth>
+                <InputLabel>{t('add_edit_game.tournament_optional')}</InputLabel>
+                <Select
+                  value={formData.tournamentId}
+                  label={t('add_edit_game.tournament_optional')}
+                  onChange={(e) => setFormData({ ...formData, tournamentId: e.target.value })}
+                >
+                  <MenuItem value="">
+                    <em>{t('no_tournament')}</em>
                   </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                  {tournaments.map((tournament) => (
+                    <MenuItem key={tournament.id} value={tournament.id}>
+                      {tournament.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
 
             <Box sx={{ display: 'flex' }}>
               <Typography variant="h6" sx={{ mt: 2, flex: 1 }}>
