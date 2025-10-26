@@ -21,6 +21,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import Loading from '@/app/loading';
 import AddPlayerDialog from '@/components/AddPlayerDialog';
@@ -31,6 +32,7 @@ import { usePlayers } from '@/hooks/usePlayers';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 
 export default function Players() {
+  const t = useTranslations('players');
   const { user, isChecking } = useProtectedRoute();
   const { players, loading, fetchPlayers } = usePlayers(user);
   const [filteredPlayers, setFilteredPlayers] = useState<SelectPlayer[]>([]);
@@ -118,7 +120,7 @@ export default function Players() {
           }}
         >
           <Typography variant="h4" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
-            Players
+            {t('title')}
           </Typography>
           <Box
             sx={{
@@ -131,7 +133,7 @@ export default function Players() {
           >
             <TextField
               size="small"
-              placeholder="Search players..."
+              placeholder={t('search_players')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               InputProps={{
@@ -148,7 +150,7 @@ export default function Players() {
               onClick={() => setDialogOpen(true)}
               sx={{ width: { xs: '100%', sm: 'auto' } }}
             >
-              Add Player
+              {t('add_player')}
             </Button>
           </Box>
         </Box>
@@ -159,9 +161,7 @@ export default function Players() {
           </Box>
         ) : filteredPlayers.length === 0 ? (
           <Typography variant="body1" sx={{ textAlign: 'center', p: 4 }}>
-            {players.length === 0
-              ? 'No players found. Add your first player to get started.'
-              : 'No players match your search criteria.'}
+            {players.length === 0 ? t('no_players_found') : t('no_players_match_search_criteria')}
           </Typography>
         ) : isMobile ? (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -199,16 +199,18 @@ export default function Players() {
 
                   {player.nickname && (
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      Nickname: {player.nickname}
+                      {t('nickname')}: {player.nickname}
                     </Typography>
                   )}
 
                   <Box
                     sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
                   >
-                    <Typography variant="body2">Birth Year: {player.yearOfBirth || '-'}</Typography>
                     <Typography variant="body2">
-                      Age: {player.yearOfBirth ? calculateAge(player.yearOfBirth) : '-'}
+                      {t('birth_year')}: {player.yearOfBirth || '-'}
+                    </Typography>
+                    <Typography variant="body2">
+                      {t('age')}: {player.yearOfBirth ? calculateAge(player.yearOfBirth) : '-'}
                     </Typography>
                   </Box>
                 </CardContent>
@@ -220,11 +222,11 @@ export default function Players() {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Nickname</TableCell>
-                  <TableCell>Year of Birth</TableCell>
-                  <TableCell>Age</TableCell>
-                  <TableCell align="right">Actions</TableCell>
+                  <TableCell>{t('table_header_name')}</TableCell>
+                  <TableCell>{t('table_header_nickname')}</TableCell>
+                  <TableCell>{t('table_header_year_of_birth')}</TableCell>
+                  <TableCell>{t('table_header_age')}</TableCell>
+                  <TableCell align="right">{t('table_header_actions')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

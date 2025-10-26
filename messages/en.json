@@ -57,7 +57,19 @@
     }
   },
   "players": {
-    "title": "Players"
+    "title": "Players",
+    "search_players": "Search players",
+    "add_player": "Add player",
+    "no_players_found": "No players found. Add your first player to get started.",
+    "no_players_match_search_criteria": "No players match your search criteria.",
+    "nickname": "Nickname",
+    "birth_year": "Birth Year",
+    "age": "Age",
+    "table_header_name": "Name",
+    "table_header_nickname": "Nickname",
+    "table_header_year_of_birth": "Year of Birth",
+    "table_header_age": "Age",
+    "table_header_actions": "Actions"
   },
   "tournaments": {
     "title": "Tournaments"

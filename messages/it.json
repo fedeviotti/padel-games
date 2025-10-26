@@ -57,7 +57,19 @@
     }
   },
   "players": {
-    "title": "Giocatori"
+    "title": "Giocatori",
+    "search_players": "Cerca giocatori",
+    "add_player": "Aggiungi giocatore",
+    "no_players_found": "Nessun giocatore trovato. Aggiungi il tuo primo giocatore per iniziare.",
+    "no_players_match_search_criteria": "Nessun giocatore trovato che corrisponda ai criteri di ricerca.",
+    "nickname": "Soprannome",
+    "birth_year": "Anno di nascita",
+    "age": "Età",
+    "table_header_name": "Nome",
+    "table_header_nickname": "Soprannome",
+    "table_header_year_of_birth": "Anno di nascita",
+    "table_header_age": "Età",
+    "table_header_actions": "Azioni"
   },
   "tournaments": {
     "title": "Tornei"
