@@ -9,7 +9,6 @@ import {
   CircularProgress,
   IconButton,
   InputAdornment,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -111,8 +110,8 @@ export default function Tournaments() {
   if (isChecking) return <Loading />;
 
   return (
-    <Box sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
-      <Paper elevation={3} sx={{ p: { xs: 2, sm: 3 } }}>
+    <Box>
+      <Box sx={{ p: { xs: 1, sm: 2 } }}>
         <Box
           sx={{
             display: 'flex',
@@ -275,7 +274,7 @@ export default function Tournaments() {
             </Table>
           </TableContainer>
         )}
-      </Paper>
+      </Box>
 
       <AddTournamentDialog
         open={dialogOpen}

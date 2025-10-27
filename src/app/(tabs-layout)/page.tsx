@@ -1,6 +1,6 @@
 'use client';
 
-import { Autocomplete, Box, Divider, Paper, TextField, Typography } from '@mui/material';
+import { Autocomplete, Box, Divider, TextField, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -22,8 +22,8 @@ export default function Dashboard() {
 
   if (!user) {
     return (
-      <Box sx={{ p: 3 }}>
-        <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
+      <Box>
+        <Box sx={{ p: 3, textAlign: 'center' }}>
           <Typography variant="h4" gutterBottom>
             {t('title')}
           </Typography>
@@ -34,14 +34,14 @@ export default function Dashboard() {
             </Link>{' '}
             {t('to_see_dashboard')}
           </Typography>
-        </Paper>
+        </Box>
       </Box>
     );
   }
 
   return (
-    <Box sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
-      <Paper elevation={3} sx={{ p: { xs: 2, sm: 3 } }}>
+    <Box>
+      <Box sx={{ p: { xs: 1, sm: 2 } }}>
         <Box sx={{ textAlign: 'center' }}>
           <Typography variant="h4" gutterBottom sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
             {t('title')}
@@ -142,7 +142,7 @@ export default function Dashboard() {
         statistiche di gioco con il partner */}
         {/* TODO: aggiungere selezione multipla del partner per vedere 
         le statistiche di gioco con i vari partner */}
-      </Paper>
+      </Box>
     </Box>
   );
 }

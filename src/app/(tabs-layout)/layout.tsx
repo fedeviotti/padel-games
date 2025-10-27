@@ -26,10 +26,19 @@ export default function TabsLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Container maxWidth="lg" sx={{ mt: { xs: 1, sm: 2 }, px: { xs: 1, sm: 2 } }}>
+    <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          px: { xs: 1, sm: 2 },
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1,
+          overflow: 'hidden',
+        }}
+      >
         {user && <NavigationTabs getTabValue={getTabValue} />}
-        {children}
+        <Box sx={{ flexGrow: 1, overflow: 'auto', py: { xs: 1, sm: 2 } }}>{children}</Box>
       </Container>
     </Box>
   );
