@@ -17,7 +17,18 @@
     "select_opponent": "Seleziona un avversario",
     "choose_opponent": "Scegli un avversario",
     "select_player_to_see_statistics": "Seleziona un giocatore per vedere le sue statistiche",
-    "select_opponent_to_see_statistics": "Seleziona un avversario per vedere le sue statistiche contro di lui"
+    "select_opponent_to_see_statistics": "Seleziona un avversario per vedere le sue statistiche contro di lui",
+    "loading": "Caricando...",
+    "no_players_found": "Nessun giocatore trovato.",
+    "no_opponents_found": "Nessun avversario trovato.",
+    "charts_section": {
+      "total_games_played": "Totale partite giocate",
+      "total_wins": "Totale vittorie",
+      "win_rate": "Percentuale di vittorie",
+      "total_games_played_against_him": "Totale partite giocate contro di lui",
+      "total_wins_against_him": "Totale vittorie contro di lui",
+      "win_rate_against_him": "Percentuale di vittorie contro di lui"
+    }
   },
   "games": {
     "title": "Partite",

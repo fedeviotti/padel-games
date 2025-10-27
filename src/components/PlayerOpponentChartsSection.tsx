@@ -1,5 +1,6 @@
 import { Box, Skeleton, Typography } from '@mui/material';
 import { Gauge } from '@mui/x-charts/Gauge';
+import { useTranslations } from 'next-intl';
 import { FC, useEffect, useState } from 'react';
 import { SelectPlayer } from '@/db/schema';
 
@@ -9,6 +10,7 @@ type Props = {
 };
 
 export const PlayerOpponentChartsSection: FC<Props> = ({ selectedPlayer, selectedOpponent }) => {
+  const t = useTranslations('dashboard');
   const [totalGamesPlayed, setTotalGamesPlayed] = useState<number>(0);
   const [totalWins, setTotalWins] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
@@ -77,18 +79,18 @@ export const PlayerOpponentChartsSection: FC<Props> = ({ selectedPlayer, selecte
       >
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-            Total games against him
+            {t('charts_section.total_games_played_against_him')}
           </Typography>
           <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-            {loading ? 'Loading...' : totalGamesPlayed}
+            {loading ? t('loading') : totalGamesPlayed}
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-            Total wins against him
+            {t('charts_section.total_wins_against_him')}
           </Typography>
           <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-            {loading ? 'Loading...' : totalWins}
+            {loading ? t('loading') : totalWins}
           </Typography>
         </Box>
       </Box>
@@ -102,7 +104,7 @@ export const PlayerOpponentChartsSection: FC<Props> = ({ selectedPlayer, selecte
         }}
       >
         <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-          Win rate against him
+          {t('charts_section.win_rate_against_him')}
         </Typography>
         {loading ? (
           <Skeleton width={150} height={150} variant="circular" />

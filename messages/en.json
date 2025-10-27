@@ -17,7 +17,18 @@
     "select_opponent": "Select an opponent",
     "choose_opponent": "Choose an opponent",
     "select_player_to_see_statistics": "Select a player to see his statistics",
-    "select_opponent_to_see_statistics": "Select an opponent to see the statistics of the games against him"
+    "select_opponent_to_see_statistics": "Select an opponent to see the statistics of the games against him",
+    "loading": "Loading...",
+    "no_players_found": "No players found.",
+    "no_opponents_found": "No opponents found.",
+    "charts_section": {
+      "total_games_played": "Total games played",
+      "total_wins": "Total wins",
+      "win_rate": "Win rate",
+      "total_games_played_against_him": "Total games played against him",
+      "total_wins_against_him": "Total wins against him",
+      "win_rate_against_him": "Win rate against him"
+    }
   },
   "games": {
     "title": "Games",

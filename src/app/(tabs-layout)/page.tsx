@@ -77,6 +77,8 @@ export default function Dashboard() {
               options={players}
               getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
               loading={loading}
+              loadingText={t('loading')}
+              noOptionsText={t('no_players_found')}
               sx={{ width: { xs: '100%', md: 250 } }}
               renderInput={(params) => (
                 <TextField
@@ -111,6 +113,8 @@ export default function Dashboard() {
               options={players.filter((player) => player.id !== selectedPlayer?.id)}
               getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
               loading={loading}
+              loadingText={t('loading')}
+              noOptionsText={t('no_opponents_found')}
               sx={{ width: { xs: '100%', md: 250 } }}
               renderInput={(params) => (
                 <TextField

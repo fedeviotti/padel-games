@@ -1,5 +1,6 @@
 import { Box, Skeleton, Typography } from '@mui/material';
 import { Gauge } from '@mui/x-charts/Gauge';
+import { useTranslations } from 'next-intl';
 import { FC, useEffect, useState } from 'react';
 import { SelectPlayer } from '@/db/schema';
 
@@ -8,6 +9,7 @@ type Props = {
 };
 
 export const PlayerChartsSection: FC<Props> = ({ selectedPlayer }) => {
+  const t = useTranslations('dashboard');
   const [totalGamesPlayed, setTotalGamesPlayed] = useState<number>(0);
   const [totalWins, setTotalWins] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
@@ -72,16 +74,18 @@ export const PlayerChartsSection: FC<Props> = ({ selectedPlayer }) => {
       >
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-            Total games played
+            {t('charts_section.total_games_played')}
           </Typography>
           <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-            {loading ? 'Loading...' : totalGamesPlayed}
+            {loading ? t('loading') : totalGamesPlayed}
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>Total wins</Typography>
           <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
-            {loading ? 'Loading...' : totalWins}
+            {t('charts_section.total_wins')}
+          </Typography>
+          <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+            {loading ? t('loading') : totalWins}
           </Typography>
         </Box>
       </Box>
@@ -94,7 +98,9 @@ export const PlayerChartsSection: FC<Props> = ({ selectedPlayer }) => {
           flex: 1,
         }}
       >
-        <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>Win rate</Typography>
+        <Typography sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+          {t('charts_section.win_rate')}
+        </Typography>
         {loading ? (
           <Skeleton width={150} height={150} variant="circular" />
         ) : (
