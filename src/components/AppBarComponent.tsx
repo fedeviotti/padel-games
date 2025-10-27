@@ -1,6 +1,7 @@
 'use client';
 
 import { AppBar, Stack, Toolbar, Typography } from '@mui/material';
+import { UserButton as StackUserButton } from '@stackframe/stack';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { ToggleColorMode } from './ToggleColorMode';
@@ -30,6 +31,7 @@ export function AppBarComponent() {
         <Stack direction="row" spacing={{ xs: 0.5, sm: 1 }}>
           <ToggleColorMode />
           {isClient && <UserButton />}
+          {isClient && <StackUserButton />}
         </Stack>
       </Toolbar>
     </AppBar>

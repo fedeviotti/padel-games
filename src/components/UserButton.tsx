@@ -41,6 +41,11 @@ export function UserButton() {
     }
   };
 
+  const handleAccountSettings = () => {
+    router.push('/handler/account-settings');
+    handleClose();
+  };
+
   const userEmail = user?.primaryEmail ?? '';
 
   return (
@@ -70,6 +75,12 @@ export function UserButton() {
                 </Typography>
               </Box>,
               <Divider key="divider" />,
+              <MenuItem key="account-settings" onClick={handleAccountSettings}>
+                <ListItemIcon>
+                  <AccountCircle fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>{t('settings')}</ListItemText>
+              </MenuItem>,
               <MenuItem key="sign-out" onClick={handleSignOut}>
                 <ListItemIcon>
                   <Logout fontSize="small" />

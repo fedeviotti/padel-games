@@ -1,10 +1,12 @@
 import { Button, Menu, MenuItem, useColorScheme } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import { FC, useState } from 'react';
 
 export const ToggleColorMode: FC = () => {
   const t = useTranslations('app_bar');
   const { mode, setMode } = useColorScheme();
+  const { setTheme } = useTheme();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -19,6 +21,7 @@ export const ToggleColorMode: FC = () => {
 
   const onOptionClick = (value: 'system' | 'light' | 'dark') => {
     setMode(value);
+    setTheme(value);
     handleClose();
   };
 

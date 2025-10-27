@@ -12,7 +12,8 @@
     "not_signed_in": "Non connesso",
     "sign_in": "Accedi",
     "sign_up": "Registrati",
-    "sign_out": "Esci"
+    "sign_out": "Esci",
+    "settings": "Impostazioni utente"
   },
   "navigation_tabs": {
     "dashboard": "Dashboard",
