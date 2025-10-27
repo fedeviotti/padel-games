@@ -5,6 +5,7 @@ import { stackClientApp } from '@/stack/client';
 import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { NextIntlClientProvider } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { ReactNode } from 'react';
 import { AppBarComponent } from '@/components/AppBarComponent';
 import { StackThemeWrapper } from '@/components/StackThemeWrapper';
@@ -20,10 +21,13 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'Padel Games',
-  description: 'Manage your padel games, tournaments, and player statistics',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('metadata');
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
 
 type Props = {
   children: ReactNode;

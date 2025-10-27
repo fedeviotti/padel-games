@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "title": "Padel Games",
+    "description": "Manage your padel games, tournaments, and player statistics"
+  },
   "navigation_tabs": {
     "dashboard": "Dashboard",
     "games": "Games",
