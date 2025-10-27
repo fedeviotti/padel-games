@@ -11,7 +11,7 @@ import { ToggleColorMode } from './ToggleColorMode';
 export function AppBarComponent() {
   const [isClient, setIsClient] = useState(false);
   const { theme } = useNextTheme();
-  const t = useTranslations('metadata');
+  const t = useTranslations('app_bar');
 
   useEffect(() => {
     setIsClient(true);

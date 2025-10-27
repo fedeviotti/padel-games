@@ -1,8 +1,10 @@
 import { Button, Menu, MenuItem, useColorScheme } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { FC, useState } from 'react';
 
 export const ToggleColorMode: FC = () => {
+  const t = useTranslations('app_bar');
   const { mode, setMode } = useColorScheme();
   const { setTheme: setNextTheme } = useTheme();
 
@@ -37,7 +39,7 @@ export const ToggleColorMode: FC = () => {
         onClick={handleClick}
         color="inherit"
       >
-        Theme
+        {t('theme')}
       </Button>
       <Menu
         id="basic-menu"
@@ -50,9 +52,9 @@ export const ToggleColorMode: FC = () => {
           },
         }}
       >
-        <MenuItem onClick={() => onOptionClick('system')}>System</MenuItem>
-        <MenuItem onClick={() => onOptionClick('light')}>Light</MenuItem>
-        <MenuItem onClick={() => onOptionClick('dark')}>Dark</MenuItem>
+        <MenuItem onClick={() => onOptionClick('system')}>{t('system')}</MenuItem>
+        <MenuItem onClick={() => onOptionClick('light')}>{t('light')}</MenuItem>
+        <MenuItem onClick={() => onOptionClick('dark')}>{t('dark')}</MenuItem>
       </Menu>
     </>
   );

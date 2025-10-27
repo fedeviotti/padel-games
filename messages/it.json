@@ -3,6 +3,13 @@
     "title": "Padel Games",
     "description": "Gestisci le tue partite, tornei e statistiche dei tuoi giocatori"
   },
+  "app_bar": {
+    "title": "Padel Games",
+    "theme": "Tema",
+    "system": "Sistema",
+    "light": "Chiaro",
+    "dark": "Scuro"
+  },
   "navigation_tabs": {
     "dashboard": "Dashboard",
     "games": "Partite",
