@@ -2,6 +2,7 @@
 
 import { AppBar, Box, Stack, Toolbar, Typography } from '@mui/material';
 import { UserButton } from '@stackframe/stack';
+import { useTranslations } from 'next-intl';
 import { useTheme as useNextTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { padelGamesColors } from '@/constants/colors';
@@ -10,6 +11,7 @@ import { ToggleColorMode } from './ToggleColorMode';
 export function AppBarComponent() {
   const [isClient, setIsClient] = useState(false);
   const { theme } = useNextTheme();
+  const t = useTranslations('metadata');
 
   useEffect(() => {
     setIsClient(true);
@@ -30,7 +32,7 @@ export function AppBarComponent() {
             fontSize: { xs: '1rem', sm: '1.25rem' },
           }}
         >
-          Padel Games
+          {t('title')}
         </Typography>
         <Stack direction="row" spacing={{ xs: 0.5, sm: 1 }}>
           <ToggleColorMode />

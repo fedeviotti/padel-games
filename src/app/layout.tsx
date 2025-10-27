@@ -51,8 +51,10 @@ export default async function RootLayout({ children }: Props) {
           <StackProvider app={stackClientApp}>
             <StackThemeWrapper>
               <AppRouterCacheProvider>
-                <AppBarComponent />
-                <NextIntlClientProvider>{children}</NextIntlClientProvider>
+                <NextIntlClientProvider>
+                  <AppBarComponent />
+                  {children}
+                </NextIntlClientProvider>
               </AppRouterCacheProvider>
             </StackThemeWrapper>
           </StackProvider>
