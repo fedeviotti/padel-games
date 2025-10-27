@@ -8,7 +8,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { ReactNode } from 'react';
 import { AppBarComponent } from '@/components/AppBarComponent';
-import { StackThemeWrapper } from '@/components/StackThemeWrapper';
 import { CustomThemeProvider } from '@/contexts/ThemeContext';
 
 const geistSans = Geist({
@@ -49,14 +48,12 @@ export default async function RootLayout({ children }: Props) {
       >
         <CustomThemeProvider>
           <StackProvider app={stackClientApp}>
-            <StackThemeWrapper>
-              <AppRouterCacheProvider>
-                <NextIntlClientProvider>
-                  <AppBarComponent />
-                  {children}
-                </NextIntlClientProvider>
-              </AppRouterCacheProvider>
-            </StackThemeWrapper>
+            <AppRouterCacheProvider>
+              <NextIntlClientProvider>
+                <AppBarComponent />
+                {children}
+              </NextIntlClientProvider>
+            </AppRouterCacheProvider>
           </StackProvider>
         </CustomThemeProvider>
       </body>

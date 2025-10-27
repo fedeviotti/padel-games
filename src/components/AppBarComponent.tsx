@@ -1,25 +1,18 @@
 'use client';
 
-import { AppBar, Box, Stack, Toolbar, Typography } from '@mui/material';
-import { UserButton } from '@stackframe/stack';
+import { AppBar, Stack, Toolbar, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
-import { useTheme as useNextTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import { padelGamesColors } from '@/constants/colors';
 import { ToggleColorMode } from './ToggleColorMode';
+import { UserButton } from './UserButton';
 
 export function AppBarComponent() {
   const [isClient, setIsClient] = useState(false);
-  const { theme } = useNextTheme();
   const t = useTranslations('app_bar');
 
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  const getUserButtonColor = () => {
-    return theme === 'light' ? padelGamesColors.light.popoverForeground : 'inherit';
-  };
 
   return (
     <AppBar position="static">
@@ -36,11 +29,7 @@ export function AppBarComponent() {
         </Typography>
         <Stack direction="row" spacing={{ xs: 0.5, sm: 1 }}>
           <ToggleColorMode />
-          {isClient && (
-            <Box sx={{ color: getUserButtonColor() }}>
-              <UserButton />
-            </Box>
-          )}
+          {isClient && <UserButton />}
         </Stack>
       </Toolbar>
     </AppBar>
