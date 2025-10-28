@@ -4,7 +4,6 @@ import { AppBar, Stack, Toolbar, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 // import { UserButton as StackUserButton } from '@stackframe/stack';
 import Link from 'next/link';
-import { ToggleColorMode } from './ToggleColorMode';
 import { UserButton } from './UserButton';
 
 export function AppBarComponent() {
@@ -28,7 +27,6 @@ export function AppBarComponent() {
           {t('title')}
         </Typography>
         <Stack direction="row" spacing={{ xs: 0.5, sm: 1 }}>
-          <ToggleColorMode />
           <UserButton />
           {/* <StackUserButton /> */}
         </Stack>
