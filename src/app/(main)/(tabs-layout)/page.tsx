@@ -4,12 +4,12 @@ import { Autocomplete, Box, Divider, TextField, Typography } from '@mui/material
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useState } from 'react';
+import Loading from '@/app/loading';
 import { PlayerChartsSection } from '@/components/PlayerChartsSection';
 import { PlayerOpponentChartsSection } from '@/components/PlayerOpponentChartsSection';
 import { SelectPlayer } from '@/db/schema';
 import { usePlayers } from '@/hooks/usePlayers';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
-import Loading from '../loading';
 
 export default function Dashboard() {
   const t = useTranslations('dashboard');
