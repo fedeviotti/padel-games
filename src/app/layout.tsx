@@ -7,7 +7,6 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { ReactNode } from 'react';
-import { AppBarComponent } from '@/components/AppBarComponent';
 import { StackThemeWrapper } from '@/components/StackThemeWrapper';
 import { CustomThemeProvider } from '@/contexts/ThemeContext';
 
@@ -51,10 +50,7 @@ export default async function RootLayout({ children }: Props) {
           <StackProvider app={stackClientApp}>
             <StackThemeWrapper>
               <AppRouterCacheProvider>
-                <NextIntlClientProvider>
-                  <AppBarComponent />
-                  {children}
-                </NextIntlClientProvider>
+                <NextIntlClientProvider>{children}</NextIntlClientProvider>
               </AppRouterCacheProvider>
             </StackThemeWrapper>
           </StackProvider>

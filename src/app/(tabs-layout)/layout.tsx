@@ -3,6 +3,7 @@
 import { Box, Container } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
+import { AppBarComponent } from '@/components/AppBarComponent';
 import { NavigationTabs } from '@/components/NavigationTabs';
 import { stackClientApp } from '@/stack/client';
 
@@ -26,20 +27,23 @@ export default function TabsLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-      <Container
-        maxWidth="lg"
-        sx={{
-          px: { xs: 1, sm: 2 },
-          display: 'flex',
-          flexDirection: 'column',
-          flexGrow: 1,
-          overflow: 'hidden',
-        }}
-      >
-        {user && <NavigationTabs getTabValue={getTabValue} />}
-        <Box sx={{ flexGrow: 1, overflow: 'auto', py: { xs: 1, sm: 2 } }}>{children}</Box>
-      </Container>
-    </Box>
+    <>
+      <AppBarComponent />
+      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <Container
+          maxWidth="lg"
+          sx={{
+            px: { xs: 1, sm: 2 },
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+            overflow: 'hidden',
+          }}
+        >
+          {user && <NavigationTabs getTabValue={getTabValue} />}
+          <Box sx={{ flexGrow: 1, overflow: 'auto', py: { xs: 1, sm: 2 } }}>{children}</Box>
+        </Container>
+      </Box>
+    </>
   );
 }

@@ -1,37 +1,36 @@
 'use client';
 
 import { AppBar, Stack, Toolbar, Typography } from '@mui/material';
-import { UserButton as StackUserButton } from '@stackframe/stack';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+// import { UserButton as StackUserButton } from '@stackframe/stack';
+import Link from 'next/link';
 import { ToggleColorMode } from './ToggleColorMode';
 import { UserButton } from './UserButton';
 
 export function AppBarComponent() {
-  const [isClient, setIsClient] = useState(false);
   const t = useTranslations('app_bar');
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   return (
     <AppBar position="static">
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', px: { xs: 1, sm: 2 } }}>
         <Typography
           variant="h6"
-          component="div"
+          component={Link}
+          href="/"
           sx={{
             flexGrow: 1,
             fontSize: { xs: '1rem', sm: '1.25rem' },
+            textDecoration: 'none',
+            color: 'inherit',
+            cursor: 'pointer',
           }}
         >
           {t('title')}
         </Typography>
         <Stack direction="row" spacing={{ xs: 0.5, sm: 1 }}>
           <ToggleColorMode />
-          {isClient && <UserButton />}
-          {isClient && <StackUserButton />}
+          <UserButton />
+          {/* <StackUserButton /> */}
         </Stack>
       </Toolbar>
     </AppBar>
