@@ -31,7 +31,7 @@ export function UserButton() {
   const t = useTranslations('app_bar');
   const user = stackClientApp.useUser();
   const router = useRouter();
-  const { setMode } = useColorScheme();
+  const { mode, setMode } = useColorScheme();
   const { setTheme } = useTheme();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -130,19 +130,25 @@ export function UserButton() {
                 anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'right' }}
               >
-                <MenuItem onClick={() => handleThemeOptionClick('system')}>
+                <MenuItem
+                  onClick={() => handleThemeOptionClick('system')}
+                  selected={mode === 'system'}
+                >
                   <ListItemIcon>
                     <LaptopChromebookOutlined fontSize="small" />
                   </ListItemIcon>
                   <ListItemText>{t('system')}</ListItemText>
                 </MenuItem>
-                <MenuItem onClick={() => handleThemeOptionClick('light')}>
+                <MenuItem
+                  onClick={() => handleThemeOptionClick('light')}
+                  selected={mode === 'light'}
+                >
                   <ListItemIcon>
                     <LightModeOutlined fontSize="small" />
                   </ListItemIcon>
                   <ListItemText>{t('light')}</ListItemText>
                 </MenuItem>
-                <MenuItem onClick={() => handleThemeOptionClick('dark')}>
+                <MenuItem onClick={() => handleThemeOptionClick('dark')} selected={mode === 'dark'}>
                   <ListItemIcon>
                     <DarkModeOutlined fontSize="small" />
                   </ListItemIcon>
