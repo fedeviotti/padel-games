@@ -5,7 +5,7 @@ import { stackClientApp } from '@/stack/client';
 import './globals.css';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { NextIntlClientProvider } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { ReactNode } from 'react';
 import { StackThemeWrapper } from '@/components/StackThemeWrapper';
 import { CustomThemeProvider } from '@/contexts/ThemeContext';
@@ -33,8 +33,10 @@ type Props = {
 };
 
 export default async function RootLayout({ children }: Props) {
+  const locale = await getLocale();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable}`}
         style={{

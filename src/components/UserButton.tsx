@@ -3,6 +3,7 @@
 import {
   AccountCircleOutlined,
   DarkModeOutlined,
+  LanguageOutlined,
   LaptopChromebookOutlined,
   LightModeOutlined,
   LogoutOutlined,
@@ -19,11 +20,11 @@ import {
   Typography,
   useColorScheme,
 } from '@mui/material';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { stackClientApp } from '@/stack/client';
 import { UserAvatar } from './UserAvatar';
 
@@ -36,11 +37,14 @@ export function UserButton() {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [themeMenuAnchorEl, setThemeMenuAnchorEl] = useState<null | HTMLElement>(null);
+  const [languageMenuAnchorEl, setLanguageMenuAnchorEl] = useState<null | HTMLElement>(null);
+  const locale = useLocale();
 
   const open = Boolean(anchorEl);
   const themeMenuOpen = Boolean(themeMenuAnchorEl);
+  const languageMenuOpen = Boolean(languageMenuAnchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -61,7 +65,7 @@ export function UserButton() {
     handleClose();
   };
 
-  const handleThemeSelector = (event: React.MouseEvent<HTMLElement>) => {
+  const handleThemeSelector = (event: MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     setThemeMenuAnchorEl(event.currentTarget);
   };
@@ -75,6 +79,28 @@ export function UserButton() {
     setTheme(value);
     handleThemeMenuClose();
     handleClose();
+  };
+
+  const handleLanguageSelector = (event: MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    setLanguageMenuAnchorEl(event.currentTarget);
+  };
+
+  const handleLanguageMenuClose = () => {
+    setLanguageMenuAnchorEl(null);
+  };
+
+  const handleLanguageOptionClick = async (newLocale: 'en' | 'it') => {
+    if (newLocale !== locale) {
+      // Set locale in cookie and reload page
+      document.cookie = `locale=${newLocale}; path=/; max-age=31536000`; // 1 year
+      handleLanguageMenuClose();
+      handleClose();
+      router.refresh();
+      //window.location.reload();
+    } else {
+      handleLanguageMenuClose();
+    }
   };
 
   const userEmail = user?.primaryEmail ?? '';
@@ -153,6 +179,33 @@ export function UserButton() {
                     <DarkModeOutlined fontSize="small" />
                   </ListItemIcon>
                   <ListItemText>{t('dark')}</ListItemText>
+                </MenuItem>
+              </Menu>,
+              <MenuItem key="language-selector" onClick={handleLanguageSelector}>
+                <ListItemIcon>
+                  <LanguageOutlined fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>{t('language')}</ListItemText>
+              </MenuItem>,
+              <Menu
+                key="language-submenu"
+                anchorEl={languageMenuAnchorEl}
+                open={languageMenuOpen}
+                onClose={handleLanguageMenuClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+              >
+                <MenuItem
+                  onClick={() => handleLanguageOptionClick('en')}
+                  selected={locale === 'en'}
+                >
+                  <ListItemText>{t('english')}</ListItemText>
+                </MenuItem>
+                <MenuItem
+                  onClick={() => handleLanguageOptionClick('it')}
+                  selected={locale === 'it'}
+                >
+                  <ListItemText>{t('italian')}</ListItemText>
                 </MenuItem>
               </Menu>,
               <MenuItem key="sign-out" onClick={handleSignOut}>
