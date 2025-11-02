@@ -20,7 +20,7 @@ export async function GET() {
     // Fetch player names and tournament name for each game
     const gamesWithPlayers = await Promise.all(
       games.map(async (game) => {
-        const [t1pDx, t1pSx, t2pDx, t2pSx, tournament] = await Promise.all([
+        const [t1PlayerDx, t1PlayerSx, t2PlayerDx, t2PlayerSx, tournament] = await Promise.all([
           db
             .select()
             .from(playerTable)
@@ -55,10 +55,10 @@ export async function GET() {
             : null,
         ]);
 
-        const team1PlayerDxInitial = t1pDx?.firstName?.charAt(0)?.toUpperCase();
-        const team1PlayerSxInitial = t1pSx?.firstName?.charAt(0)?.toUpperCase();
-        const team2PlayerDxInitial = t2pDx?.firstName?.charAt(0)?.toUpperCase();
-        const team2PlayerSxInitial = t2pSx?.firstName?.charAt(0)?.toUpperCase();
+        const team1PlayerDxInitial = t1PlayerDx?.firstName?.charAt(0)?.toUpperCase();
+        const team1PlayerSxInitial = t1PlayerSx?.firstName?.charAt(0)?.toUpperCase();
+        const team2PlayerDxInitial = t2PlayerDx?.firstName?.charAt(0)?.toUpperCase();
+        const team2PlayerSxInitial = t2PlayerSx?.firstName?.charAt(0)?.toUpperCase();
 
         const team1PlayerDxInitialWithDot = team1PlayerDxInitial ? `${team1PlayerDxInitial}.` : '';
         const team1PlayerSxInitialWithDot = team1PlayerSxInitial ? `${team1PlayerSxInitial}.` : '';
@@ -67,10 +67,10 @@ export async function GET() {
 
         return {
           ...game,
-          team1PlayerDxName: `${team1PlayerDxInitialWithDot} ${t1pDx?.lastName}` || 'Unknown',
-          team1PlayerSxName: `${team1PlayerSxInitialWithDot} ${t1pSx?.lastName}` || 'Unknown',
-          team2PlayerDxName: `${team2PlayerDxInitialWithDot} ${t2pDx?.lastName}` || 'Unknown',
-          team2PlayerSxName: `${team2PlayerSxInitialWithDot} ${t2pSx?.lastName}` || 'Unknown',
+          team1PlayerDxName: `${t1PlayerDx?.lastName} ${team1PlayerDxInitialWithDot}` || 'Unknown',
+          team1PlayerSxName: `${t1PlayerSx?.lastName} ${team1PlayerSxInitialWithDot}` || 'Unknown',
+          team2PlayerDxName: `${t2PlayerDx?.lastName} ${team2PlayerDxInitialWithDot}` || 'Unknown',
+          team2PlayerSxName: `${t2PlayerSx?.lastName} ${team2PlayerSxInitialWithDot}` || 'Unknown',
           tournamentName: tournament?.name || null,
         };
       })
