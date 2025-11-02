@@ -195,7 +195,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                       p.id.toString() !== formData.team2PlayerDx &&
                       p.id.toString() !== formData.team2PlayerSx
                   )}
-                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  getOptionLabel={(option) => `${option.lastName} ${option.firstName}`}
                   value={players.find((p) => p.id.toString() === formData.team1PlayerDx) || null}
                   onChange={(_, newValue) =>
                     setFormData({ ...formData, team1PlayerDx: newValue?.id.toString() || '' })
@@ -217,7 +217,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                       p.id.toString() !== formData.team2PlayerDx &&
                       p.id.toString() !== formData.team2PlayerSx
                   )}
-                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  getOptionLabel={(option) => `${option.lastName} ${option.firstName}`}
                   value={players.find((p) => p.id.toString() === formData.team1PlayerSx) || null}
                   onChange={(_, newValue) =>
                     setFormData({ ...formData, team1PlayerSx: newValue?.id.toString() || '' })
@@ -245,7 +245,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                       p.id.toString() !== formData.team1PlayerSx &&
                       p.id.toString() !== formData.team2PlayerSx
                   )}
-                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  getOptionLabel={(option) => `${option.lastName} ${option.lastName}`}
                   value={players.find((p) => p.id.toString() === formData.team2PlayerDx) || null}
                   onChange={(_, newValue) =>
                     setFormData({ ...formData, team2PlayerDx: newValue?.id.toString() || '' })
@@ -267,7 +267,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                       p.id.toString() !== formData.team1PlayerSx &&
                       p.id.toString() !== formData.team2PlayerDx
                   )}
-                  getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+                  getOptionLabel={(option) => `${option.lastName} ${option.firstName}`}
                   value={players.find((p) => p.id.toString() === formData.team2PlayerSx) || null}
                   onChange={(_, newValue) =>
                     setFormData({ ...formData, team2PlayerSx: newValue?.id.toString() || '' })
