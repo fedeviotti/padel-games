@@ -198,7 +198,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={t('add_edit_game.team_1_player_1')}
+                      label={t('add_edit_game.team_1_player_dx')}
                       placeholder={t('add_edit_game.choose_player')}
                       required
                     />
@@ -215,7 +215,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={t('add_edit_game.team_1_player_2')}
+                      label={t('add_edit_game.team_1_player_sx')}
                       placeholder={t('add_edit_game.choose_player')}
                       required
                     />
@@ -238,7 +238,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={t('add_edit_game.team_2_player_1')}
+                      label={t('add_edit_game.team_2_player_dx')}
                       placeholder={t('add_edit_game.choose_player')}
                       required
                     />
@@ -255,7 +255,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={t('add_edit_game.team_2_player_2')}
+                      label={t('add_edit_game.team_2_player_sx')}
                       placeholder={t('add_edit_game.choose_player')}
                       required
                     />
