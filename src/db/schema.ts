@@ -19,18 +19,18 @@ export const gameTable = pgTable('games', {
   playedAt: timestamp('played_at').notNull(),
 
   // Players of Team 1
-  team1Player1: integer('team1_player1')
+  team1PlayerDx: integer('team1_player_dx')
     .notNull()
     .references(() => playerTable.id),
-  team1Player2: integer('team1_player2')
+  team1PlayerSx: integer('team1_player_sx')
     .notNull()
     .references(() => playerTable.id),
 
   // Players of Team 2
-  team2Player1: integer('team2_player1')
+  team2PlayerDx: integer('team2_player_dx')
     .notNull()
     .references(() => playerTable.id),
-  team2Player2: integer('team2_player2')
+  team2PlayerSx: integer('team2_player_sx')
     .notNull()
     .references(() => playerTable.id),
 
