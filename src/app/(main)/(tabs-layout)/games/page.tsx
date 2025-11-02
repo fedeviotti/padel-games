@@ -211,7 +211,7 @@ export default function Games() {
                           game.winningTeam === 1 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
-                      {t('card_team_1')}: {game.team1PlayerDxName} & {game.team1PlayerSxName}
+                      {game.team1PlayerDxName} ({t('dx')}) - {game.team1PlayerSxName} ({t('sx')})
                     </Typography>
                     <Typography
                       variant="body2"
@@ -225,7 +225,7 @@ export default function Games() {
                           game.winningTeam === 2 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
-                      {t('card_team_2')}: {game.team2PlayerDxName} & {game.team2PlayerSxName}
+                      {game.team2PlayerDxName} ({t('dx')}) - {game.team2PlayerSxName} ({t('sx')})
                     </Typography>
                   </Box>
 
@@ -235,10 +235,12 @@ export default function Games() {
                     <Typography variant="body2">
                       {t('card_score')}: {game.team1SetScore} - {game.team2SetScore}
                     </Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                      {t('card_winner')}:{' '}
-                      {game.winningTeam > 0 ? `${t('team')} ${game.winningTeam}` : t('tie')}
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="body2">{t('card_winner')}: </Typography>
+                      <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                        {game.winningTeam > 0 ? `${t('team')} ${game.winningTeam}` : t('tie')}
+                      </Typography>
+                    </Box>
                   </Box>
                 </CardContent>
               </Card>
@@ -270,7 +272,9 @@ export default function Games() {
                         borderRadius: 1,
                       }}
                     >
-                      {game.team1PlayerDxName} <br /> {game.team1PlayerSxName}
+                      {game.team1PlayerDxName} ({t('dx')})
+                      <br />
+                      {game.team1PlayerSxName} ({t('sx')})
                     </TableCell>
                     <TableCell
                       sx={{
@@ -279,7 +283,9 @@ export default function Games() {
                         borderRadius: 1,
                       }}
                     >
-                      {game.team2PlayerDxName} <br /> {game.team2PlayerSxName}
+                      {game.team2PlayerDxName} ({t('dx')})
+                      <br />
+                      {game.team2PlayerSxName} ({t('sx')})
                     </TableCell>
                     <TableCell>
                       {game.team1SetScore} - {game.team2SetScore}
