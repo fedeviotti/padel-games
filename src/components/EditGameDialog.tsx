@@ -209,7 +209,12 @@ export default function EditGameDialog({
                   {t('add_edit_game.team_1')}
                 </Typography>
                 <Autocomplete
-                  options={players}
+                  options={players.filter(
+                    (p) =>
+                      p.id.toString() !== formData.team1PlayerSx &&
+                      p.id.toString() !== formData.team2PlayerDx &&
+                      p.id.toString() !== formData.team2PlayerSx
+                  )}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
                   value={players.find((p) => p.id.toString() === formData.team1PlayerDx) || null}
                   onChange={(_, newValue) =>
@@ -226,7 +231,12 @@ export default function EditGameDialog({
                   isOptionEqualToValue={(option, value) => option.id === value.id}
                 />
                 <Autocomplete
-                  options={players}
+                  options={players.filter(
+                    (p) =>
+                      p.id.toString() !== formData.team1PlayerDx &&
+                      p.id.toString() !== formData.team2PlayerDx &&
+                      p.id.toString() !== formData.team2PlayerSx
+                  )}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
                   value={players.find((p) => p.id.toString() === formData.team1PlayerSx) || null}
                   onChange={(_, newValue) =>
@@ -249,7 +259,12 @@ export default function EditGameDialog({
                   {t('add_edit_game.team_2')}
                 </Typography>
                 <Autocomplete
-                  options={players}
+                  options={players.filter(
+                    (p) =>
+                      p.id.toString() !== formData.team1PlayerDx &&
+                      p.id.toString() !== formData.team1PlayerSx &&
+                      p.id.toString() !== formData.team2PlayerSx
+                  )}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
                   value={players.find((p) => p.id.toString() === formData.team2PlayerDx) || null}
                   onChange={(_, newValue) =>
@@ -266,7 +281,12 @@ export default function EditGameDialog({
                   isOptionEqualToValue={(option, value) => option.id === value.id}
                 />
                 <Autocomplete
-                  options={players}
+                  options={players.filter(
+                    (p) =>
+                      p.id.toString() !== formData.team1PlayerDx &&
+                      p.id.toString() !== formData.team1PlayerSx &&
+                      p.id.toString() !== formData.team2PlayerDx
+                  )}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
                   value={players.find((p) => p.id.toString() === formData.team2PlayerSx) || null}
                   onChange={(_, newValue) =>
