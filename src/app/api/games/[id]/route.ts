@@ -40,10 +40,10 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     const body = await request.json();
     const {
       playedAt,
-      team1Player1,
-      team1Player2,
-      team2Player1,
-      team2Player2,
+      team1PlayerDx,
+      team1PlayerSx,
+      team2PlayerDx,
+      team2PlayerSx,
       team1SetScore,
       team2SetScore,
       winningTeam,
@@ -55,10 +55,10 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     if (
       !playedAt ||
-      !team1Player1 ||
-      !team1Player2 ||
-      !team2Player1 ||
-      !team2Player2 ||
+      !team1PlayerDx ||
+      !team1PlayerSx ||
+      !team2PlayerDx ||
+      !team2PlayerSx ||
       team1SetScore === undefined ||
       team2SetScore === undefined ||
       winningTeam === undefined ||
@@ -68,7 +68,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     }
 
     // Validate that all players belong to the current user
-    const playerIds = [team1Player1, team1Player2, team2Player1, team2Player2];
+    const playerIds = [team1PlayerDx, team1PlayerSx, team2PlayerDx, team2PlayerSx];
     const players = await db
       .select()
       .from(playerTable)
@@ -100,10 +100,10 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       .update(gameTable)
       .set({
         playedAt: new Date(playedAt),
-        team1Player1,
-        team1Player2,
-        team2Player1,
-        team2Player2,
+        team1PlayerDx,
+        team1PlayerSx,
+        team2PlayerDx,
+        team2PlayerSx,
         team1SetScore,
         team2SetScore,
         winningTeam,

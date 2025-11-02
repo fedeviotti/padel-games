@@ -31,10 +31,10 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
           isNull(gameTable.deletedAt),
           eq(gameTable.userId, user.id),
           or(
-            eq(gameTable.team1Player1, playerId),
-            eq(gameTable.team1Player2, playerId),
-            eq(gameTable.team2Player1, playerId),
-            eq(gameTable.team2Player2, playerId)
+            eq(gameTable.team1PlayerDx, playerId),
+            eq(gameTable.team1PlayerSx, playerId),
+            eq(gameTable.team2PlayerDx, playerId),
+            eq(gameTable.team2PlayerSx, playerId)
           )
         )
       );

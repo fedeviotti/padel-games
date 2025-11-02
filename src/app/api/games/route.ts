@@ -20,26 +20,26 @@ export async function GET() {
     // Fetch player names and tournament name for each game
     const gamesWithPlayers = await Promise.all(
       games.map(async (game) => {
-        const [t1p1, t1p2, t2p1, t2p2, tournament] = await Promise.all([
+        const [t1pDx, t1pSx, t2pDx, t2pSx, tournament] = await Promise.all([
           db
             .select()
             .from(playerTable)
-            .where(and(eq(playerTable.id, game.team1Player1), eq(playerTable.userId, user.id)))
+            .where(and(eq(playerTable.id, game.team1PlayerDx), eq(playerTable.userId, user.id)))
             .then((r) => r[0]),
           db
             .select()
             .from(playerTable)
-            .where(and(eq(playerTable.id, game.team1Player2), eq(playerTable.userId, user.id)))
+            .where(and(eq(playerTable.id, game.team1PlayerSx), eq(playerTable.userId, user.id)))
             .then((r) => r[0]),
           db
             .select()
             .from(playerTable)
-            .where(and(eq(playerTable.id, game.team2Player1), eq(playerTable.userId, user.id)))
+            .where(and(eq(playerTable.id, game.team2PlayerDx), eq(playerTable.userId, user.id)))
             .then((r) => r[0]),
           db
             .select()
             .from(playerTable)
-            .where(and(eq(playerTable.id, game.team2Player2), eq(playerTable.userId, user.id)))
+            .where(and(eq(playerTable.id, game.team2PlayerSx), eq(playerTable.userId, user.id)))
             .then((r) => r[0]),
           game.tournamentId
             ? db
@@ -55,22 +55,22 @@ export async function GET() {
             : null,
         ]);
 
-        const team1Player1Initial = t1p1?.firstName?.charAt(0)?.toUpperCase();
-        const team1Player2Initial = t1p2?.firstName?.charAt(0)?.toUpperCase();
-        const team2Player1Initial = t2p1?.firstName?.charAt(0)?.toUpperCase();
-        const team2Player2Initial = t2p2?.firstName?.charAt(0)?.toUpperCase();
+        const team1PlayerDxInitial = t1pDx?.firstName?.charAt(0)?.toUpperCase();
+        const team1PlayerSxInitial = t1pSx?.firstName?.charAt(0)?.toUpperCase();
+        const team2PlayerDxInitial = t2pDx?.firstName?.charAt(0)?.toUpperCase();
+        const team2PlayerSxInitial = t2pSx?.firstName?.charAt(0)?.toUpperCase();
 
-        const team1Player1InitialWithDot = team1Player1Initial ? `${team1Player1Initial}.` : '';
-        const team1Player2InitialWithDot = team1Player2Initial ? `${team1Player2Initial}.` : '';
-        const team2Player1InitialWithDot = team2Player1Initial ? `${team2Player1Initial}.` : '';
-        const team2Player2InitialWithDot = team2Player2Initial ? `${team2Player2Initial}.` : '';
+        const team1PlayerDxInitialWithDot = team1PlayerDxInitial ? `${team1PlayerDxInitial}.` : '';
+        const team1PlayerSxInitialWithDot = team1PlayerSxInitial ? `${team1PlayerSxInitial}.` : '';
+        const team2PlayerDxInitialWithDot = team2PlayerDxInitial ? `${team2PlayerDxInitial}.` : '';
+        const team2PlayerSxInitialWithDot = team2PlayerSxInitial ? `${team2PlayerSxInitial}.` : '';
 
         return {
           ...game,
-          team1Player1Name: `${team1Player1InitialWithDot} ${t1p1?.lastName}` || 'Unknown',
-          team1Player2Name: `${team1Player2InitialWithDot} ${t1p2?.lastName}` || 'Unknown',
-          team2Player1Name: `${team2Player1InitialWithDot} ${t2p1?.lastName}` || 'Unknown',
-          team2Player2Name: `${team2Player2InitialWithDot} ${t2p2?.lastName}` || 'Unknown',
+          team1PlayerDxName: `${team1PlayerDxInitialWithDot} ${t1pDx?.lastName}` || 'Unknown',
+          team1PlayerSxName: `${team1PlayerSxInitialWithDot} ${t1pSx?.lastName}` || 'Unknown',
+          team2PlayerDxName: `${team2PlayerDxInitialWithDot} ${t2pDx?.lastName}` || 'Unknown',
+          team2PlayerSxName: `${team2PlayerSxInitialWithDot} ${t2pSx?.lastName}` || 'Unknown',
           tournamentName: tournament?.name || null,
         };
       })
@@ -93,10 +93,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     const {
       playedAt,
-      team1Player1,
-      team1Player2,
-      team2Player1,
-      team2Player2,
+      team1PlayerDx,
+      team1PlayerSx,
+      team2PlayerDx,
+      team2PlayerSx,
       team1SetScore,
       team2SetScore,
       winningTeam,
@@ -106,10 +106,10 @@ export async function POST(request: Request) {
 
     if (
       !playedAt ||
-      !team1Player1 ||
-      !team1Player2 ||
-      !team2Player1 ||
-      !team2Player2 ||
+      !team1PlayerDx ||
+      !team1PlayerSx ||
+      !team2PlayerDx ||
+      !team2PlayerSx ||
       team1SetScore === undefined ||
       team2SetScore === undefined ||
       winningTeam === undefined ||
@@ -119,7 +119,7 @@ export async function POST(request: Request) {
     }
 
     // Validate that all players belong to the current user
-    const playerIds = [team1Player1, team1Player2, team2Player1, team2Player2];
+    const playerIds = [team1PlayerDx, team1PlayerSx, team2PlayerDx, team2PlayerSx];
     const players = await db
       .select()
       .from(playerTable)
@@ -151,10 +151,10 @@ export async function POST(request: Request) {
       .insert(gameTable)
       .values({
         playedAt: new Date(playedAt),
-        team1Player1,
-        team1Player2,
-        team2Player1,
-        team2Player2,
+        team1PlayerDx,
+        team1PlayerSx,
+        team2PlayerDx,
+        team2PlayerSx,
         team1SetScore,
         team2SetScore,
         winningTeam,

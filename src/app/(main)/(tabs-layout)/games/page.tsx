@@ -28,10 +28,10 @@ import { SelectGame } from '@/db/schema';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 
 type GameWithPlayers = SelectGame & {
-  team1Player1Name: string;
-  team1Player2Name: string;
-  team2Player1Name: string;
-  team2Player2Name: string;
+  team1PlayerDxName: string;
+  team1PlayerSxName: string;
+  team2PlayerDxName: string;
+  team2PlayerSxName: string;
   tournamentName: string | null;
 };
 
@@ -121,10 +121,10 @@ export default function Games() {
 
   const getGameInfo = (game: GameWithPlayers | null) => {
     if (!game) return '';
-    return `${game.team1Player1Name} 
-    & ${game.team1Player2Name} 
-    vs ${game.team2Player1Name} 
-    & ${game.team2Player2Name}`;
+    return `${game.team1PlayerDxName} 
+    & ${game.team1PlayerSxName} 
+    vs ${game.team2PlayerDxName} 
+    & ${game.team2PlayerSxName}`;
   };
 
   if (isChecking) return <Loading />;
@@ -211,7 +211,7 @@ export default function Games() {
                           game.winningTeam === 1 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
-                      {t('card_team_1')}: {game.team1Player1Name} & {game.team1Player2Name}
+                      {t('card_team_1')}: {game.team1PlayerDxName} & {game.team1PlayerSxName}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -225,7 +225,7 @@ export default function Games() {
                           game.winningTeam === 2 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
-                      {t('card_team_2')}: {game.team2Player1Name} & {game.team2Player2Name}
+                      {t('card_team_2')}: {game.team2PlayerDxName} & {game.team2PlayerSxName}
                     </Typography>
                   </Box>
 
@@ -270,7 +270,7 @@ export default function Games() {
                         borderRadius: 1,
                       }}
                     >
-                      {game.team1Player1Name} <br /> {game.team1Player2Name}
+                      {game.team1PlayerDxName} <br /> {game.team1PlayerSxName}
                     </TableCell>
                     <TableCell
                       sx={{
@@ -279,7 +279,7 @@ export default function Games() {
                         borderRadius: 1,
                       }}
                     >
-                      {game.team2Player1Name} <br /> {game.team2Player2Name}
+                      {game.team2PlayerDxName} <br /> {game.team2PlayerSxName}
                     </TableCell>
                     <TableCell>
                       {game.team1SetScore} - {game.team2SetScore}

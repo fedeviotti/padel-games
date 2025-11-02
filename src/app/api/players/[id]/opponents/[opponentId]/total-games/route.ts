@@ -50,18 +50,18 @@ export async function GET(
           or(
             // Player on team1, opponent on team2
             and(
-              or(eq(gameTable.team1Player1, playerId), eq(gameTable.team1Player2, playerId)),
+              or(eq(gameTable.team1PlayerDx, playerId), eq(gameTable.team1PlayerSx, playerId)),
               or(
-                eq(gameTable.team2Player1, opponentPlayerId),
-                eq(gameTable.team2Player2, opponentPlayerId)
+                eq(gameTable.team2PlayerDx, opponentPlayerId),
+                eq(gameTable.team2PlayerSx, opponentPlayerId)
               )
             ),
             // Player on team2, opponent on team1
             and(
-              or(eq(gameTable.team2Player1, playerId), eq(gameTable.team2Player2, playerId)),
+              or(eq(gameTable.team2PlayerDx, playerId), eq(gameTable.team2PlayerSx, playerId)),
               or(
-                eq(gameTable.team1Player1, opponentPlayerId),
-                eq(gameTable.team1Player2, opponentPlayerId)
+                eq(gameTable.team1PlayerDx, opponentPlayerId),
+                eq(gameTable.team1PlayerSx, opponentPlayerId)
               )
             )
           )

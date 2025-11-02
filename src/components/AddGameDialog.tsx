@@ -29,10 +29,10 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
   const [tournaments, setTournaments] = useState<SelectTournament[]>([]);
   const [formData, setFormData] = useState({
     playedAt: new Date().toISOString().split('T')[0],
-    team1Player1: '',
-    team1Player2: '',
-    team2Player1: '',
-    team2Player2: '',
+    team1PlayerDx: '',
+    team1PlayerSx: '',
+    team2PlayerDx: '',
+    team2PlayerSx: '',
     team1SetScore: '',
     team2SetScore: '',
     tournamentId: '',
@@ -101,10 +101,10 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
         },
         body: JSON.stringify({
           ...formData,
-          team1Player1: parseInt(formData.team1Player1),
-          team1Player2: parseInt(formData.team1Player2),
-          team2Player1: parseInt(formData.team2Player1),
-          team2Player2: parseInt(formData.team2Player2),
+          team1PlayerDx: parseInt(formData.team1PlayerDx),
+          team1PlayerSx: parseInt(formData.team1PlayerSx),
+          team2PlayerDx: parseInt(formData.team2PlayerDx),
+          team2PlayerSx: parseInt(formData.team2PlayerSx),
           team1SetScore: parseInt(formData.team1SetScore),
           team2SetScore: parseInt(formData.team2SetScore),
           winningTeam: getWinningTeam(),
@@ -119,10 +119,10 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
 
       setFormData({
         playedAt: new Date().toISOString().split('T')[0],
-        team1Player1: '',
-        team1Player2: '',
-        team2Player1: '',
-        team2Player2: '',
+        team1PlayerDx: '',
+        team1PlayerSx: '',
+        team2PlayerDx: '',
+        team2PlayerSx: '',
         team1SetScore: '',
         team2SetScore: '',
         tournamentId: '',
@@ -191,9 +191,9 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 <Autocomplete
                   options={players}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-                  value={players.find((p) => p.id.toString() === formData.team1Player1) || null}
+                  value={players.find((p) => p.id.toString() === formData.team1PlayerDx) || null}
                   onChange={(_, newValue) =>
-                    setFormData({ ...formData, team1Player1: newValue?.id.toString() || '' })
+                    setFormData({ ...formData, team1PlayerDx: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
                     <TextField
@@ -208,9 +208,9 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 <Autocomplete
                   options={players}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-                  value={players.find((p) => p.id.toString() === formData.team1Player2) || null}
+                  value={players.find((p) => p.id.toString() === formData.team1PlayerSx) || null}
                   onChange={(_, newValue) =>
-                    setFormData({ ...formData, team1Player2: newValue?.id.toString() || '' })
+                    setFormData({ ...formData, team1PlayerSx: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
                     <TextField
@@ -231,9 +231,9 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 <Autocomplete
                   options={players}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-                  value={players.find((p) => p.id.toString() === formData.team2Player1) || null}
+                  value={players.find((p) => p.id.toString() === formData.team2PlayerDx) || null}
                   onChange={(_, newValue) =>
-                    setFormData({ ...formData, team2Player1: newValue?.id.toString() || '' })
+                    setFormData({ ...formData, team2PlayerDx: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
                     <TextField
@@ -248,9 +248,9 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 <Autocomplete
                   options={players}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-                  value={players.find((p) => p.id.toString() === formData.team2Player2) || null}
+                  value={players.find((p) => p.id.toString() === formData.team2PlayerSx) || null}
                   onChange={(_, newValue) =>
-                    setFormData({ ...formData, team2Player2: newValue?.id.toString() || '' })
+                    setFormData({ ...formData, team2PlayerSx: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
                     <TextField

@@ -18,10 +18,10 @@ import { useEffect, useState } from 'react';
 import { SelectGame, SelectPlayer, SelectTournament } from '@/db/schema';
 
 type GameWithPlayers = SelectGame & {
-  team1Player1Name: string;
-  team1Player2Name: string;
-  team2Player1Name: string;
-  team2Player2Name: string;
+  team1PlayerDxName: string;
+  team1PlayerSxName: string;
+  team2PlayerDxName: string;
+  team2PlayerSxName: string;
 };
 
 interface EditGameDialogProps {
@@ -42,10 +42,10 @@ export default function EditGameDialog({
   const [tournaments, setTournaments] = useState<SelectTournament[]>([]);
   const [formData, setFormData] = useState({
     playedAt: '',
-    team1Player1: '',
-    team1Player2: '',
-    team2Player1: '',
-    team2Player2: '',
+    team1PlayerDx: '',
+    team1PlayerSx: '',
+    team2PlayerDx: '',
+    team2PlayerSx: '',
     team1SetScore: '',
     team2SetScore: '',
     tournamentId: '',
@@ -65,10 +65,10 @@ export default function EditGameDialog({
     if (game) {
       setFormData({
         playedAt: game.playedAt ? new Date(game.playedAt).toISOString().split('T')[0] : '',
-        team1Player1: game.team1Player1.toString(),
-        team1Player2: game.team1Player2.toString(),
-        team2Player1: game.team2Player1.toString(),
-        team2Player2: game.team2Player2.toString(),
+        team1PlayerDx: game.team1PlayerDx.toString(),
+        team1PlayerSx: game.team1PlayerSx.toString(),
+        team2PlayerDx: game.team2PlayerDx.toString(),
+        team2PlayerSx: game.team2PlayerSx.toString(),
         team1SetScore: game.team1SetScore.toString(),
         team2SetScore: game.team2SetScore.toString(),
         tournamentId: game.tournamentId ? game.tournamentId.toString() : '',
@@ -131,10 +131,10 @@ export default function EditGameDialog({
         },
         body: JSON.stringify({
           ...formData,
-          team1Player1: parseInt(formData.team1Player1),
-          team1Player2: parseInt(formData.team1Player2),
-          team2Player1: parseInt(formData.team2Player1),
-          team2Player2: parseInt(formData.team2Player2),
+          team1PlayerDx: parseInt(formData.team1PlayerDx),
+          team1PlayerSx: parseInt(formData.team1PlayerSx),
+          team2PlayerDx: parseInt(formData.team2PlayerDx),
+          team2PlayerSx: parseInt(formData.team2PlayerSx),
           team1SetScore: parseInt(formData.team1SetScore),
           team2SetScore: parseInt(formData.team2SetScore),
           winningTeam: getWinningTeam(),
@@ -211,9 +211,9 @@ export default function EditGameDialog({
                 <Autocomplete
                   options={players}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-                  value={players.find((p) => p.id.toString() === formData.team1Player1) || null}
+                  value={players.find((p) => p.id.toString() === formData.team1PlayerDx) || null}
                   onChange={(_, newValue) =>
-                    setFormData({ ...formData, team1Player1: newValue?.id.toString() || '' })
+                    setFormData({ ...formData, team1PlayerDx: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
                     <TextField
@@ -228,9 +228,9 @@ export default function EditGameDialog({
                 <Autocomplete
                   options={players}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-                  value={players.find((p) => p.id.toString() === formData.team1Player2) || null}
+                  value={players.find((p) => p.id.toString() === formData.team1PlayerSx) || null}
                   onChange={(_, newValue) =>
-                    setFormData({ ...formData, team1Player2: newValue?.id.toString() || '' })
+                    setFormData({ ...formData, team1PlayerSx: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
                     <TextField
@@ -251,9 +251,9 @@ export default function EditGameDialog({
                 <Autocomplete
                   options={players}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-                  value={players.find((p) => p.id.toString() === formData.team2Player1) || null}
+                  value={players.find((p) => p.id.toString() === formData.team2PlayerDx) || null}
                   onChange={(_, newValue) =>
-                    setFormData({ ...formData, team2Player1: newValue?.id.toString() || '' })
+                    setFormData({ ...formData, team2PlayerDx: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
                     <TextField
@@ -268,9 +268,9 @@ export default function EditGameDialog({
                 <Autocomplete
                   options={players}
                   getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-                  value={players.find((p) => p.id.toString() === formData.team2Player2) || null}
+                  value={players.find((p) => p.id.toString() === formData.team2PlayerSx) || null}
                   onChange={(_, newValue) =>
-                    setFormData({ ...formData, team2Player2: newValue?.id.toString() || '' })
+                    setFormData({ ...formData, team2PlayerSx: newValue?.id.toString() || '' })
                   }
                   renderInput={(params) => (
                     <TextField
