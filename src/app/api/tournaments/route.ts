@@ -1,4 +1,4 @@
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, asc, eq, isNull } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 import { db } from '@/db/db';
 import { tournamentTable } from '@/db/schema';
@@ -14,7 +14,8 @@ export async function GET() {
     const tournaments = await db
       .select()
       .from(tournamentTable)
-      .where(and(isNull(tournamentTable.deletedAt), eq(tournamentTable.userId, user.id)));
+      .where(and(isNull(tournamentTable.deletedAt), eq(tournamentTable.userId, user.id)))
+      .orderBy(asc(tournamentTable.name));
 
     return NextResponse.json(tournaments);
   } catch (error) {
