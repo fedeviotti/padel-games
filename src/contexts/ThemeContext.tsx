@@ -30,6 +30,23 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
     typography: {
       fontFamily: 'var(--font-geist-sans), Arial, sans-serif',
     },
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            '& input[type=number]': {
+              MozAppearance: 'textfield',
+            },
+            // eslint-disable-next-line max-len
+            '& input[type=number]::-webkit-outer-spin-button, & input[type=number]::-webkit-inner-spin-button':
+              {
+                WebkitAppearance: 'none',
+                margin: 0,
+              },
+          },
+        },
+      },
+    },
   });
 
   return (
