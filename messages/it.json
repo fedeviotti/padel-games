@@ -89,7 +89,8 @@
       "score": "Punteggio",
       "games_difference": "Differenza di partite",
       "team": "Team",
-      "tie": "Pareggio"
+      "tie": "Pareggio",
+      "result": "Risultato"
     }
   },
   "players": {

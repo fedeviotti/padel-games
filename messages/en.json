@@ -89,7 +89,8 @@
       "score": "Score",
       "games_difference": "Games Difference",
       "team": "Team",
-      "tie": "Tie"
+      "tie": "Tie",
+      "result": "Result"
     }
   },
   "players": {
