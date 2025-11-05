@@ -1,7 +1,7 @@
 import { and, desc, eq, inArray, isNull } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 import { db } from '@/db/db';
-import { gameTable, playerTable, tournamentTable } from '@/db/schema';
+import { gamesView, gameTable, playerTable, tournamentTable } from '@/db/schema';
 import { stackServerApp } from '@/stack/server';
 
 export async function GET() {
@@ -13,9 +13,9 @@ export async function GET() {
 
     const games = await db
       .select()
-      .from(gameTable)
-      .where(and(isNull(gameTable.deletedAt), eq(gameTable.userId, user.id)))
-      .orderBy(desc(gameTable.playedAt));
+      .from(gamesView)
+      .where(and(isNull(gamesView.deletedAt), eq(gamesView.userId, user.id)))
+      .orderBy(desc(gamesView.playedAt));
 
     // Fetch player names and tournament name for each game
     const gamesWithPlayers = await Promise.all(
