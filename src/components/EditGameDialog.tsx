@@ -16,14 +16,8 @@ import {
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { SETS } from '@/constants/constants';
-import { SelectGame, SelectPlayer, SelectTournament } from '@/db/schema';
-
-type GameWithPlayers = SelectGame & {
-  team1PlayerDxName: string;
-  team1PlayerSxName: string;
-  team2PlayerDxName: string;
-  team2PlayerSxName: string;
-};
+import { SelectPlayer, SelectTournament } from '@/db/schema';
+import { GameWithPlayers } from '@/types/games';
 
 interface EditGameDialogProps {
   open: boolean;

@@ -24,16 +24,8 @@ import Loading from '@/app/loading';
 import AddGameDialog from '@/components/AddGameDialog';
 import DeleteGameConfirmDialog from '@/components/DeleteGameConfirmDialog';
 import EditGameDialog from '@/components/EditGameDialog';
-import { SelectGame } from '@/db/schema';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
-
-type GameWithPlayers = SelectGame & {
-  team1PlayerDxName: string;
-  team1PlayerSxName: string;
-  team2PlayerDxName: string;
-  team2PlayerSxName: string;
-  tournamentName: string | null;
-};
+import { GameWithPlayers } from '@/types/games';
 
 export default function Games() {
   const t = useTranslations('games');
@@ -238,7 +230,7 @@ export default function Games() {
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       <Typography variant="body2">{t('card_winner')}: </Typography>
                       <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                        {game.winningTeam > 0 ? `${t('team')} ${game.winningTeam}` : t('tie')}
+                        {t(game.winner || 'unknown')}
                       </Typography>
                     </Box>
                   </Box>
@@ -290,9 +282,7 @@ export default function Games() {
                     <TableCell>
                       {game.team1SetScore} - {game.team2SetScore}
                     </TableCell>
-                    <TableCell>
-                      {game.winningTeam > 0 ? `${t('team')} ${game.winningTeam}` : t('tie')}
-                    </TableCell>
+                    <TableCell>{t(game.winner || 'unknown')}</TableCell>
                     <TableCell align="right">
                       <IconButton
                         onClick={() => handleEditClick(game)}
