@@ -100,7 +100,12 @@ export async function POST(request: Request) {
       team1SetScore,
       team2SetScore,
       winningTeam,
-      totalGamesDifference,
+      team1Set1Score,
+      team2Set1Score,
+      team1Set2Score,
+      team2Set2Score,
+      team1Set3Score,
+      team2Set3Score,
       tournamentId,
     } = body;
 
@@ -112,8 +117,7 @@ export async function POST(request: Request) {
       !team2PlayerSx ||
       team1SetScore === undefined ||
       team2SetScore === undefined ||
-      winningTeam === undefined ||
-      totalGamesDifference === undefined
+      winningTeam === undefined
     ) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
@@ -158,7 +162,12 @@ export async function POST(request: Request) {
         team1SetScore,
         team2SetScore,
         winningTeam,
-        totalGamesDifference,
+        team1Set1Score,
+        team2Set1Score,
+        team1Set2Score,
+        team2Set2Score,
+        team1Set3Score,
+        team2Set3Score,
         tournamentId: tournamentId || null,
         userId: user.id,
       })

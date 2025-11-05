@@ -1,5 +1,6 @@
-import { integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
+import { integer, pgTable, pgView, serial, text, timestamp } from 'drizzle-orm/pg-core';
 
+// TODO: rename to playersTable
 export const playerTable = pgTable('players', {
   id: serial('id').primaryKey(),
   firstName: text('first_name'),
@@ -14,6 +15,7 @@ export const playerTable = pgTable('players', {
 export type InsertPlayer = typeof playerTable.$inferInsert;
 export type SelectPlayer = typeof playerTable.$inferSelect;
 
+// TODO: rename to gamesTable
 export const gameTable = pgTable('games', {
   id: serial('id').primaryKey(),
   playedAt: timestamp('played_at').notNull(),
@@ -34,13 +36,25 @@ export const gameTable = pgTable('games', {
     .notNull()
     .references(() => playerTable.id),
 
-  // Set scored by each team
+  // Detailed set scores (games won per set)
+  //setDetails: json('set_details').$type<Array<{ team1Games: number; team2Games: number }>>(),
+
+  team1Set1Score: integer('team1_set1_score'),
+  team2Set1Score: integer('team2_set1_score'),
+
+  team1Set2Score: integer('team1_set2_score'),
+  team2Set2Score: integer('team2_set2_score'),
+
+  team1Set3Score: integer('team1_set3_score'),
+  team2Set3Score: integer('team2_set3_score'),
+
+  // Sets score for each team (move to view)
   team1SetScore: integer('team1_set_score').notNull(),
   team2SetScore: integer('team2_set_score').notNull(),
 
-  // Result
+  // Winner of the game and the difference in total games (move to view)
   winningTeam: integer('winning_team').notNull(), // 1 or 2
-  totalGamesDifference: integer('total_games_difference').notNull(),
+  //totalGamesDifference: integer('total_games_difference').notNull(),
 
   userId: text('user_id').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
@@ -51,6 +65,7 @@ export const gameTable = pgTable('games', {
 export type InsertGame = typeof gameTable.$inferInsert;
 export type SelectGame = typeof gameTable.$inferSelect;
 
+// TODO: rename to tournamentsTable
 export const tournamentTable = pgTable('tournaments', {
   id: serial('id').primaryKey(),
   name: text('name').notNull(),
@@ -63,3 +78,33 @@ export const tournamentTable = pgTable('tournaments', {
 });
 export type InsertTournament = typeof tournamentTable.$inferInsert;
 export type SelectTournament = typeof tournamentTable.$inferSelect;
+
+export const gamesView = pgView('games_view', {
+  id: serial('id'),
+  playedAt: timestamp('played_at'),
+  team1PlayerDx: integer('team1_player_dx'),
+  team1PlayerSx: integer('team1_player_sx'),
+  team2PlayerDx: integer('team2_player_dx'),
+  team2PlayerSx: integer('team2_player_sx'),
+  team1Set1Score: integer('team1_set1_score'),
+  team2Set1Score: integer('team2_set1_score'),
+  team1Set2Score: integer('team1_set2_score'),
+  team2Set2Score: integer('team2_set2_score'),
+  team1Set3Score: integer('team1_set3_score'),
+  team2Set3Score: integer('team2_set3_score'),
+  team1SetScore: integer('team1_set_score'),
+  team2SetScore: integer('team2_set_score'),
+  winningTeam: integer('winning_team'),
+  userId: text('user_id'),
+  createdAt: timestamp('created_at'),
+  updatedAt: timestamp('updated_at'),
+  deletedAt: timestamp('deleted_at'),
+  tournamentId: integer('tournament_id'),
+  team1SetsWon: integer('team1_sets_won'),
+  team2SetsWon: integer('team2_sets_won'),
+  finalSetsScore: integer('final_sets_score'),
+  winner: text('winner'),
+  setsScoreSets: text('sets_score_sets'),
+}).existing();
+
+export type SelectGamesView = typeof gamesView.$inferSelect;

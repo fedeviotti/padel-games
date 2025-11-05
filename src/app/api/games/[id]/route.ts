@@ -47,7 +47,12 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       team1SetScore,
       team2SetScore,
       winningTeam,
-      totalGamesDifference,
+      team1Set1Score,
+      team2Set1Score,
+      team1Set2Score,
+      team2Set2Score,
+      team1Set3Score,
+      team2Set3Score,
       tournamentId,
     } = body;
     const id = (await params).id;
@@ -61,8 +66,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       !team2PlayerSx ||
       team1SetScore === undefined ||
       team2SetScore === undefined ||
-      winningTeam === undefined ||
-      totalGamesDifference === undefined
+      winningTeam === undefined
     ) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
@@ -107,7 +111,12 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         team1SetScore,
         team2SetScore,
         winningTeam,
-        totalGamesDifference,
+        team1Set1Score,
+        team2Set1Score,
+        team1Set2Score,
+        team2Set2Score,
+        team1Set3Score,
+        team2Set3Score,
         tournamentId: tournamentId || null,
         updatedAt: new Date(),
       })
