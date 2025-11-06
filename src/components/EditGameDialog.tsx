@@ -154,9 +154,6 @@ export default function EditGameDialog({
           team1Set3Score: parseInt(formData.team1Set3Score),
           team2Set3Score: parseInt(formData.team2Set3Score),
           tournamentId: formData.tournamentId ? parseInt(formData.tournamentId) : null,
-          //team1SetScore: 0,
-          //team2SetScore: 0,
-          //winningTeam: 0,
         }),
       });
 

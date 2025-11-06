@@ -44,9 +44,6 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       team1PlayerSx,
       team2PlayerDx,
       team2PlayerSx,
-      // team1SetScore,
-      //team2SetScore,
-      //winningTeam,
       team1Set1Score,
       team2Set1Score,
       team1Set2Score,
@@ -58,16 +55,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     const id = (await params).id;
     const gameId = parseInt(id);
 
-    if (
-      !playedAt ||
-      !team1PlayerDx ||
-      !team1PlayerSx ||
-      !team2PlayerDx ||
-      !team2PlayerSx //||
-      // team1SetScore === undefined ||
-      // team2SetScore === undefined ||
-      //winningTeam === undefined
-    ) {
+    if (!playedAt || !team1PlayerDx || !team1PlayerSx || !team2PlayerDx || !team2PlayerSx) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -108,9 +96,6 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         team1PlayerSx,
         team2PlayerDx,
         team2PlayerSx,
-        //team1SetScore,
-        // team2SetScore,
-        //winningTeam,
         team1Set1Score,
         team2Set1Score,
         team1Set2Score,

@@ -46,7 +46,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
           isNull(gamesView.deletedAt),
           eq(gamesView.userId, user.id),
           eq(gamesView.winner, TEAM_2),
-          or(eq(gamesView.team1PlayerDx, playerId), eq(gamesView.team2PlayerSx, playerId))
+          or(eq(gamesView.team2PlayerDx, playerId), eq(gamesView.team2PlayerSx, playerId))
         )
       );
 
