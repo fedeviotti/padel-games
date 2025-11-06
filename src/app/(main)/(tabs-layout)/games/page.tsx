@@ -196,11 +196,11 @@ export default function Games() {
                       sx={{
                         fontWeight: 'bold',
                         backgroundColor:
-                          game.winningTeam === 1 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                          game.winner === 'team_1' ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
                         borderRadius: 1,
                         p: 0.5,
                         border:
-                          game.winningTeam === 1 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
+                          game.winner === 'team_1' ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
                       {game.team1PlayerDxName} ({t('dx')}) - {game.team1PlayerSxName} ({t('sx')})
@@ -210,11 +210,11 @@ export default function Games() {
                       sx={{
                         fontWeight: 'bold',
                         backgroundColor:
-                          game.winningTeam === 2 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                          game.winner === 'team_2' ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
                         borderRadius: 1,
                         p: 0.5,
                         border:
-                          game.winningTeam === 2 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
+                          game.winner === 'team_2' ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
                       {game.team2PlayerDxName} ({t('dx')}) - {game.team2PlayerSxName} ({t('sx')})
@@ -225,7 +225,7 @@ export default function Games() {
                     sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
                   >
                     <Typography variant="body2">
-                      {t('card_score')}: {game.team1SetScore} - {game.team2SetScore}
+                      {t('card_score')}: {game.team1SetsWon} - {game.team2SetsWon}
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       <Typography variant="body2">{t('card_winner')}: </Typography>
@@ -260,7 +260,7 @@ export default function Games() {
                     <TableCell
                       sx={{
                         backgroundColor:
-                          game.winningTeam === 1 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                          game.winner === 'team_1' ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
                         borderRadius: 1,
                       }}
                     >
@@ -271,7 +271,7 @@ export default function Games() {
                     <TableCell
                       sx={{
                         backgroundColor:
-                          game.winningTeam === 2 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                          game.winner === 'team_2' ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
                         borderRadius: 1,
                       }}
                     >
@@ -280,7 +280,7 @@ export default function Games() {
                       {game.team2PlayerSxName} ({t('sx')})
                     </TableCell>
                     <TableCell>
-                      {game.team1SetScore} - {game.team2SetScore}
+                      {game.team1SetsWon} - {game.team2SetsWon}
                     </TableCell>
                     <TableCell>{t(game.winner || 'unknown')}</TableCell>
                     <TableCell align="right">
