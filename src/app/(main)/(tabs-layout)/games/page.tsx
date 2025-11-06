@@ -24,6 +24,7 @@ import Loading from '@/app/loading';
 import AddGameDialog from '@/components/AddGameDialog';
 import DeleteGameConfirmDialog from '@/components/DeleteGameConfirmDialog';
 import EditGameDialog from '@/components/EditGameDialog';
+import { TEAM_1, TEAM_2 } from '@/constants/constants';
 import { useProtectedRoute } from '@/hooks/useProtectedRoute';
 import { GameWithPlayers } from '@/types/games';
 
@@ -196,11 +197,11 @@ export default function Games() {
                       sx={{
                         fontWeight: 'bold',
                         backgroundColor:
-                          game.winner === 'team_1' ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                          game.winner === TEAM_1 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
                         borderRadius: 1,
                         p: 0.5,
                         border:
-                          game.winner === 'team_1' ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
+                          game.winner === TEAM_1 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
                       {game.team1PlayerDxName} ({t('dx')}) - {game.team1PlayerSxName} ({t('sx')})
@@ -210,11 +211,11 @@ export default function Games() {
                       sx={{
                         fontWeight: 'bold',
                         backgroundColor:
-                          game.winner === 'team_2' ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                          game.winner === TEAM_2 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
                         borderRadius: 1,
                         p: 0.5,
                         border:
-                          game.winner === 'team_2' ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
+                          game.winner === TEAM_2 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
                       }}
                     >
                       {game.team2PlayerDxName} ({t('dx')}) - {game.team2PlayerSxName} ({t('sx')})
@@ -260,7 +261,7 @@ export default function Games() {
                     <TableCell
                       sx={{
                         backgroundColor:
-                          game.winner === 'team_1' ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                          game.winner === TEAM_1 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
                         borderRadius: 1,
                       }}
                     >
@@ -271,7 +272,7 @@ export default function Games() {
                     <TableCell
                       sx={{
                         backgroundColor:
-                          game.winner === 'team_2' ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                          game.winner === TEAM_2 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
                         borderRadius: 1,
                       }}
                     >
@@ -280,7 +281,11 @@ export default function Games() {
                       {game.team2PlayerSxName} ({t('sx')})
                     </TableCell>
                     <TableCell>
-                      {game.team1SetsWon} - {game.team2SetsWon}
+                      <span style={{ fontWeight: 'bold' }}>
+                        {game.team1SetsWon} - {game.team2SetsWon}
+                      </span>
+                      <br />
+                      {game.setsScoresText}
                     </TableCell>
                     <TableCell>{t(game.winner || 'unknown')}</TableCell>
                     <TableCell align="right">

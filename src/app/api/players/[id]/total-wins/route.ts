@@ -1,7 +1,8 @@
 import { and, count, eq, isNull, or } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
+import { TEAM_1, TEAM_2 } from '@/constants/constants';
 import { db } from '@/db/db';
-import { gameTable } from '@/db/schema';
+import { gamesView } from '@/db/schema';
 import { stackServerApp } from '@/stack/server';
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -26,26 +27,26 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     // Count wins where player is in team 1 and team 1 won
     const team1Wins = await db
       .select({ wins: count() })
-      .from(gameTable)
+      .from(gamesView)
       .where(
         and(
-          isNull(gameTable.deletedAt),
-          eq(gameTable.userId, user.id),
-          eq(gameTable.winningTeam, 1),
-          or(eq(gameTable.team1PlayerDx, playerId), eq(gameTable.team1PlayerSx, playerId))
+          isNull(gamesView.deletedAt),
+          eq(gamesView.userId, user.id),
+          eq(gamesView.winner, TEAM_1),
+          or(eq(gamesView.team1PlayerDx, playerId), eq(gamesView.team1PlayerSx, playerId))
         )
       );
 
     // Count wins where player is in team 2 and team 2 won
     const team2Wins = await db
       .select({ wins: count() })
-      .from(gameTable)
+      .from(gamesView)
       .where(
         and(
-          isNull(gameTable.deletedAt),
-          eq(gameTable.userId, user.id),
-          eq(gameTable.winningTeam, 2),
-          or(eq(gameTable.team1PlayerDx, playerId), eq(gameTable.team2PlayerSx, playerId))
+          isNull(gamesView.deletedAt),
+          eq(gamesView.userId, user.id),
+          eq(gamesView.winner, TEAM_2),
+          or(eq(gamesView.team1PlayerDx, playerId), eq(gamesView.team2PlayerSx, playerId))
         )
       );
 

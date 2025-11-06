@@ -49,11 +49,11 @@ export const gameTable = pgTable('games', {
   team2Set3Score: integer('team2_set3_score'),
 
   // Sets score for each team (move to view)
-  team1SetScore: integer('team1_set_score').notNull(),
-  team2SetScore: integer('team2_set_score').notNull(),
+  //team1SetScore: integer('team1_set_score').notNull(),
+  // team2SetScore: integer('team2_set_score').notNull(),
 
   // Winner of the game and the difference in total games (move to view)
-  winningTeam: integer('winning_team').notNull(), // 1 or 2
+  //winningTeam: integer('winning_team').notNull(), // 1 or 2
   //totalGamesDifference: integer('total_games_difference').notNull(),
 
   userId: text('user_id').notNull(),
@@ -92,9 +92,9 @@ export const gamesView = pgView('games_view', {
   team2Set2Score: integer('team2_set2_score'),
   team1Set3Score: integer('team1_set3_score'),
   team2Set3Score: integer('team2_set3_score'),
-  team1SetScore: integer('team1_set_score'),
-  team2SetScore: integer('team2_set_score'),
-  winningTeam: integer('winning_team'),
+  //team1SetScore: integer('team1_set_score'),
+  // team2SetScore: integer('team2_set_score'),
+  //winningTeam: integer('winning_team'),
   userId: text('user_id').notNull(),
   createdAt: timestamp('created_at').notNull(),
   updatedAt: timestamp('updated_at').notNull(),
