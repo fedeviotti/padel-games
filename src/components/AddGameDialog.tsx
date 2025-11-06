@@ -433,7 +433,7 @@ export default function AddGameDialog({ open, onClose, onGameAdded }: AddGameDia
                 </Typography>
                 {
                   <>
-                    {SETS.map((set, index) => (
+                    {SETS.map((set) => (
                       <TextField
                         key={`team2-set${set}`}
                         sx={{ width: '50px' }}
