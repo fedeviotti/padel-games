@@ -192,46 +192,38 @@ export default function Games() {
                   )}
 
                   <Box sx={{ mb: 1 }}>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        fontWeight: 'bold',
-                        backgroundColor:
-                          game.winner === TEAM_1 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                    <Box sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        p: 0.5, 
+                        justifyContent: 'space-between', 
+                        gap: 1 ,
+                        backgroundColor: game.winner === TEAM_1 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
                         borderRadius: 1,
-                        p: 0.5,
-                        border:
-                          game.winner === TEAM_1 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
-                      }}
-                    >
-                      {game.team1PlayerDxName} ({t('dx')}) - {game.team1PlayerSxName} ({t('sx')})
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        fontWeight: 'bold',
-                        backgroundColor:
-                          game.winner === TEAM_2 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
-                        borderRadius: 1,
-                        p: 0.5,
-                        border:
-                          game.winner === TEAM_2 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
-                      }}
-                    >
-                      {game.team2PlayerDxName} ({t('dx')}) - {game.team2PlayerSxName} ({t('sx')})
-                    </Typography>
-                  </Box>
-
-                  <Box
-                    sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-                  >
-                    <Typography variant="body2">
-                      {t('card_score')}: {game.team1SetsWon} - {game.team2SetsWon}
-                    </Typography>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography variant="body2">{t('card_winner')}: </Typography>
+                        border: game.winner === TEAM_1 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
+                      }}>
                       <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                        {t(game.winner || 'unknown')}
+                        {game.team1PlayerDxName} ({t('dx')}) - {game.team1PlayerSxName} ({t('sx')})
+                      </Typography>
+                      <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                        {game.team1SetsWon}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        p: 0.5, 
+                        justifyContent: 'space-between', 
+                        gap: 1,
+                        backgroundColor: game.winner === TEAM_2 ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
+                        borderRadius: 1,
+                        border: game.winner === TEAM_2 ? '1px solid rgba(76, 175, 80, 0.3)' : 'none',
+                      }}>
+                      <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                        {game.team2PlayerDxName} ({t('dx')}) - {game.team2PlayerSxName} ({t('sx')})
+                      </Typography>
+                      <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                        {game.team2SetsWon}
                       </Typography>
                     </Box>
                   </Box>
